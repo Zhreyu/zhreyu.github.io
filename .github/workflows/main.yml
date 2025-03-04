@@ -38,7 +38,7 @@ jobs:
           JEKYLL_ENV: production
 
       - name: Upload artifact
-        # IMPORTANT: If you find any instance of "actions/upload-artifact@v3" in your workflows, update it to v2.
+        # Make sure no part of your repository uses actions/upload-artifact@v3.
         uses: actions/upload-pages-artifact@v2
 
   deploy:
