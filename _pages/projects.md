@@ -2,10 +2,11 @@
 layout: page
 title: projects
 permalink: /projects/
-description: A growing collection of your cool projects.
+description: >-
+  The code shall set you free, but not today. Perhaps someday.
 nav: true
 nav_order: 3
-display_categories: [work, fun]
+display_categories: false
 horizontal: false
 ---
 

@@ -2,24 +2,23 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: blank # the website title (if blank, full name will be used instead)
-first_name: You
-middle_name: R.
-last_name: Name
+title: Shreyas S # the website title
+first_name: Shreyas
+middle_name: 
+last_name: S
+email: Zhreyas1@gmail.com
 contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
+  Feel free to reach out to me via email or LinkedIn!
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+  Master's Student in Computer Science and Engineering
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-  Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
+keywords: deep learning, machine learning, computer science # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: 🧠 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
-url: https://alshedivat.github.io # the base hostname & protocol for your site
-baseurl: /al-folio # the subpath of your site, e.g. /blog/. Leave blank for root
+url: https://zhreyu.github.io # the base hostname & protocol for your site
+baseurl: # the subpath of your site, e.g. /blog/
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: true # set to false to disable the back to top button
@@ -87,8 +86,9 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: Inquisitiveness # blog_name will be displayed in your blog page
+blog_nav_title:  # your blog must have a title for it to be displayed in the nav bar
+blog_description: I love exploring and learning new things, this is the place where I write about them. 
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -122,13 +122,23 @@ disqus_shortname: al-folio # put your disqus shortname
 # External sources.
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
-external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
+# external_sources:
+#   - name: medium.com
+#     rss_url: https://medium.com/@al-folio/feed
+
+# Navigation bar
+navbar_fixed: true
+navbar_content:
+  - title: about
+    permalink: /
+  - title: projects
+    permalink: /projects/
+  - title: blog
+    permalink: /blog/
+  - title: publications
+    permalink: /publications/
+  - title: cv
+    permalink: /cv/
 
 # -----------------------------------------------------------------------------
 # Newsletter
@@ -173,25 +183,24 @@ kramdown:
 # Includes & excludes
 include: ["_pages", "_scripts"]
 exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - docker-compose.yml
+  - Dockerfile
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
-  - Dockerfile
-  - docker-compose.yml
-  - docker-compose-slim.yml
   - FAQ.md
-  - Gemfile
-  - Gemfile.lock
   - INSTALL.md
-  - LICENSE
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
   - purgecss.config.js
-  - README.md
   - readme_preview/
-  - vendor
+  - _pages/about_einstein.md
 keep_files:
   - CNAME
   - .nojekyll
