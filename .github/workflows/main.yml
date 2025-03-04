@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,14 +38,14 @@ jobs:
           JEKYLL_ENV: production
 
       - name: Upload artifact
-        # Make sure no part of your repository uses actions/upload-artifact@v3.
+        # Ensure no reference to deprecated actions/upload-artifact@v3 is used.
         uses: actions/upload-pages-artifact@v3
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
