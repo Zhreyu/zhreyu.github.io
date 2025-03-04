@@ -39,7 +39,7 @@ jobs:
 
       - name: Upload artifact
         # Make sure no part of your repository uses actions/upload-artifact@v3.
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
 
   deploy:
     environment:
@@ -50,4 +50,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
