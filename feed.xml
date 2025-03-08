@@ -1,5 +1,251 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-04T20:21:26+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
-</subtitle><entry><title type="html">Column-Family Databases in Data Warehousing</title><link href="https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing/" rel="alternate" type="text/html" title="Column-Family Databases in Data Warehousing" /><published>2025-02-23T23:08:45+05:30</published><updated>2025-02-23T23:08:45+05:30</updated><id>https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing/"><![CDATA[<!-- toc -->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:07:57+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
+</subtitle><entry><title type="html">Beauty Behind the Attention Mechanism</title><link href="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/" rel="alternate" type="text/html" title="Beauty Behind the Attention Mechanism" /><published>2025-03-08T10:10:10+05:30</published><updated>2025-03-08T10:10:10+05:30</updated><id>https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/"><![CDATA[<!-- toc -->
+<ul>
+  <li><a href="#1-introduction">1. Introduction</a></li>
+  <li><a href="#2-the-intuition-of-attention">2. The Intuition of Attention</a>
+    <ul>
+      <li><a href="#21-why-attention-is-powerful">2.1 Why ‘Attention’ Is Powerful</a></li>
+      <li><a href="#22-a-simple-example-of-attention">2.2 A Simple Example of Attention</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-the-mechanics-of-attention-q-k-v">3. The Mechanics of Attention: Q, K, V</a>
+    <ul>
+      <li><a href="#31-query-key-matching">3.1 Query-Key Matching</a></li>
+      <li><a href="#32-weighted-summation-of-values">3.2 Weighted Summation of Values</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-the-math-behind-the-scenes">4. The Math Behind the Scenes</a>
+    <ul>
+      <li><a href="#41-the-dot-product">4.1 The Dot Product</a></li>
+      <li><a href="#42-scaling-factor-1sqrtdk-and-why-it-matters">4.2 Scaling Factor 1sqrtdk and Why It Matters</a></li>
+      <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused-Attention</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-multi-head-attention">5. Multi-Head Attention</a>
+    <ul>
+      <li><a href="#51-splitting-into-multiple-heads">5.1 Splitting into Multiple “Heads”</a></li>
+      <li><a href="#52-combining-heads-for-rich-representations">5.2 Combining Heads for Rich Representations</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-conclusions">6. Conclusions</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<h2 id="1-introduction">1. Introduction</h2>
+
+<p>Modern large language models (LLMs) like GPT or BERT have sparked a
+revolution in natural language processing. At the heart of these
+architectures lies a concept known as the <strong>attention mechanism</strong>. At a
+high level, attention helps the model figure out which parts of a
+sentence (or sequence) are most important for a given output. This post
+will shine a light on the beauty behind attention, explaining the core
+math in a way that (hopefully) feels both <strong>simple</strong> and <strong>intuitive</strong>.</p>
+
+<hr />
+
+<h2 id="2-the-intuition-of-attention">2. The Intuition of Attention</h2>
+
+<h3 id="21-why-attention-is-powerful">2.1 Why <em>Attention</em> Is Powerful</h3>
+
+<p>Imagine you are reading this blog post. You are not trying to remember
+every single word at once (that would be exhausting!). Instead, your
+mind naturally focuses on certain parts, depending on what you need to
+understand next. The attention mechanism in neural networks works
+similarly—helping the model “highlight” or give <em>more weight</em> to
+specific words or tokens that are most relevant for a current task.</p>
+
+<h3 id="22-a-simple-example-of-attention">2.2 A Simple Example of Attention</h3>
+
+<p>Suppose you have a short sentence: <em>“The cat sat on the mat.”</em> If you’re
+trying to predict the next word, the presence of “cat” might be crucial
+to guess “purr” in the next step, whereas “mat” might be less important
+in that context. By “attending” more strongly to “cat”, the model can
+focus its predictions accordingly.</p>
+
+<hr />
+
+<h2 id="3-the-mechanics-of-attention-q-k-v">3. The Mechanics of Attention: Q, K, V</h2>
+
+<h3 id="31-query-key-matching">3.1 Query-Key Matching</h3>
+
+<p>In attention, <strong>queries (Q)</strong>, <strong>keys (K)</strong>, and <strong>values (V)</strong> are the
+main players. You can think of this like a search engine:</p>
+
+<ul>
+  <li>A <strong>Query</strong> is what you’re searching for (e.g., “which word is most
+relevant here?”).</li>
+  <li>A <strong>Key</strong> is like a label or descriptor for each word/token in the
+sequence (so the model can decide if it’s relevant to the query).</li>
+  <li>A <strong>Value</strong> is the actual content or information carried by that token
+(what you get back if it’s relevant).</li>
+</ul>
+
+<h3 id="32-weighted-summation-of-values">3.2 Weighted Summation of Values</h3>
+
+<p>After matching queries against keys, the model uses those match scores
+to produce a weighted sum of the corresponding <strong>values</strong>. High match
+scores mean the model pays a lot of attention to that token’s value;
+low scores mean the model largely ignores it.</p>
+
+<hr />
+
+<h2 id="4-the-math-behind-the-scenes">4. The Math Behind the Scenes</h2>
+
+<p>Mathematically, the most common attention mechanism is often called
+<strong>Scaled Dot-Product Attention</strong>. The core formula can be written as:</p>
+
+<p>[
+\text{Attention}(Q, K, V)
+\;=\;
+\mathrm{softmax}\Bigl(
+  \frac{QK^\top}{\sqrt{d_k}}
+\Bigr)\,V.
+]</p>
+
+<p>Let’s break it down:</p>
+
+<ol>
+  <li>(QK^\top) is the “dot product” step, measuring how similar each
+query is to every key.</li>
+  <li>(\frac{1}{\sqrt{d_k}}) is the scaling factor.</li>
+  <li><strong>softmax</strong> is the function that converts raw scores to weights that
+sum to 1.</li>
+  <li>Finally, we multiply those weights by (V) to get our attended
+output.</li>
+</ol>
+
+<h3 id="41-the-dot-product">4.1 The Dot Product</h3>
+
+<p>When we say “dot product,” we mean taking two vectors and multiplying
+corresponding entries together, then summing. For each token’s query
+(Q_i) and key (K_j):</p>
+
+<p>[
+Q_i \cdot K_j
+\;=\;
+\sum_{m=1}^{d_k} Q_{i,m} \, K_{j,m},
+]</p>
+
+<p>where (d_k) is the vector dimension of the keys and queries (they
+match so they can be compared directly).</p>
+
+<ul>
+  <li><strong>Intuition:</strong> The bigger the dot product, the more “aligned” or
+“similar” they are. In language, that might mean certain words are
+more relevant to each other based on context.</li>
+</ul>
+
+<h3 id="42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor (\frac{1}{\sqrt{d_k}}) and Why It Matters</h3>
+
+<p>If each entry (Q_{i,m}) and (K_{j,m}) has mean 0 and variance 1,
+then the dot product can grow on the order of (d_k). That means for
+large (d_k), these raw dot products can become very large, causing the
+softmax to turn “spiky” (one token might dominate all others).
+Mathematically:</p>
+
+<p>[
+\mathrm{Var}(Q_i \cdot K_j) \approx d_k,
+]</p>
+
+<p>so dividing by (\sqrt{d_k}) keeps the variance of the scores closer to</p>
+<ol>
+  <li><strong>This stabilizes</strong> the softmax so it doesn’t blow up and become
+effectively one-hot.</li>
+</ol>
+
+<ul>
+  <li><strong>Layman’s Take:</strong> Without scaling, if you have a hundred-dimensional
+vectors, their dot products can get large, overshadowing subtle
+differences between them. You’d end up with attention that’s too
+“all-or-nothing.” The (\sqrt{d_k}) factor reins that in, so the
+model can attend to multiple tokens at once rather than just one.</li>
+</ul>
+
+<h3 id="43-softmax-for-focused-attention">4.3 Softmax for Focused-Attention</h3>
+
+<p>Finally, we run:</p>
+
+<p>[
+\mathrm{softmax}\Bigl(
+  \frac{QK^\top}{\sqrt{d_k}}
+\Bigr).
+]</p>
+
+<p>The <strong>softmax</strong> function exponentiates each score and normalizes them so
+they sum to 1:</p>
+
+<p>[
+\mathrm{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}.
+]</p>
+
+<ul>
+  <li><strong>Effect:</strong> The highest dot product values get the largest weights,
+and smaller dot products get lower weights. The model can “focus” its
+attention on a handful of crucial tokens while still giving some
+weight to others.</li>
+</ul>
+
+<hr />
+
+<h2 id="5-multi-head-attention">5. Multi-Head Attention</h2>
+
+<h3 id="51-splitting-into-multiple-heads">5.1 Splitting into Multiple “Heads”</h3>
+
+<p>Most modern Transformer architectures use <strong>multi-head attention</strong>.
+This means each attention layer is repeated several times in parallel,
+each with its own set of learned (Q, K, V) transformations. The
+embedding is split into multiple chunks (heads). Each head performs
+dot-product attention on its chunk of the vector.</p>
+
+<ul>
+  <li><strong>Why?</strong> It’s like having multiple sets of eyes looking for different
+patterns or relationships between words. One head might learn
+grammatical roles, another synonyms, another broader topic context,
+etc.</li>
+</ul>
+
+<h3 id="52-combining-heads-for-rich-representations">5.2 Combining Heads for Rich Representations</h3>
+
+<p>After each “head” produces its own attended output, the Transformer
+concatenates these results and blends them via a learned linear layer.
+This gives the network a more nuanced perspective—merging different
+experts’ “opinions” for a final conclusion.</p>
+
+<hr />
+
+<h2 id="6-conclusions">6. Conclusions</h2>
+
+<p>The attention mechanism truly is a beautiful invention in modern deep
+learning:</p>
+
+<ol>
+  <li><strong>Simple at Its Core:</strong> It’s just a weighted sum based on dot-product
+similarities.</li>
+  <li><strong>Mathematically Elegant:</strong> Dividing by (\sqrt{d_k}) keeps the
+process stable, preventing runaway values in the softmax.</li>
+  <li><strong>Incredibly Powerful:</strong> Allows models to capture complex
+context-dependent relationships in language without manual feature
+engineering.</li>
+</ol>
+
+<p>Today’s large language models wouldn’t be nearly as effective without
+this approach. By helping the model “focus” on what matters, attention
+delivers more accurate predictions, richer representations, and
+ultimately a more coherent understanding of text.</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li>Vaswani, A., et al. (2017). <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></li>
+  <li>Bahdanau, D., et al. (2014). <a href="https://arxiv.org/abs/1409.0473">Neural Machine Translation by Jointly Learning to Align and Translate</a></li>
+  <li>Khan, S., et al. (2022). <a href="https://arxiv.org/abs/2101.01169">Transformers in Vision: A Survey</a></li>
+  <li><a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a> (Jay Alammar Blog)</li>
+  <li>Devlin, J., et al. (2018). <a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+</ul>]]></content><author><name></name></author><category term="deep-learning" /><category term="machine-learning" /><category term="attention" /><category term="transformers" /><category term="neural-networks" /><category term="LLM" /><summary type="html"><![CDATA[A gentle dive into how the attention mechanism powers modern large language models, focusing on the core math of queries, keys, values, and the all-important scaling factor.]]></summary></entry><entry><title type="html">Column-Family Databases in Data Warehousing</title><link href="https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing/" rel="alternate" type="text/html" title="Column-Family Databases in Data Warehousing" /><published>2025-02-23T23:08:45+05:30</published><updated>2025-02-23T23:08:45+05:30</updated><id>https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing/"><![CDATA[<!-- toc -->
 <ul>
   <li><a href="#introduction">1. Introduction</a></li>
   <li><a href="#overview-of-column-family-databases">2. Overview of Column-Family Databases</a>

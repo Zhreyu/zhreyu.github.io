@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-column-family-databases-in-data-warehousing",
+        },{id: "post-beauty-behind-the-attention-mechanism",
+      
+        title: "Beauty Behind the Attention Mechanism",
+      
+      description: "A gentle dive into how the attention mechanism powers modern large language models, focusing on the core math of queries, keys, values, and the all-important scaling factor.",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Beauty-Behind-Attention/";
+        
+      },
+    },{id: "post-column-family-databases-in-data-warehousing",
       
         title: "Column-Family Databases in Data Warehousing",
       
@@ -124,6 +135,20 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("https://www.linkedin.com/in/Zhreyas", "_blank");
+        },
+      },{
+        id: 'social-orcid',
+        title: 'ORCID',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://orcid.org/0009-0000-8931-7562", "_blank");
+        },
+      },{
+        id: 'social-researchgate',
+        title: 'ResearchGate',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.researchgate.net/profile/Shreyas-S-7/", "_blank");
         },
       },{
         id: 'social-rss',
