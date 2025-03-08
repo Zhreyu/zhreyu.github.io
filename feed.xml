@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:13:00+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:23:45+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
 </subtitle><entry><title type="html">Beauty Behind the Attention Mechanism</title><link href="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/" rel="alternate" type="text/html" title="Beauty Behind the Attention Mechanism" /><published>2025-03-08T10:10:10+05:30</published><updated>2025-03-08T10:10:10+05:30</updated><id>https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/"><![CDATA[<!-- toc -->
 <ul>
   <li><a href="#1-introduction">1. Introduction</a></li>
@@ -17,7 +17,7 @@
   <li><a href="#4-the-math-behind-the-scenes">4. The Math Behind the Scenes</a>
     <ul>
       <li><a href="#41-the-dot-product">4.1 The Dot Product</a></li>
-      <li><a href="#42-scaling-factor-1sqrtdk-and-why-it-matters">4.2 Scaling Factor 1sqrtdk and Why It Matters</a></li>
+      <li><a href="#42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor $\frac{1}{\sqrt{d_k}}$ and Why It Matters</a></li>
       <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</a></li>
     </ul>
   </li>
@@ -103,12 +103,12 @@ low scores mean the model largely ignores it.</p>
 <p>Let’s break it down:</p>
 
 <ol>
-  <li>(QK^\top) is the “dot product” step, measuring how similar each
+  <li>$(QK^\top)$ is the “dot product” step, measuring how similar each
 query is to every key.</li>
-  <li>(\tfrac{1}{\sqrt{d_k}}) is the scaling factor.</li>
+  <li>$(\tfrac{1}{\sqrt{d_k}})$ is the scaling factor.</li>
   <li><strong>softmax</strong> is the function that converts raw scores to weights that
 sum to 1.</li>
-  <li>Finally, we multiply those weights by (V) to get our attended
+  <li>Finally, we multiply those weights by $(V)$ to get our attended
 output.</li>
 </ol>
 
@@ -129,29 +129,31 @@ match so they can be compared directly).</p>
 more relevant to each other based on context.</li>
 </ul>
 
-<h3 id="42-scaling-factor-tfrac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor (\tfrac{1}{\sqrt{d_k}}) and Why It Matters</h3>
+<h3 id="42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor $\frac{1}{\sqrt{d_k}}$ and Why It Matters</h3>
 
-<p>If each entry ((Q_{i,m})) and ((K_{j,m})) has mean 0 and variance 1,
-then the dot product can grow on the order of (d_k). That means for
-large (d_k), these raw dot products can become very large, causing the
+<p>If each entry $((Q_{i,m}))$ and $((K_{j,m}))$ has mean 0 and variance 1,
+then the dot product can grow on the order of $(d_k)$. That means for
+large $(d_k)$, these raw dot products can become very large, causing the
 softmax to turn “spiky” (one token might dominate all others).
 Mathematically:</p>
 
 \[\mathrm{Var}(Q_i \cdot K_j) \;\approx\; d_k,\]
 
-<p>so dividing by (\sqrt{d_k}) keeps the variance of the scores closer to</p>
-<ol>
-  <li><strong>This stabilizes</strong> the softmax so it doesn’t blow up and become
-essentially one-hot.</li>
-</ol>
+<p>so dividing by $(\sqrt{d_k})$ keeps the variance of the scores closer to</p>
 
-<ul>
-  <li><strong>Layman’s Take:</strong> Without scaling, if you have a hundred-dimensional
-vectors, their dot products can get large, overshadowing subtle
-differences between them. You’d end up with attention that’s too
-“all-or-nothing.” The (\sqrt{d_k}) factor reins that in, so the
-model can consider multiple tokens at once rather than just one.</li>
-</ul>
+<ol>
+  <li>
+    <p><strong>This stabilizes</strong> the softmax so it doesn’t blow up and become
+essentially one-hot.</p>
+  </li>
+  <li>
+    <p><strong>Layman’s Take:</strong> Without scaling, if you have a hundred-dimensional
+  vectors, their dot products can get large, overshadowing subtle
+  differences between them. You’d end up with attention that’s too
+  “all-or-nothing.” The $(\sqrt{d_k})$ factor reins that in, so the
+  model can consider multiple tokens at once rather than just one.</p>
+  </li>
+</ol>
 
 <h3 id="43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</h3>
 
@@ -178,7 +180,7 @@ handful of crucial tokens while still giving some attention to others.</li>
 
 <p>Most modern Transformer architectures use <strong>multi-head attention</strong>.
 This means each attention layer is repeated several times in parallel,
-each with its own set of learned ((Q, K, V)) transformations. The
+each with its own set of learned $((Q, K, V))$ transformations. The
 embedding is split into multiple chunks (heads). Each head performs
 dot-product attention on its chunk of the vector.</p>
 
@@ -206,7 +208,7 @@ learning:</p>
 <ol>
   <li><strong>Simple at Its Core:</strong> It’s just a weighted sum based on dot-product
 similarities.</li>
-  <li><strong>Mathematically Elegant:</strong> Dividing by (\sqrt{d_k}) keeps the
+  <li><strong>Mathematically Elegant:</strong> Dividing by $(\sqrt{d_k})$ keeps the
 process stable, preventing runaway values in the softmax.</li>
   <li><strong>Incredibly Powerful:</strong> Allows models to capture complex,
 context-dependent relationships in language without manual feature
