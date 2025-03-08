@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:26:13+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:29:30+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
 </subtitle><entry><title type="html">Beauty Behind the Attention Mechanism</title><link href="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/" rel="alternate" type="text/html" title="Beauty Behind the Attention Mechanism" /><published>2025-03-08T10:10:10+05:30</published><updated>2025-03-08T10:10:10+05:30</updated><id>https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/"><![CDATA[<!-- toc -->
 <ul>
   <li><a href="#1-introduction">1. Introduction</a></li>
@@ -17,7 +17,7 @@
   <li><a href="#4-the-math-behind-the-scenes">4. The Math Behind the Scenes</a>
     <ul>
       <li><a href="#41-the-dot-product">4.1 The Dot Product</a></li>
-      <li><a href="#42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor $\frac{1}{\sqrt{d_k}}$ and Why It Matters</a></li>
+      <li><a href="#42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor and Why It Matters</a></li>
       <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</a></li>
     </ul>
   </li>
