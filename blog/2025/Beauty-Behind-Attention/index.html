@@ -351,7 +351,7 @@
     <ul>
       <li><a href="#41-the-dot-product">4.1 The Dot Product</a></li>
       <li><a href="#42-scaling-factor-1sqrtdk-and-why-it-matters">4.2 Scaling Factor 1sqrtdk and Why It Matters</a></li>
-      <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused-Attention</a></li>
+      <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</a></li>
     </ul>
   </li>
   <li>
@@ -392,11 +392,12 @@ specific words or tokens that are most relevant for a current task.</p>
 
 <h3 id="22-a-simple-example-of-attention">2.2 A Simple Example of Attention</h3>
 
-<p>Suppose you have a short sentence: <em>“The cat sat on the mat.”</em> If you’re
-trying to predict the next word, the presence of “cat” might be crucial
-to guess “purr” in the next step, whereas “mat” might be less important
-in that context. By “attending” more strongly to “cat”, the model can
-focus its predictions accordingly.</p>
+<p>Suppose you have a short sentence:<br>
+<em>“The cat sat on the mat.”</em><br>
+If you’re trying to predict the next word, the presence of “cat” might
+be crucial to guess “purr” in the next step, whereas “mat” might be less
+important in that context. By “attending” more strongly to “cat,” the
+model can focus its predictions accordingly.</p>
 
 <hr>
 
@@ -408,7 +409,7 @@ focus its predictions accordingly.</p>
 main players. You can think of this like a search engine:</p>
 
 <ul>
-  <li>A <strong>Query</strong> is what you’re searching for (e.g., “which word is most
+  <li>A <strong>Query</strong> is what you’re searching for (e.g., “Which word is most
 relevant here?”).</li>
   <li>A <strong>Key</strong> is like a label or descriptor for each word/token in the
 sequence (so the model can decide if it’s relevant to the query).</li>
@@ -430,20 +431,15 @@ low scores mean the model largely ignores it.</p>
 <p>Mathematically, the most common attention mechanism is often called
 <strong>Scaled Dot-Product Attention</strong>. The core formula can be written as:</p>
 
-<p>[
-\text{Attention}(Q, K, V)
-\;=\;
-\mathrm{softmax}\Bigl(
-  \frac{QK^\top}{\sqrt{d_k}}
-\Bigr)\,V.
-]</p>
+\[\text{Attention}(Q, K, V) \;=\; 
+\mathrm{softmax}\!\Bigl(\frac{QK^\top}{\sqrt{d_k}}\Bigr)\;V.\]
 
 <p>Let’s break it down:</p>
 
 <ol>
   <li>(QK^\top) is the “dot product” step, measuring how similar each
 query is to every key.</li>
-  <li>(\frac{1}{\sqrt{d_k}}) is the scaling factor.</li>
+  <li>(\tfrac{1}{\sqrt{d_k}}) is the scaling factor.</li>
   <li>
 <strong>softmax</strong> is the function that converts raw scores to weights that
 sum to 1.</li>
@@ -455,13 +451,9 @@ output.</li>
 
 <p>When we say “dot product,” we mean taking two vectors and multiplying
 corresponding entries together, then summing. For each token’s query
-(Q_i) and key (K_j):</p>
+((Q_i)) and key ((K_j)):</p>
 
-<p>[
-Q_i \cdot K_j
-\;=\;
-\sum_{m=1}^{d_k} Q_{i,m} \, K_{j,m},
-]</p>
+\[Q_i \cdot K_j \;=\; \sum_{m=1}^{d_k} Q_{i,m} \, K_{j,m},\]
 
 <p>where (d_k) is the vector dimension of the keys and queries (they
 match so they can be compared directly).</p>
@@ -473,23 +465,21 @@ match so they can be compared directly).</p>
 more relevant to each other based on context.</li>
 </ul>
 
-<h3 id="42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor (\frac{1}{\sqrt{d_k}}) and Why It Matters</h3>
+<h3 id="42-scaling-factor-tfrac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor (\tfrac{1}{\sqrt{d_k}}) and Why It Matters</h3>
 
-<p>If each entry (Q_{i,m}) and (K_{j,m}) has mean 0 and variance 1,
+<p>If each entry ((Q_{i,m})) and ((K_{j,m})) has mean 0 and variance 1,
 then the dot product can grow on the order of (d_k). That means for
 large (d_k), these raw dot products can become very large, causing the
 softmax to turn “spiky” (one token might dominate all others).
 Mathematically:</p>
 
-<p>[
-\mathrm{Var}(Q_i \cdot K_j) \approx d_k,
-]</p>
+\[\mathrm{Var}(Q_i \cdot K_j) \;\approx\; d_k,\]
 
 <p>so dividing by (\sqrt{d_k}) keeps the variance of the scores closer to</p>
 <ol>
   <li>
 <strong>This stabilizes</strong> the softmax so it doesn’t blow up and become
-effectively one-hot.</li>
+essentially one-hot.</li>
 </ol>
 
 <ul>
@@ -498,32 +488,25 @@ effectively one-hot.</li>
 vectors, their dot products can get large, overshadowing subtle
 differences between them. You’d end up with attention that’s too
 “all-or-nothing.” The (\sqrt{d_k}) factor reins that in, so the
-model can attend to multiple tokens at once rather than just one.</li>
+model can consider multiple tokens at once rather than just one.</li>
 </ul>
 
-<h3 id="43-softmax-for-focused-attention">4.3 Softmax for Focused-Attention</h3>
+<h3 id="43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</h3>
 
 <p>Finally, we run:</p>
 
-<p>[
-\mathrm{softmax}\Bigl(
-  \frac{QK^\top}{\sqrt{d_k}}
-\Bigr).
-]</p>
+\[\mathrm{softmax}\!\Bigl(\frac{QK^\top}{\sqrt{d_k}}\Bigr).\]
 
 <p>The <strong>softmax</strong> function exponentiates each score and normalizes them so
 they sum to 1:</p>
 
-<p>[
-\mathrm{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}.
-]</p>
+\[\mathrm{softmax}(z_i) \;=\; \frac{e^{z_i}}{\sum_j e^{z_j}}.\]
 
 <ul>
   <li>
 <strong>Effect:</strong> The highest dot product values get the largest weights,
-and smaller dot products get lower weights. The model can “focus” its
-attention on a handful of crucial tokens while still giving some
-weight to others.</li>
+and smaller dot products get lower weights. The model can “focus” on a
+handful of crucial tokens while still giving some attention to others.</li>
 </ul>
 
 <hr>
@@ -534,7 +517,7 @@ weight to others.</li>
 
 <p>Most modern Transformer architectures use <strong>multi-head attention</strong>.
 This means each attention layer is repeated several times in parallel,
-each with its own set of learned (Q, K, V) transformations. The
+each with its own set of learned ((Q, K, V)) transformations. The
 embedding is split into multiple chunks (heads). Each head performs
 dot-product attention on its chunk of the vector.</p>
 
@@ -568,7 +551,7 @@ similarities.</li>
 <strong>Mathematically Elegant:</strong> Dividing by (\sqrt{d_k}) keeps the
 process stable, preventing runaway values in the softmax.</li>
   <li>
-<strong>Incredibly Powerful:</strong> Allows models to capture complex
+<strong>Incredibly Powerful:</strong> Allows models to capture complex,
 context-dependent relationships in language without manual feature
 engineering.</li>
 </ol>
@@ -583,15 +566,15 @@ ultimately a more coherent understanding of text.</p>
 <h2 id="references">References</h2>
 
 <ul>
-  <li>Vaswani, A., et al. (2017). <a href="https://arxiv.org/abs/1706.03762" rel="external nofollow noopener" target="_blank">Attention Is All You Need</a>
+  <li>Vaswani, A., et al. (2017). <a href="https://arxiv.org/abs/1706.03762" rel="external nofollow noopener" target="_blank"><em>Attention Is All You Need</em></a>
 </li>
-  <li>Bahdanau, D., et al. (2014). <a href="https://arxiv.org/abs/1409.0473" rel="external nofollow noopener" target="_blank">Neural Machine Translation by Jointly Learning to Align and Translate</a>
+  <li>Bahdanau, D., et al. (2014). <a href="https://arxiv.org/abs/1409.0473" rel="external nofollow noopener" target="_blank"><em>Neural Machine Translation by Jointly Learning to Align and Translate</em></a>
 </li>
-  <li>Khan, S., et al. (2022). <a href="https://arxiv.org/abs/2101.01169" rel="external nofollow noopener" target="_blank">Transformers in Vision: A Survey</a>
+  <li>Khan, S., et al. (2022). <a href="https://arxiv.org/abs/2101.01169" rel="external nofollow noopener" target="_blank"><em>Transformers in Vision: A Survey</em></a>
 </li>
   <li>
-<a href="http://jalammar.github.io/illustrated-transformer/" rel="external nofollow noopener" target="_blank">The Illustrated Transformer</a> (Jay Alammar Blog)</li>
-  <li>Devlin, J., et al. (2018). <a href="https://arxiv.org/abs/1810.04805" rel="external nofollow noopener" target="_blank">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>
+<a href="http://jalammar.github.io/illustrated-transformer/" rel="external nofollow noopener" target="_blank"><em>The Illustrated Transformer</em></a> (Jay Alammar Blog)</li>
+  <li>Devlin, J., et al. (2018). <a href="https://arxiv.org/abs/1810.04805" rel="external nofollow noopener" target="_blank"><em>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</em></a>
 </li>
 </ul>
 
