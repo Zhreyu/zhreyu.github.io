@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:23:45+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-08T18:26:13+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
 </subtitle><entry><title type="html">Beauty Behind the Attention Mechanism</title><link href="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/" rel="alternate" type="text/html" title="Beauty Behind the Attention Mechanism" /><published>2025-03-08T10:10:10+05:30</published><updated>2025-03-08T10:10:10+05:30</updated><id>https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/"><![CDATA[<!-- toc -->
 <ul>
   <li><a href="#1-introduction">1. Introduction</a></li>
@@ -116,11 +116,11 @@ output.</li>
 
 <p>When we say “dot product,” we mean taking two vectors and multiplying
 corresponding entries together, then summing. For each token’s query
-((Q_i)) and key ((K_j)):</p>
+$((Q_i))$ and key $((K_j))$:</p>
 
 \[Q_i \cdot K_j \;=\; \sum_{m=1}^{d_k} Q_{i,m} \, K_{j,m},\]
 
-<p>where (d_k) is the vector dimension of the keys and queries (they
+<p>where $(d_k)$ is the vector dimension of the keys and queries (they
 match so they can be compared directly).</p>
 
 <ul>
