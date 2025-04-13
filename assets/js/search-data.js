@@ -73,6 +73,12 @@ ninja.data = [{
     },{id: "news-comicstrips-project-reaches-20-000-downloads-on-hugging-face",
           title: 'ComicStrips project reaches 20,000+ downloads on Hugging Face! 🎉',
           description: "",
+          section: "News",},{id: "news-adhoc-hits-reaches-7-000-downloads-on-pypi",
+          title: 'Adhoc hits reaches 7,000+ downloads on Pypi!! 🎉',
+          description: "",
+          section: "News",},{id: "news-animestudio-is-averaging-10-000-requests-per-day",
+          title: 'AnimeStudio is averaging 10,000 requests per day!',
+          description: "",
           section: "News",},{id: "projects-comicstrips",
           title: 'ComicStrips',
           description: "Text-to-Comic Strip Generation using LoRA fine-tuning",
@@ -108,6 +114,11 @@ ninja.data = [{
           description: "A collection of my Kaggle notebooks, paper implementations, and other projects from my deep learning learning process",
           section: "Projects",handler: () => {
               window.location.href = "/projects/7_DL_repository/";
+            },},{id: "projects-anime-studio",
+          title: 'Anime Studio',
+          description: "A web application that allows users to create Anime style edits.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_AnimeStudio/";
             },},{
         id: 'social-discord',
         title: 'Discord',
