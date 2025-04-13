@@ -116,7 +116,7 @@ ninja.data = [{
               window.location.href = "/projects/7_DL_repository/";
             },},{id: "projects-anime-studio",
           title: 'Anime Studio',
-          description: "A web application that allows users to create Anime style edits.",
+          description: "Bringing Studio Ghibli-Style Art to Everyone",
           section: "Projects",handler: () => {
               window.location.href = "/projects/8_AnimeStudio/";
             },},{
