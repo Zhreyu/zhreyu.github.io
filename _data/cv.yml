@@ -47,7 +47,22 @@
         - Developed and designed pipelines for data preparation and testing for a novel anti-spoof detection model by combining 3 datasets totaling over 55GB, utilizing various filters to enhance data quality
         - Deployed the trained model on cloud machine, granting open API access through Flask API, resulting in a 38% reduction in processing time for data analysis tasks
         - Pioneered a data downloading channel in Python that efficiently retrieved and processed over 3000+ videos, reducing data acquisition time by 50%
+      
+    - title: Student Researcher
+      institution: Center of Excellence in AI and Robotics (AIR), VIT Amaravati
+      year: MAR'2023 (Active)
+      description:
+        - Developed advanced text-based inpainting pipelines, enabling seamless context-aware image modifications using Stable Diffusion.
+        - Engineered multi-face clustering solutions with DBScan, optimizing face grouping and identity preservation in complex image datasets.
+        - Fine-tuned Stable Diffusion models, enhancing image generation quality, control, and consistency for diverse tasks.
+        - Optimized inference pipelines, implementing efficient GPU memory management and accelerated batch processing.
+        - Integrated custom embeddings and LoRA fine-tuning, allowing for style adaptation and domain-specific image synthesis.
+        - Implemented a novel multi-res OCR method to localize text from complex vector diagrams.
 
+    - title: ML Infra/ Backend (Active)
+      institution: Stealth Startups
+      year: NOV'2024 - Present
+      
 - title: Projects
   type: time_table
   contents:
@@ -62,6 +77,11 @@
         - Created a command-line tool to automate codebase documentation with local large language models, generating professional outputs in LaTeX, Markdown, and Word formats
         - Released as a Python pip package, widely adopted by peers simplifying the generation of detailed, professional documentation for codebase changes with minimal effort
 
+    - title: AnimeStudio (Anime Edits)
+      description:
+       - Fine-tuned a Stable Diffusion model for real-time Ghibli style image transformations (1.3k+ conversions at sub-100ms median latency), and deployed a secure proxy with Upstash Redis for IP-based rate limiting, scaling to 11GB+ bandwidth globally with minimal error rates.
+       - Mobilized a production grade FastAPI backend with background jobs and automated cleanup, handling 10k+ daily requests in 40+ countries (∼ 140 unique users/day in the first week)
+
 - title: Technical Skills
   type: map
   contents:
@@ -71,3 +91,17 @@
       value: PyTorch, scikit-learn, Numpy, Pandas, OpenCV
     - name: Specializations
       value: Deep Learning, Data Pipelines, LLMs, Data Analysis, Statistical Modeling and Deployment.
+
+- title: Achievements
+  type: time_table
+  contents:
+    - year: 2025
+      items: 
+        - Academic Rank 8th in the Department of Computer Science and Engineering after 5 semesters.
+    - year: 2024
+      items:
+        - First and one of the only two students selected for Google Summer of Code (GSoC) from VIT Amaravati
+    - year: 2023
+      items: 
+        - Led a team of 5 international teammates to achieve a Top 50 finish in HackSqaud 2023 (Top 60 winners out of 2500+ teams). 
+    

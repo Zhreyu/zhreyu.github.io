@@ -23,12 +23,12 @@ github_username: Zhreyu # your GitHub user name
 linkedin_username: Zhreyas # your LinkedIn user name
 # mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 # medium_username: # your Medium username
-# orcid_id: # your ORCID ID
+orcid_id: 0009-0000-8931-7562
 # osf_id: # your OSF ID
 # pinterest_id: # your pinterest id
 # publons_id: # your ID on Publons
 # quora_username: # your Quora username
-# research_gate_profile: # your profile on ResearchGate
+research_gate_profile: Shreyas-S-7
 rss_icon: true # set to true to show the RSS icon
 # scholar_userid: # your Google Scholar ID
 # scopus_id: # your profile on Scopus

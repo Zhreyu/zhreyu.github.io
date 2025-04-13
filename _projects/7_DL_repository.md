@@ -7,13 +7,11 @@ importance: 7
 category: work
 ---
 
-# Deep Learning Repository
-
 This repository contains a collection of my Kaggle notebooks, paper implementations, and other projects from my deep learning learning process. I saved all my notebooks and code from my journey of learning deep learning, and I'm sharing them here in case they might be useful to someone.
 
 The repository includes implementations of the following:
 
-* Various Kaggle competitions
+* Various Kaggle Notebooks
 * Implementations of papers
 * Other deep learning projects
 
