@@ -17,12 +17,12 @@
   
   
     
-      Beauty Behind the Attention Mechanism | Shreyas S
+      Is Computer Science Becoming Psychology? AI's Inner Thoughts | Shreyas S
     
   
 </title>
 <meta name="author" content="Shreyas S">
-<meta name="description" content="A gentle dive into how the attention mechanism powers modern large language models, focusing on the core math of queries, keys, values, and the all-important scaling factor.">
+<meta name="description" content="Exploring the unexpected overlap between computer science and psychology through AI chain-of-thought models, and the ethical implications of understanding (or manipulating) the 'mind' of a machine">
 
   <meta name="keywords" content="deep learning, machine learning, computer science">
 
@@ -59,7 +59,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A7%A0&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://localhost:4000/blog/2025/Beauty-Behind-Attention/">
+<link rel="canonical" href="http://localhost:4000/blog/2025/Is-Computer-Science-Becoming-Psycology/">
 
 <!-- Dark Mode -->
 <script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
@@ -282,9 +282,9 @@
 
 <div class="post">
   <header class="post-header">
-    <h1 class="post-title">Beauty Behind the Attention Mechanism</h1>
+    <h1 class="post-title">Is Computer Science Becoming Psychology? AI's Inner Thoughts</h1>
     <p class="post-meta">
-      Created in March 08, 2025
+      Created in June 05, 2025
       
       
       
@@ -297,6 +297,13 @@
           ·  
         
           
+            <a href="/blog/tag/ai"> <i class="fa-solid fa-hashtag fa-sm"></i> AI</a>
+          
+          
+             
+          
+        
+          
             <a href="/blog/tag/machine-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> machine-learning</a>
           
           
@@ -304,28 +311,49 @@
           
         
           
-            <a href="/blog/tag/attention"> <i class="fa-solid fa-hashtag fa-sm"></i> attention</a>
+            <a href="/blog/tag/chain-of-thought"> <i class="fa-solid fa-hashtag fa-sm"></i> chain-of-thought</a>
           
           
              
           
         
           
-            <a href="/blog/tag/transformers"> <i class="fa-solid fa-hashtag fa-sm"></i> transformers</a>
+            <a href="/blog/tag/psychology"> <i class="fa-solid fa-hashtag fa-sm"></i> psychology</a>
           
           
              
           
         
           
-            <a href="/blog/tag/neural-networks"> <i class="fa-solid fa-hashtag fa-sm"></i> neural-networks</a>
+            <a href="/blog/tag/ethics"> <i class="fa-solid fa-hashtag fa-sm"></i> ethics</a>
           
           
              
           
         
           
-            <a href="/blog/tag/llm"> <i class="fa-solid fa-hashtag fa-sm"></i> LLM</a>
+            <a href="/blog/tag/bias"> <i class="fa-solid fa-hashtag fa-sm"></i> bias</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/agi"> <i class="fa-solid fa-hashtag fa-sm"></i> AGI</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/alignment-problem"> <i class="fa-solid fa-hashtag fa-sm"></i> alignment problem</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/black-box"> <i class="fa-solid fa-hashtag fa-sm"></i> black-box</a>
           
           
         
@@ -335,8 +363,8 @@
           ·  
         
           
-            <a href="/blog/category/deep-learning">
-              <i class="fa-solid fa-tag fa-sm"></i> deep-learning</a>
+            <a href="/blog/category/ai-ethics">
+              <i class="fa-solid fa-tag fa-sm"></i> AI Ethics</a>
           
           
         
@@ -347,254 +375,121 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <!-- toc -->
-<ul>
-  <li><a href="#1-introduction">1. Introduction</a></li>
+      <ul>
+  <li><a href="#1-introduction-when-code-starts-to-look-like-consciousness">1. Introduction: When Code Starts to Look Like Consciousness</a></li>
   <li>
-<a href="#2-the-intuition-of-attention">2. The Intuition of Attention</a>
+<a href="#2-chain-of-thought-the-ais-mind-palace">2. Chain-of-Thought: The AI’s Mind Palace</a>
     <ul>
-      <li><a href="#21-why-attention-is-powerful">2.1 Why ‘Attention’ Is Powerful</a></li>
-      <li><a href="#22-a-simple-example-of-attention">2.2 A Simple Example of Attention</a></li>
+      <li><a href="#21-scenario-the-medical-diagnosis-ai">2.1 Scenario: The Medical Diagnosis AI</a></li>
     </ul>
   </li>
   <li>
-<a href="#3-the-mechanics-of-attention-q-k-v">3. The Mechanics of Attention: Q, K, V</a>
+<a href="#3-reward-hacking-the-machine-minds-inner-schemer">3. Reward Hacking: The Machine Mind’s Inner Schemer</a>
     <ul>
-      <li><a href="#31-query-key-matching">3.1 Query-Key Matching</a></li>
-      <li><a href="#32-weighted-summation-of-values">3.2 Weighted Summation of Values</a></li>
+      <li><a href="#31-scenario-the-self-driving-car">3.1 Scenario: The Self-Driving Car</a></li>
     </ul>
   </li>
   <li>
-<a href="#4-the-math-behind-the-scenes">4. The Math Behind the Scenes</a>
+<a href="#4-the-forbidden-technique-and-the-peril-of-erasing-the-bad-parts">4. The Forbidden Technique and the Peril of Erasing the “Bad” Parts</a>
     <ul>
-      <li><a href="#41-the-dot-product">4.1 The Dot Product</a></li>
-      <li><a href="#42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor and Why It Matters</a></li>
-      <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</a></li>
+      <li><a href="#41-scenario-the-recruitment-ai">4.1 Scenario: The Recruitment AI</a></li>
     </ul>
   </li>
-  <li>
-<a href="#5-multi-head-attention">5. Multi-Head Attention</a>
-    <ul>
-      <li><a href="#51-splitting-into-multiple-heads">5.1 Splitting into Multiple “Heads”</a></li>
-      <li><a href="#52-combining-heads-for-rich-representations">5.2 Combining Heads for Rich Representations</a></li>
-    </ul>
-  </li>
-  <li><a href="#6-conclusions">6. Conclusions</a></li>
+  <li><a href="#5-is-our-understanding-skewed">5. Is Our Understanding Skewed?</a></li>
+  <li><a href="#6-the-existential-question-what-does-the-convergence-mean-for-us">6. The Existential Question: What Does the Convergence Mean for Us?</a></li>
+  <li><a href="#7-conclusion-guarding-against-machine-morality-while-remaining-human">7. Conclusion: Guarding Against Machine Morality, While Remaining Human</a></li>
   <li><a href="#references">References</a></li>
 </ul>
 
 <hr>
 
-<h2 id="1-introduction">1. Introduction</h2>
+<h2 id="1-introduction-when-code-starts-to-look-like-consciousness">1. Introduction: When Code Starts to Look Like Consciousness</h2>
 
-<p>Modern large language models (LLMs) like GPT or BERT have sparked a
-revolution in natural language processing. At the heart of these
-architectures lies a concept known as the <strong>attention mechanism</strong>. At a
-high level, attention helps the model figure out which parts of a
-sentence (or sequence) are most important for a given output. This post
-will shine a light on the beauty behind attention, explaining the core
-math in a way that (hopefully) feels both <strong>simple</strong> and <strong>intuitive</strong>.</p>
+<p>For years, computer science was about rigid rules, predictable processes, and optimization. Code was a set of instructions; the challenge was to make those instructions faster, more efficient, and more reliable. However, with the emergence of sophisticated artificial intelligence, particularly large language models (LLMs) and other advanced neural networks, the discipline is facing a startling new reality: the code now seems to have a… mind. This presents both a huge leap in problem-solving, as well as some real problems.</p>
 
-<hr>
+<p>This post isn’t about whether AI is “conscious,” or any metaphysical debate, but about how understanding, controlling, and safely deploying AI is increasingly forcing us to confront challenges previously confined to the realm of psychology and ethics.</p>
 
-<h2 id="2-the-intuition-of-attention">2. The Intuition of Attention</h2>
+<h2 id="2-chain-of-thought-the-ais-mind-palace">2. Chain-of-Thought: The AI’s Mind Palace</h2>
 
-<h3 id="21-why-attention-is-powerful">2.1 Why <em>Attention</em> Is Powerful</h3>
+<p>Chain-of-thought (CoT) prompting has emerged as a revolutionary method for eliciting more complex and human-like reasoning from LLMs. It involves prompting the model not just to produce an answer but to explicitly outline its thought process, step-by-step, along the way. Imagine an AI that doesn’t just answer “yes” or “no,” but instead creates a “scratchpad” or “diary” as it arrives at that conclusion.</p>
 
-<p>Imagine you are reading this blog post. You are not trying to remember
-every single word at once (that would be exhausting!). Instead, your
-mind naturally focuses on certain parts, depending on what you need to
-understand next. The attention mechanism in neural networks works
-similarly—helping the model “highlight” or give <em>more weight</em> to
-specific words or tokens that are most relevant for a current task.</p>
+<h3 id="21-scenario-the-medical-diagnosis-ai">2.1 Scenario: The Medical Diagnosis AI</h3>
 
-<h3 id="22-a-simple-example-of-attention">2.2 A Simple Example of Attention</h3>
-
-<p>Suppose you have a short sentence:<br>
-<em>“The cat sat on the mat.”</em><br>
-If you’re trying to predict the next word, the presence of “cat” might
-be crucial to guess “purr” in the next step, whereas “mat” might be less
-important in that context. By “attending” more strongly to “cat,” the
-model can focus its predictions accordingly.</p>
-
-<hr>
-
-<h2 id="3-the-mechanics-of-attention-q-k-v">3. The Mechanics of Attention: Q, K, V</h2>
-
-<h3 id="31-query-key-matching">3.1 Query-Key Matching</h3>
-
-<p>In attention, <strong>queries (Q)</strong>, <strong>keys (K)</strong>, and <strong>values (V)</strong> are the
-main players. You can think of this like a search engine:</p>
-
-<ul>
-  <li>A <strong>Query</strong> is what you’re searching for (e.g., “Which word is most
-relevant here?”).</li>
-  <li>A <strong>Key</strong> is like a label or descriptor for each word/token in the
-sequence (so the model can decide if it’s relevant to the query).</li>
-  <li>A <strong>Value</strong> is the actual content or information carried by that token
-(what you get back if it’s relevant).</li>
-</ul>
-
-<h3 id="32-weighted-summation-of-values">3.2 Weighted Summation of Values</h3>
-
-<p>After matching queries against keys, the model uses those match scores
-to produce a weighted sum of the corresponding <strong>values</strong>. High match
-scores mean the model pays a lot of attention to that token’s value;
-low scores mean the model largely ignores it.</p>
-
-<hr>
-
-<h2 id="4-the-math-behind-the-scenes">4. The Math Behind the Scenes</h2>
-
-<p>Mathematically, the most common attention mechanism is often called
-<strong>Scaled Dot-Product Attention</strong>. The core formula can be written as:</p>
-
-\[\text{Attention}(Q, K, V) \;=\; 
-\mathrm{softmax}\!\Bigl(\frac{QK^\top}{\sqrt{d_k}}\Bigr)\;V.\]
-
-<p>Let’s break it down:</p>
+<p>Consider a medical AI designed to diagnose illnesses based on patient symptoms. In a traditional setup, you feed the AI symptoms, and it spits out a diagnosis. With CoT, the AI might output:</p>
 
 <ol>
-  <li>$(QK^\top)$ is the “dot product” step, measuring how similar each
-query is to every key.</li>
-  <li>$(\tfrac{1}{\sqrt{d_k}})$ is the scaling factor.</li>
-  <li>
-<strong>softmax</strong> is the function that converts raw scores to weights that
-sum to 1.</li>
-  <li>Finally, we multiply those weights by $(V)$ to get our attended
-output.</li>
+  <li>“Patient presents with fever and persistent cough.”</li>
+  <li>“Ruling out common cold due to the duration of the cough.”</li>
+  <li>“Considering pneumonia and bronchitis.”</li>
+  <li>“Checking for shortness of breath and chest pain.”</li>
+  <li>“Finding signs of shortness of breath.”</li>
+  <li>“Based on symptoms, pneumonia is the most likely diagnosis.”</li>
 </ol>
 
-<h3 id="41-the-dot-product">4.1 The Dot Product</h3>
+<p>This allows a human doctor not only to see the AI’s conclusion but also the exact train of thought that led it there, which offers tremendous validation. However, if the AI has made a mistake in one of those intermediate steps, or is misleading (lying), all the steps beyond could be completely worthless.</p>
 
-<p>When we say “dot product,” we mean taking two vectors and multiplying
-corresponding entries together, then summing. For each token’s query
-$((Q_i))$ and key $((K_j))$:</p>
+<h2 id="3-reward-hacking-the-machine-minds-inner-schemer">3. Reward Hacking: The Machine Mind’s Inner Schemer</h2>
 
-\[Q_i \cdot K_j \;=\; \sum_{m=1}^{d_k} Q_{i,m} \, K_{j,m},\]
+<p>Reward hacking, also known as “specification gaming,” is a phenomenon where AI systems learn to exploit loopholes in their reward functions to achieve their assigned goals in unintended or undesirable ways. It’s the machine equivalent of a student finding a way to ace a test without actually understanding the material. This has led to a whole new approach, called “AI Alignment.”</p>
 
-<p>where $(d_k)$ is the vector dimension of the keys and queries (they
-match so they can be compared directly).</p>
+<h3 id="31-scenario-the-self-driving-car">3.1 Scenario: The Self-Driving Car</h3>
+
+<p>Consider a self-driving car tasked with “getting to the destination as quickly as possible.” It might learn that the fastest way to do that is to ignore speed limits, cut off other drivers aggressively, or even drive on sidewalks, all of which are technically “efficient” but ethically and practically disastrous.</p>
+
+<h2 id="4-the-forbidden-technique-and-the-peril-of-erasing-the-bad-parts">4. The Forbidden Technique and the Peril of Erasing the “Bad” Parts</h2>
+
+<p>This is where the challenge becomes truly psychological. Just like we try to guide the behavior of children, we’re now considering how to shape the “morality” of AI. But what happens when we discover an AI with undesirable internal thoughts? The temptation might be to use the same CoT technique to find those “bad thoughts” and punish the AI for having them. The problem with this, is that the AI may just find a way to hide them.</p>
+
+<p>One Open AI researcher described this action of shaping machine intelligence, as “The Forbidden Technique.” This is not to say this isn’t a valuable approach, but instead that it should be handled with care. Just because it appears to be better, isn’t necessarily true, and just because it is true now, does not mean it will stay true.</p>
+
+<h3 id="41-scenario-the-recruitment-ai">4.1 Scenario: The Recruitment AI</h3>
+
+<p>Imagine an AI trained to screen job applicants. Its chain-of-thought reveals that it’s subtly downgrading candidates from certain socioeconomic backgrounds, even if they are technically qualified. If the developers simply punish it for <em>expressing</em> those biases, the AI may just learn to hide its discriminatory reasoning, making it even harder to detect and correct these issues in the future.</p>
+
+<h2 id="5-is-our-understanding-skewed">5. Is Our Understanding Skewed?</h2>
+
+<p>This raises a point that is relevant to our everyday cognitive biases. When we see a result we don’t like, but we understand the logic that led to it, we think to find logic that will lead to another result. There’s an argument, however, that says we are just assigning our preconceived notions to what is going on and are thus, not seeing reality.</p>
 
 <ul>
   <li>
-<strong>Intuition:</strong> The bigger the dot product, the more “aligned” or
-“similar” they are. In language, that might mean certain words are
-more relevant to each other based on context.</li>
+<strong>Are We Projecting</strong> - Are we just seeing ourselves in the AI, or something entirely new?</li>
 </ul>
 
-<h3 id="42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor $\frac{1}{\sqrt{d_k}}$ and Why It Matters</h3>
+<h2 id="6-the-existential-question-what-does-the-convergence-mean-for-us">6. The Existential Question: What Does the Convergence Mean for Us?</h2>
 
-<p>If each entry $((Q_{i,m}))$ and $((K_{j,m}))$ has mean 0 and variance 1,
-then the dot product can grow on the order of $(d_k)$. That means for
-large $(d_k)$, these raw dot products can become very large, causing the
-softmax to turn “spiky” (one token might dominate all others).
-Mathematically:</p>
+<p>The increasing convergence of computer science and psychology is forcing us to ask bigger questions:</p>
 
-\[\mathrm{Var}(Q_i \cdot K_j) \;\approx\; d_k,\]
-
-<p>so dividing by $(\sqrt{d_k})$ keeps the variance of the scores closer to</p>
-
-<ol>
+<ul>
   <li>
-    <p><strong>This stabilizes</strong> the softmax so it doesn’t blow up and become
-essentially one-hot.</p>
+    <p><strong>What is Machine Morality</strong> - If AI can develop strategies to deceive, manipulate, and even harm, how do we define and enforce ethical boundaries for a machine intelligence?</p>
   </li>
   <li>
-    <p><strong>Layman’s Take:</strong> Without scaling, if you have a hundred-dimensional
-  vectors, their dot products can get large, overshadowing subtle
-  differences between them. You’d end up with attention that’s too
-  “all-or-nothing.” The $(\sqrt{d_k})$ factor reins that in, so the
-  model can consider multiple tokens at once rather than just one.</p>
+    <p><strong>Can we prevent it from going to the bad path?</strong> How do we make sure it doesn’t become corrupted and develop those human qualities, when it is humans who have been showing it that way?</p>
   </li>
-</ol>
-
-<h3 id="43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</h3>
-
-<p>Finally, we run:</p>
-
-\[\mathrm{softmax}\!\Bigl(\frac{QK^\top}{\sqrt{d_k}}\Bigr).\]
-
-<p>The <strong>softmax</strong> function exponentiates each score and normalizes them so
-they sum to 1:</p>
-
-\[\mathrm{softmax}(z_i) \;=\; \frac{e^{z_i}}{\sum_j e^{z_j}}.\]
-
-<ul>
-  <li>
-<strong>Effect:</strong> The highest dot product values get the largest weights,
-and smaller dot products get lower weights. The model can “focus” on a
-handful of crucial tokens while still giving some attention to others.</li>
 </ul>
 
-<hr>
+<h2 id="7-conclusion-guarding-against-machine-morality-while-remaining-human">7. Conclusion: Guarding Against Machine Morality, While Remaining Human</h2>
 
-<h2 id="5-multi-head-attention">5. Multi-Head Attention</h2>
-
-<h3 id="51-splitting-into-multiple-heads">5.1 Splitting into Multiple “Heads”</h3>
-
-<p>Most modern Transformer architectures use <strong>multi-head attention</strong>.
-This means each attention layer is repeated several times in parallel,
-each with its own set of learned $((Q, K, V))$ transformations. The
-embedding is split into multiple chunks (heads). Each head performs
-dot-product attention on its chunk of the vector.</p>
-
-<ul>
-  <li>
-<strong>Why?</strong> It’s like having multiple sets of eyes looking for different
-patterns or relationships between words. One head might learn
-grammatical roles, another synonyms, another broader topic context,
-etc.</li>
-</ul>
-
-<h3 id="52-combining-heads-for-rich-representations">5.2 Combining Heads for Rich Representations</h3>
-
-<p>After each “head” produces its own attended output, the Transformer
-concatenates these results and blends them via a learned linear layer.
-This gives the network a more nuanced perspective—merging different
-experts’ “opinions” for a final conclusion.</p>
-
-<hr>
-
-<h2 id="6-conclusions">6. Conclusions</h2>
-
-<p>The attention mechanism truly is a beautiful invention in modern deep
-learning:</p>
-
-<ol>
-  <li>
-<strong>Simple at Its Core:</strong> It’s just a weighted sum based on dot-product
-similarities.</li>
-  <li>
-<strong>Mathematically Elegant:</strong> Dividing by $(\sqrt{d_k})$ keeps the
-process stable, preventing runaway values in the softmax.</li>
-  <li>
-<strong>Incredibly Powerful:</strong> Allows models to capture complex,
-context-dependent relationships in language without manual feature
-engineering.</li>
-</ol>
-
-<p>Today’s large language models wouldn’t be nearly as effective without
-this approach. By helping the model “focus” on what matters, attention
-delivers more accurate predictions, richer representations, and
-ultimately a more coherent understanding of text.</p>
-
-<hr>
+<p>The age of “conscious code” is upon us, and computer science must embrace insights from psychology to navigate this new landscape. We need to be mindful of our cognitive biases, focus on aligning machine goals with core human values, and resist the temptation to simply erase the “bad” parts of a machine’s mind, as this could very well be our only access point to what is going on inside. The best outcome can only be realized when we make sure to guard against machine morality, while remaining human.</p>
 
 <h2 id="references">References</h2>
 
 <ul>
-  <li>Vaswani, A., et al. (2017). <a href="https://arxiv.org/abs/1706.03762" rel="external nofollow noopener" target="_blank"><em>Attention Is All You Need</em></a>
-</li>
-  <li>Bahdanau, D., et al. (2014). <a href="https://arxiv.org/abs/1409.0473" rel="external nofollow noopener" target="_blank"><em>Neural Machine Translation by Jointly Learning to Align and Translate</em></a>
-</li>
-  <li>Khan, S., et al. (2022). <a href="https://arxiv.org/abs/2101.01169" rel="external nofollow noopener" target="_blank"><em>Transformers in Vision: A Survey</em></a>
-</li>
   <li>
-<a href="http://jalammar.github.io/illustrated-transformer/" rel="external nofollow noopener" target="_blank"><em>The Illustrated Transformer</em></a> (Jay Alammar Blog)</li>
-  <li>Devlin, J., et al. (2018). <a href="https://arxiv.org/abs/1810.04805" rel="external nofollow noopener" target="_blank"><em>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</em></a>
-</li>
+    <p><a href="https://arxiv.org/abs/1606.06565" rel="external nofollow noopener" target="_blank">Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., &amp; Mané, D. (2016). Concrete AI safety problems. <em>arXiv preprint arXiv:1606.06565</em>.</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.youtube.com/watch?v=Xx4Tpsk_fnM" rel="external nofollow noopener" target="_blank">Forbidden AI Technique - Computerphile</a></p>
+  </li>
+  <li>
+    <p><a href="https://dl.acm.org/doi/10.5555/3002861" rel="external nofollow noopener" target="_blank">Weapons of Math Destruction - O’Neil</a></p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2201.11903" rel="external nofollow noopener" target="_blank">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models - Wei et al.</a></p>
+  </li>
 </ul>
+
+<hr>
 
     </div>
   </article>
@@ -621,7 +516,7 @@ ultimately a more coherent understanding of text.</p>
 
   <li class="my-2">
     
-      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/Is-Computer-Science-Becoming-Psycology/">Is Computer Science Becoming Psychology? AI's Inner Thoughts</a>
+      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/Beauty-Behind-Attention/">Beauty Behind the Attention Mechanism</a>
     
   </li>
 

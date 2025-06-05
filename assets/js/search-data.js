@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-beauty-behind-the-attention-mechanism",
+        },{id: "post-is-computer-science-becoming-psychology-ai-39-s-inner-thoughts",
+      
+        title: "Is Computer Science Becoming Psychology? AI&#39;s Inner Thoughts",
+      
+      description: "Exploring the unexpected overlap between computer science and psychology through AI chain-of-thought models, and the ethical implications of understanding (or manipulating) the &#39;mind&#39; of a machine",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Is-Computer-Science-Becoming-Psycology/";
+        
+      },
+    },{id: "post-beauty-behind-the-attention-mechanism",
       
         title: "Beauty Behind the Attention Mechanism",
       
