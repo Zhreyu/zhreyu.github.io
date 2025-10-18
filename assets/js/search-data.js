@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-beauty-behind-the-attention-mechanism",
+        },{id: "post-why-39-temperature-39-in-ai-isn-39-t-just-a-metaphor",
+      
+        title: "Why &#39;Temperature&#39; in AI Isn&#39;t Just a Metaphor",
+      
+      description: "Ever notice how people say &#39;Let&#39;s increase the temperature&#39; when they want their AI model to sound more creative? It&#39;s not just a metaphor. It&#39;s actual physics.",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Why-'Temperature'-in-AI-Isn't-Just-a-Metaphor/";
+        
+      },
+    },{id: "post-beauty-behind-the-attention-mechanism",
       
         title: "Beauty Behind the Attention Mechanism",
       

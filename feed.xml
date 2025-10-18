@@ -1,10 +1,198 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-08-03T23:22:04+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
-</subtitle><entry><title type="html">Beauty Behind the Attention Mechanism</title><link href="http://localhost:4000/blog/2025/Beauty-Behind-Attention/" rel="alternate" type="text/html" title="Beauty Behind the Attention Mechanism" /><published>2025-03-08T10:10:10+05:30</published><updated>2025-03-08T10:10:10+05:30</updated><id>http://localhost:4000/blog/2025/Beauty-Behind-Attention</id><content type="html" xml:base="http://localhost:4000/blog/2025/Beauty-Behind-Attention/"><![CDATA[<!-- toc -->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhreyu.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhreyu.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-10-18T08:10:17+05:30</updated><id>https://zhreyu.github.io/feed.xml</id><title type="html">Shreyas S</title><subtitle>Master&apos;s Student in Computer Science and Engineering
+</subtitle><entry><title type="html">Why ‘Temperature’ in AI Isn’t Just a Metaphor</title><link href="https://zhreyu.github.io/blog/2025/Why-'Temperature'-in-AI-Isn't-Just-a-Metaphor/" rel="alternate" type="text/html" title="Why ‘Temperature’ in AI Isn’t Just a Metaphor" /><published>2025-10-18T06:26:32+05:30</published><updated>2025-10-18T06:26:32+05:30</updated><id>https://zhreyu.github.io/blog/2025/Why-&apos;Temperature&apos;-in-AI-Isn&apos;t-Just-a-Metaphor</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/Why-&apos;Temperature&apos;-in-AI-Isn&apos;t-Just-a-Metaphor/"><![CDATA[<!-- toc -->
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#a-quick-detour-to-physics-class">A Quick Detour to Physics Class</a>
+    <ul>
+      <li><a href="#example-people-and-chairs">Example: People and Chairs</a></li>
+    </ul>
+  </li>
+  <li><a href="#ai-models-and-their-secret-physics-habit">AI Models and Their Secret Physics Habit</a></li>
+  <li><a href="#temperature--how-wild-you-want-your-ai-to-be">Temperature = How Wild You Want Your AI to Be</a></li>
+  <li><a href="#visualizing-the-heat">Visualizing the Heat</a></li>
+  <li><a href="#the-universe-loves-balance-and-so-does-ai">The Universe Loves Balance (and So Does AI)</a></li>
+  <li><a href="#closing-thought">Closing Thought</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Ever notice how people say <strong>“Let’s increase the temperature”</strong> when they want their AI model to sound more creative?</p>
+
+<p>Sounds poetic, right? Like we’re literally “heating up” the model until it starts dreaming.</p>
+
+<p>But it turns out that’s not just a metaphor. It’s actual, hard-core physics sneaking into machine learning.</p>
+
+<p>Let’s unpack why turning up temperature in your AI model feels a lot like shaking up atoms in a hot gas.</p>
+
+<hr />
+
+<h2 id="a-quick-detour-to-physics-class">A Quick Detour to Physics Class</h2>
+
+<p>In the 1800s, <strong>Ludwig Boltzmann</strong>, a man obsessed with how particles behave, gave us a formula that changed everything:</p>
+
+\[p(\text{system } i) = \frac{\exp(-\beta E_i)}{\sum_j \exp(-\beta E_j)}\]
+
+<p><strong>Where:</strong></p>
+<ul>
+  <li>$E_i$ = energy of state $i$</li>
+  <li>$\beta = 1 / kT$ (the inverse temperature)</li>
+  <li>$k$ = Boltzmann constant</li>
+  <li>$T$ = absolute temperature</li>
+</ul>
+
+<p>At <strong>low temperature</strong>, the system prefers the lowest-energy state: stable and predictable. At <strong>higher temperatures</strong>, it starts exploring other possibilities: a bit more chaotic, a lot more interesting.</p>
+
+<p>Let’s make that concrete.</p>
+
+<h3 id="example-people-and-chairs">Example: People and Chairs</h3>
+
+<p>Imagine a room with ten people and two chairs.</p>
+
+<p><strong>When it’s cold</strong>, the first two people who sit down will stay put. No one wants to move. The system is calm and low-energy.</p>
+
+<p><strong>As the room warms up</strong>, people start shifting around. Someone stands, someone else sits. The overall situation looks the same (two people sitting), but who is sitting keeps changing.</p>
+
+<p><strong>When it’s really hot</strong>, everyone’s moving constantly. The scene becomes unpredictable; there are many possible “arrangements” happening over time.</p>
+
+<p>That’s what Boltzmann captured: temperature increases randomness by letting the system explore more configurations instead of staying stuck in just one.</p>
+
+<hr />
+
+<h2 id="ai-models-and-their-secret-physics-habit">AI Models and Their Secret Physics Habit</h2>
+
+<p>Here’s the twist: When your model tries to predict the next word, it assigns a score (called a <strong>logit</strong>) to every possible word.</p>
+
+<p>Then it converts those scores into probabilities using the <strong>softmax function</strong>:</p>
+
+\[P_i = \frac{e^{\text{logit}_i / T}}{\sum_j e^{\text{logit}_j / T}}\]
+
+<p>Look familiar? It’s literally the <strong>Boltzmann distribution</strong>, just wearing machine learning clothes.</p>
+
+<hr />
+
+<h2 id="temperature--how-wild-you-want-your-ai-to-be">Temperature = How Wild You Want Your AI to Be</h2>
+
+<p><strong>Low T (say 0.2):</strong> Model gets cautious. It always picks the “safest” word.</p>
+
+<blockquote>
+  <p><em>“The cat sat on the mat.”</em><br />
+Predictable. Stable. Boring.</p>
+</blockquote>
+
+<p><strong>Medium T (around 0.8):</strong></p>
+
+<blockquote>
+  <p><em>“The cat sat on the window ledge, watching the rain.”</em><br />
+Still makes sense, but more expressive.</p>
+</blockquote>
+
+<p><strong>High T (like 1.5):</strong></p>
+
+<blockquote>
+  <p><em>“The cat orchestrated a revolution against the vacuum cleaner.”</em><br />
+Chaotic genius energy.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="visualizing-the-heat">Visualizing the Heat</h2>
+
+<p>Let’s see what happens when we crank the temperature up or down. Imagine we have these initial logit scores for possible next words: cat (2.8), dog (2.0), bird (1.5), fish (1.0), mouse (0.5), and other (0.0).</p>
+
+<p>Now watch how different temperatures reshape the probability distribution:</p>
+
+<p><img src="/assets/img/blog/2025/temperature_comparison.png" alt="Temperature Comparison" width="600" height="400" style="max-width: 100%; height: auto;" />
+<!-- *How temperature reshapes probability distribution: Low (T=0.2) creates a sharp spike where "cat" dominates at 73%, Medium (T=0.8) balances things out with "cat" at 38%, and High (T=1.5) flattens everything to near-equal probabilities around 20-25%.* --></p>
+
+<p>At <strong>low temperature (0.2)</strong>, the model is highly confident. “Cat” dominates with 73.1%. The distribution is sharp and spiky, like a frozen crystal where particles barely move.</p>
+
+<p>At <strong>medium temperature (0.8)</strong>, things get more balanced. “Cat” drops to 37.8%, “dog” rises to 27.8%, and multiple options get reasonable consideration. It’s like a warm cup of tea: gentle movement, but still structured.</p>
+
+<p>At <strong>high temperature (1.5)</strong>, the distribution becomes nearly flat. “Cat” is only 24.5%, barely ahead of “dog” at 20.2%. The model is willing to take creative risks: pure boiling chaos.</p>
+
+<p><img src="/assets/img/blog/2025/temperature_curve.png" alt="Temperature Evolution" width="600" height="400" style="max-width: 100%; height: auto;" />
+<!-- *Continuous evolution of probabilities as temperature increases: watch how the dominant option loses its advantage and all curves converge toward equality.* --></p>
+
+<p>This curve shows the beautiful continuous transition. As temperature rises from 0.1 to 2.0, the top choice gradually loses its dominance while the underdogs gain ground. It’s a perfect visual representation of how thermal energy democratizes possibilities.</p>
+
+<p><img src="/assets/img/blog/2025/temperature_entropy.png" alt="Temperature Entropy" width="600" height="400" style="max-width: 100%; height: auto;" />
+<!-- *Entropy (randomness) increases with temperature: from frozen crystal (0.2) to balanced equilibrium (1.0) to boiling chaos (2.0).* --></p>
+
+<p>The entropy curve quantifies what we’ve been seeing: randomness literally increases with temperature. Low temperature means low entropy (the system is predictable). High temperature means high entropy (anything can happen).</p>
+
+<p>It’s just like atoms at different temperatures: <strong>cold</strong> means neatly aligned with minimal movement; <strong>hot</strong> means dancing everywhere with high energy.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Temperature</th>
+      <th>Behavior</th>
+      <th>Analogy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.2</td>
+      <td>Deterministic</td>
+      <td>A frozen crystal</td>
+    </tr>
+    <tr>
+      <td>1.0</td>
+      <td>Balanced</td>
+      <td>Warm cup of tea</td>
+    </tr>
+    <tr>
+      <td>2.0</td>
+      <td>Random</td>
+      <td>Boiling chaos</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="the-universe-loves-balance-and-so-does-ai">The Universe Loves Balance (and So Does AI)</h2>
+
+<p>There’s something poetic about this. At low temperature, the system (or model) seeks equilibrium: it picks what’s most likely, just like atoms resting in their lowest-energy state.</p>
+
+<p>Every time you tweak the temperature knob, you’re not just adjusting a model setting. You’re echoing <strong>Boltzmann’s law of nature</strong>.</p>
+
+<p>The same law that explains:</p>
+
+<ul>
+  <li>Why stars burn</li>
+  <li>Why ice melts</li>
+  <li>And now… why your model sometimes says <strong>“quantum kittens are revolutionizing linguistics”</strong> 🐱⚛️</li>
+</ul>
+
+<hr />
+
+<h2 id="closing-thought">Closing Thought</h2>
+
+<p>So next time you see <strong>“temperature = 0.7”</strong> in a prompt or config file, remember: that’s not just code. That’s the <strong>physics of imagination</strong>.</p>
+
+<p>We’ve been using the math of molecules to make machines dream. And that’s… kind of beautiful, isn’t it?</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li>Boltzmann, L. (1872). <em>Further Studies on the Thermal Equilibrium of Gas Molecules</em></li>
+  <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep Learning</em>. MIT Press</li>
+  <li>Alammar, J. <a href="https://jalammar.github.io/softmax/"><em>The Illustrated Softmax</em></a></li>
+  <li>Olah, C. <em>Neural Networks, Softmax, and Temperature</em></li>
+</ul>
+
+<hr />]]></content><author><name></name></author><category term="deep-learning" /><category term="intuition" /><category term="machine-learning" /><category term="softmax" /><category term="boltzmann" /><category term="thermodynamics" /><category term="ai" /><category term="probability" /><category term="physics" /><summary type="html"><![CDATA[Ever notice how people say 'Let's increase the temperature' when they want their AI model to sound more creative? It's not just a metaphor. It's actual physics.]]></summary></entry><entry><title type="html">Beauty Behind the Attention Mechanism</title><link href="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/" rel="alternate" type="text/html" title="Beauty Behind the Attention Mechanism" /><published>2025-03-08T10:10:10+05:30</published><updated>2025-03-08T10:10:10+05:30</updated><id>https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/Beauty-Behind-Attention/"><![CDATA[<!-- toc -->
 <ul>
   <li><a href="#1-introduction">1. Introduction</a></li>
   <li><a href="#2-the-intuition-of-attention">2. The Intuition of Attention</a>
     <ul>
-      <li><a href="#21-why-attention-is-powerful">2.1 Why ‘Attention’ Is Powerful</a></li>
+      <li><a href="#21-why-attention-is-powerful">2.1 Why <em>Attention</em> Is Powerful</a></li>
       <li><a href="#22-a-simple-example-of-attention">2.2 A Simple Example of Attention</a></li>
     </ul>
   </li>
@@ -17,7 +205,7 @@
   <li><a href="#4-the-math-behind-the-scenes">4. The Math Behind the Scenes</a>
     <ul>
       <li><a href="#41-the-dot-product">4.1 The Dot Product</a></li>
-      <li><a href="#42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor and Why It Matters</a></li>
+      <li><a href="#42-scaling-factor-frac1sqrtd_k-and-why-it-matters">4.2 Scaling Factor $\frac{1}{\sqrt{d_k}}$ and Why It Matters</a></li>
       <li><a href="#43-softmax-for-focused-attention">4.3 Softmax for Focused Attention</a></li>
     </ul>
   </li>
@@ -230,7 +418,7 @@ ultimately a more coherent understanding of text.</p>
   <li>Khan, S., et al. (2022). <a href="https://arxiv.org/abs/2101.01169"><em>Transformers in Vision: A Survey</em></a></li>
   <li><a href="http://jalammar.github.io/illustrated-transformer/"><em>The Illustrated Transformer</em></a> (Jay Alammar Blog)</li>
   <li>Devlin, J., et al. (2018). <a href="https://arxiv.org/abs/1810.04805"><em>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</em></a></li>
-</ul>]]></content><author><name></name></author><category term="deep-learning" /><category term="machine-learning" /><category term="attention" /><category term="transformers" /><category term="neural-networks" /><category term="LLM" /><summary type="html"><![CDATA[A gentle dive into how the attention mechanism powers modern large language models, focusing on the core math of queries, keys, values, and the all-important scaling factor.]]></summary></entry><entry><title type="html">Column-Family Databases in Data Warehousing</title><link href="http://localhost:4000/blog/2025/column-family-databases-in-data-warehousing/" rel="alternate" type="text/html" title="Column-Family Databases in Data Warehousing" /><published>2025-02-23T23:08:45+05:30</published><updated>2025-02-23T23:08:45+05:30</updated><id>http://localhost:4000/blog/2025/column-family-databases-in-data-warehousing</id><content type="html" xml:base="http://localhost:4000/blog/2025/column-family-databases-in-data-warehousing/"><![CDATA[<!-- toc -->
+</ul>]]></content><author><name></name></author><category term="deep-learning" /><category term="machine-learning" /><category term="attention" /><category term="transformers" /><category term="neural-networks" /><category term="LLM" /><summary type="html"><![CDATA[A gentle dive into how the attention mechanism powers modern large language models, focusing on the core math of queries, keys, values, and the all-important scaling factor.]]></summary></entry><entry><title type="html">Column-Family Databases in Data Warehousing</title><link href="https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing/" rel="alternate" type="text/html" title="Column-Family Databases in Data Warehousing" /><published>2025-02-23T23:08:45+05:30</published><updated>2025-02-23T23:08:45+05:30</updated><id>https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing</id><content type="html" xml:base="https://zhreyu.github.io/blog/2025/column-family-databases-in-data-warehousing/"><![CDATA[<!-- toc -->
 <ul>
   <li><a href="#introduction">1. Introduction</a></li>
   <li><a href="#overview-of-column-family-databases">2. Overview of Column-Family Databases</a>
@@ -673,7 +861,7 @@ Persistence</em> (Addison-Wesley)</li>
   <li>Understanding Apache Cassandra (DataStax Documentation)</li>
   <li>The Architecture of Open Source Applications (Volume II) – Google
 Bigtable</li>
-</ul>]]></content><author><name></name></author><category term="database-systems" /><category term="databases" /><category term="data-warehousing" /><category term="nosql" /><category term="column-family" /><category term="cassandra" /><category term="analytics" /><summary type="html"><![CDATA[An in-depth exploration of column-family databases and their crucial role in modern data warehousing solutions, including real-time analytics, flexible data models, and integration with data lakehouses.]]></summary></entry><entry><title type="html">Graph Data Models, AI, and Biology</title><link href="http://localhost:4000/blog/2024/graph-data-models-and-biology/" rel="alternate" type="text/html" title="Graph Data Models, AI, and Biology" /><published>2024-11-04T23:08:45+05:30</published><updated>2024-11-04T23:08:45+05:30</updated><id>http://localhost:4000/blog/2024/graph-data-models-and-biology</id><content type="html" xml:base="http://localhost:4000/blog/2024/graph-data-models-and-biology/"><![CDATA[<h2 id="11-overview-of-biological-discovery">1.1 Overview of Biological Discovery</h2>
+</ul>]]></content><author><name></name></author><category term="database-systems" /><category term="databases" /><category term="data-warehousing" /><category term="nosql" /><category term="column-family" /><category term="cassandra" /><category term="analytics" /><summary type="html"><![CDATA[An in-depth exploration of column-family databases and their crucial role in modern data warehousing solutions, including real-time analytics, flexible data models, and integration with data lakehouses.]]></summary></entry><entry><title type="html">Graph Data Models, AI, and Biology</title><link href="https://zhreyu.github.io/blog/2024/graph-data-models-and-biology/" rel="alternate" type="text/html" title="Graph Data Models, AI, and Biology" /><published>2024-11-04T23:08:45+05:30</published><updated>2024-11-04T23:08:45+05:30</updated><id>https://zhreyu.github.io/blog/2024/graph-data-models-and-biology</id><content type="html" xml:base="https://zhreyu.github.io/blog/2024/graph-data-models-and-biology/"><![CDATA[<h2 id="11-overview-of-biological-discovery">1.1 Overview of Biological Discovery</h2>
 
 <p>For centuries, biology advanced from basic organism classification to the
 molecular study of cellular functions. Modern technologies—genomic

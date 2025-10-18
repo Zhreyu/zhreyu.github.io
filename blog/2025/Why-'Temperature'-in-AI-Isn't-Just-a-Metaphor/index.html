@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Head -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- Metadata, OpenGraph and Schema.org -->
+
+
+
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  
+  
+    
+      Why 'Temperature' in AI Isn't Just a Metaphor | Shreyas S
+    
+  
+</title>
+<meta name="author" content="Shreyas S">
+<meta name="description" content="Ever notice how people say 'Let's increase the temperature' when they want their AI model to sound more creative? It's not just a metaphor. It's actual physics.">
+
+  <meta name="keywords" content="deep learning, machine learning, computer science">
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap & MDB -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+
+
+<!-- Fonts & Icons -->
+<link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+<link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772">
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
+
+<!-- Code Syntax Highlighting -->
+<link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
+
+
+
+<!-- Styles -->
+
+
+
+
+  <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A7%A0&lt;/text&gt;&lt;/svg&gt;">
+
+<link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
+<link rel="canonical" href="https://zhreyu.github.io/blog/2025/Why-'Temperature'-in-AI-Isn't-Just-a-Metaphor/">
+
+<!-- Dark Mode -->
+<script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
+
+  <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
+  <script>
+    initTheme();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+    <!-- Header -->
+    <header>
+  <!-- Nav Bar -->
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/">
+          Shreyas S
+        </a>
+      
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about
+              
+            </a>
+          </li>
+
+          <!-- Other pages -->
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item active">
+                  <a class="nav-link" href="/blog/">articles
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  <a class="nav-link" href="/publications/">publications
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  <a class="nav-link" href="/projects/">projects
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  <a class="nav-link" href="/cv/">cv
+                    
+                  </a>
+                </li>
+              
+            
+          
+          
+            <!-- Search -->
+            <li class="nav-item">
+              <button id="search-toggle" title="Search" onclick="openSearchModal()">
+                <span class="nav-link">ctrl k <i class="ti ti-search"></i></span>
+              </button>
+            </li>
+          
+          
+            <!-- Toogle theme mode -->
+            <li class="toggle-container">
+              <button id="light-toggle" title="Change theme">
+                <i class="ti ti-sun-moon" id="light-toggle-system"></i>
+                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
+                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
+              </button>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  
+</header>
+
+
+    <!-- Content -->
+    <div class="container mt-5" role="main">
+      
+        
+
+
+
+
+
+
+
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Why 'Temperature' in AI Isn't Just a Metaphor</h1>
+    <p class="post-meta">
+      Created in October 18, 2025
+      
+      
+      
+    </p>
+    <p class="post-tags">
+      
+        <a href="/blog/2025"> <i class="fa-solid fa-calendar fa-sm"></i> 2025 </a>
+      
+      
+          ·  
+        
+          
+            <a href="/blog/tag/machine-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> machine-learning</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/softmax"> <i class="fa-solid fa-hashtag fa-sm"></i> softmax</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/boltzmann"> <i class="fa-solid fa-hashtag fa-sm"></i> boltzmann</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/thermodynamics"> <i class="fa-solid fa-hashtag fa-sm"></i> thermodynamics</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/ai"> <i class="fa-solid fa-hashtag fa-sm"></i> ai</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/probability"> <i class="fa-solid fa-hashtag fa-sm"></i> probability</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/tag/physics"> <i class="fa-solid fa-hashtag fa-sm"></i> physics</a>
+          
+          
+        
+      
+
+      
+          ·  
+        
+          
+            <a href="/blog/category/deep-learning">
+              <i class="fa-solid fa-tag fa-sm"></i> deep-learning</a>
+          
+          
+             
+          
+        
+          
+            <a href="/blog/category/intuition">
+              <i class="fa-solid fa-tag fa-sm"></i> intuition</a>
+          
+          
+        
+      
+    </p>
+  </header>
+
+  <article class="post-content">
+    
+    <div id="markdown-content">
+      <!-- toc -->
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li>
+<a href="#a-quick-detour-to-physics-class">A Quick Detour to Physics Class</a>
+    <ul>
+      <li><a href="#example-people-and-chairs">Example: People and Chairs</a></li>
+    </ul>
+  </li>
+  <li><a href="#ai-models-and-their-secret-physics-habit">AI Models and Their Secret Physics Habit</a></li>
+  <li><a href="#temperature--how-wild-you-want-your-ai-to-be">Temperature = How Wild You Want Your AI to Be</a></li>
+  <li><a href="#visualizing-the-heat">Visualizing the Heat</a></li>
+  <li><a href="#the-universe-loves-balance-and-so-does-ai">The Universe Loves Balance (and So Does AI)</a></li>
+  <li><a href="#closing-thought">Closing Thought</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Ever notice how people say <strong>“Let’s increase the temperature”</strong> when they want their AI model to sound more creative?</p>
+
+<p>Sounds poetic, right? Like we’re literally “heating up” the model until it starts dreaming.</p>
+
+<p>But it turns out that’s not just a metaphor. It’s actual, hard-core physics sneaking into machine learning.</p>
+
+<p>Let’s unpack why turning up temperature in your AI model feels a lot like shaking up atoms in a hot gas.</p>
+
+<hr>
+
+<h2 id="a-quick-detour-to-physics-class">A Quick Detour to Physics Class</h2>
+
+<p>In the 1800s, <strong>Ludwig Boltzmann</strong>, a man obsessed with how particles behave, gave us a formula that changed everything:</p>
+
+\[p(\text{system } i) = \frac{\exp(-\beta E_i)}{\sum_j \exp(-\beta E_j)}\]
+
+<p><strong>Where:</strong></p>
+<ul>
+  <li>$E_i$ = energy of state $i$</li>
+  <li>$\beta = 1 / kT$ (the inverse temperature)</li>
+  <li>$k$ = Boltzmann constant</li>
+  <li>$T$ = absolute temperature</li>
+</ul>
+
+<p>At <strong>low temperature</strong>, the system prefers the lowest-energy state: stable and predictable. At <strong>higher temperatures</strong>, it starts exploring other possibilities: a bit more chaotic, a lot more interesting.</p>
+
+<p>Let’s make that concrete.</p>
+
+<h3 id="example-people-and-chairs">Example: People and Chairs</h3>
+
+<p>Imagine a room with ten people and two chairs.</p>
+
+<p><strong>When it’s cold</strong>, the first two people who sit down will stay put. No one wants to move. The system is calm and low-energy.</p>
+
+<p><strong>As the room warms up</strong>, people start shifting around. Someone stands, someone else sits. The overall situation looks the same (two people sitting), but who is sitting keeps changing.</p>
+
+<p><strong>When it’s really hot</strong>, everyone’s moving constantly. The scene becomes unpredictable; there are many possible “arrangements” happening over time.</p>
+
+<p>That’s what Boltzmann captured: temperature increases randomness by letting the system explore more configurations instead of staying stuck in just one.</p>
+
+<hr>
+
+<h2 id="ai-models-and-their-secret-physics-habit">AI Models and Their Secret Physics Habit</h2>
+
+<p>Here’s the twist: When your model tries to predict the next word, it assigns a score (called a <strong>logit</strong>) to every possible word.</p>
+
+<p>Then it converts those scores into probabilities using the <strong>softmax function</strong>:</p>
+
+\[P_i = \frac{e^{\text{logit}_i / T}}{\sum_j e^{\text{logit}_j / T}}\]
+
+<p>Look familiar? It’s literally the <strong>Boltzmann distribution</strong>, just wearing machine learning clothes.</p>
+
+<hr>
+
+<h2 id="temperature--how-wild-you-want-your-ai-to-be">Temperature = How Wild You Want Your AI to Be</h2>
+
+<p><strong>Low T (say 0.2):</strong> Model gets cautious. It always picks the “safest” word.</p>
+
+<blockquote>
+  <p><em>“The cat sat on the mat.”</em><br>
+Predictable. Stable. Boring.</p>
+</blockquote>
+
+<p><strong>Medium T (around 0.8):</strong></p>
+
+<blockquote>
+  <p><em>“The cat sat on the window ledge, watching the rain.”</em><br>
+Still makes sense, but more expressive.</p>
+</blockquote>
+
+<p><strong>High T (like 1.5):</strong></p>
+
+<blockquote>
+  <p><em>“The cat orchestrated a revolution against the vacuum cleaner.”</em><br>
+Chaotic genius energy.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="visualizing-the-heat">Visualizing the Heat</h2>
+
+<p>Let’s see what happens when we crank the temperature up or down. Imagine we have these initial logit scores for possible next words: cat (2.8), dog (2.0), bird (1.5), fish (1.0), mouse (0.5), and other (0.0).</p>
+
+<p>Now watch how different temperatures reshape the probability distribution:</p>
+
+<p><img src="/assets/img/blog/2025/temperature_comparison.png" alt="Temperature Comparison" width="600" height="400" style="max-width: 100%; height: auto;">
+<!-- *How temperature reshapes probability distribution: Low (T=0.2) creates a sharp spike where "cat" dominates at 73%, Medium (T=0.8) balances things out with "cat" at 38%, and High (T=1.5) flattens everything to near-equal probabilities around 20-25%.* --></p>
+
+<p>At <strong>low temperature (0.2)</strong>, the model is highly confident. “Cat” dominates with 73.1%. The distribution is sharp and spiky, like a frozen crystal where particles barely move.</p>
+
+<p>At <strong>medium temperature (0.8)</strong>, things get more balanced. “Cat” drops to 37.8%, “dog” rises to 27.8%, and multiple options get reasonable consideration. It’s like a warm cup of tea: gentle movement, but still structured.</p>
+
+<p>At <strong>high temperature (1.5)</strong>, the distribution becomes nearly flat. “Cat” is only 24.5%, barely ahead of “dog” at 20.2%. The model is willing to take creative risks: pure boiling chaos.</p>
+
+<p><img src="/assets/img/blog/2025/temperature_curve.png" alt="Temperature Evolution" width="600" height="400" style="max-width: 100%; height: auto;">
+<!-- *Continuous evolution of probabilities as temperature increases: watch how the dominant option loses its advantage and all curves converge toward equality.* --></p>
+
+<p>This curve shows the beautiful continuous transition. As temperature rises from 0.1 to 2.0, the top choice gradually loses its dominance while the underdogs gain ground. It’s a perfect visual representation of how thermal energy democratizes possibilities.</p>
+
+<p><img src="/assets/img/blog/2025/temperature_entropy.png" alt="Temperature Entropy" width="600" height="400" style="max-width: 100%; height: auto;">
+<!-- *Entropy (randomness) increases with temperature: from frozen crystal (0.2) to balanced equilibrium (1.0) to boiling chaos (2.0).* --></p>
+
+<p>The entropy curve quantifies what we’ve been seeing: randomness literally increases with temperature. Low temperature means low entropy (the system is predictable). High temperature means high entropy (anything can happen).</p>
+
+<p>It’s just like atoms at different temperatures: <strong>cold</strong> means neatly aligned with minimal movement; <strong>hot</strong> means dancing everywhere with high energy.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Temperature</th>
+      <th>Behavior</th>
+      <th>Analogy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.2</td>
+      <td>Deterministic</td>
+      <td>A frozen crystal</td>
+    </tr>
+    <tr>
+      <td>1.0</td>
+      <td>Balanced</td>
+      <td>Warm cup of tea</td>
+    </tr>
+    <tr>
+      <td>2.0</td>
+      <td>Random</td>
+      <td>Boiling chaos</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="the-universe-loves-balance-and-so-does-ai">The Universe Loves Balance (and So Does AI)</h2>
+
+<p>There’s something poetic about this. At low temperature, the system (or model) seeks equilibrium: it picks what’s most likely, just like atoms resting in their lowest-energy state.</p>
+
+<p>Every time you tweak the temperature knob, you’re not just adjusting a model setting. You’re echoing <strong>Boltzmann’s law of nature</strong>.</p>
+
+<p>The same law that explains:</p>
+
+<ul>
+  <li>Why stars burn</li>
+  <li>Why ice melts</li>
+  <li>And now… why your model sometimes says <strong>“quantum kittens are revolutionizing linguistics”</strong> 🐱⚛️</li>
+</ul>
+
+<hr>
+
+<h2 id="closing-thought">Closing Thought</h2>
+
+<p>So next time you see <strong>“temperature = 0.7”</strong> in a prompt or config file, remember: that’s not just code. That’s the <strong>physics of imagination</strong>.</p>
+
+<p>We’ve been using the math of molecules to make machines dream. And that’s… kind of beautiful, isn’t it?</p>
+
+<hr>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li>Boltzmann, L. (1872). <em>Further Studies on the Thermal Equilibrium of Gas Molecules</em>
+</li>
+  <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep Learning</em>. MIT Press</li>
+  <li>Alammar, J. <a href="https://jalammar.github.io/softmax/" rel="external nofollow noopener" target="_blank"><em>The Illustrated Softmax</em></a>
+</li>
+  <li>Olah, C. <em>Neural Networks, Softmax, and Temperature</em>
+</li>
+</ul>
+
+<hr>
+
+    </div>
+  </article>
+
+  
+
+  
+
+  
+    
+      
+
+  
+    
+    <br>
+    <hr>
+    <br>
+    <ul class="list-disc pl-8"></ul>
+
+    <!-- Adds related posts to the end of an article -->
+    <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
+    <p class="mb-2">Here are some more articles you might like to read next:</p>
+  
+
+  <li class="my-2">
+    
+      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/Beauty-Behind-Attention/">Beauty Behind the Attention Mechanism</a>
+    
+  </li>
+
+  
+
+  <li class="my-2">
+    
+      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/column-family-databases-in-data-warehousing/">Column-Family Databases in Data Warehousing</a>
+    
+  </li>
+
+  
+
+  <li class="my-2">
+    
+      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/graph-data-models-and-biology/">Graph Data Models, AI, and Biology</a>
+    
+  </li>
+
+
+
+    
+  
+
+  
+  
+</div>
+
+      
+    </div>
+
+    <!-- Footer -->
+    
+  <footer class="fixed-bottom" role="contentinfo">
+    <div class="container mt-0">
+      © Copyright 2025
+      Shreyas
+      
+      S. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
+
+      
+      
+    </div>
+  </footer>
+
+
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<!-- Bootsrap & MDB scripts -->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+
+  <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+
+
+
+
+
+
+<!-- Load Common JS -->
+<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+
+<!-- Jupyter Open External Links New Tab -->
+<script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+
+<!-- Badges -->
+
+  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+
+
+  <script async src="https://badge.dimensions.ai/badge.js"></script>
+
+
+
+  <!-- MathJax -->
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+  
+    <script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script>
+    <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+  <!-- Scrolling Progress Bar -->
+  <script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script>
+
+
+
+
+
+
+
+  <!-- Back to Top -->
+  <script src="/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script>
+  <script>
+    addBackToTop();
+  </script>
+
+
+
+  <!-- Search -->
+  <script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script>
+  <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys>
+  <script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script>
+  <script src="/assets/js/search-data.js"></script>
+  <script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script>
+
+
+
+
+  </body>
+</html>
