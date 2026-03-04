@@ -28,6 +28,11 @@ jobs:
           bundler-cache: true
           cache-version: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
@@ -37,10 +42,20 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+      - name: Build React Homepage
+        run: |
+          cd homepage
+          npm install
+          npm run build
+
+      - name: Copy Homepage to _site
+        run: |
+          cp -r homepage/dist/* _site/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './_site'  # your site folder (default is _site)
+          path: './_site'
 
   deploy:
     environment:

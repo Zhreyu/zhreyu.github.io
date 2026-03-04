@@ -8,22 +8,22 @@ categories: [deep-learning]
 ---
 
 <!-- toc -->
-* [1. Introduction](#1-introduction)
-* [2. The Intuition of Attention](#2-the-intuition-of-attention)
-  * [2.1 Why 'Attention' Is Powerful](#21-why-attention-is-powerful)
-  * [2.2 A Simple Example of Attention](#22-a-simple-example-of-attention)
-* [3. The Mechanics of Attention: Q, K, V](#3-the-mechanics-of-attention-q-k-v)
-  * [3.1 Query-Key Matching](#31-query-key-matching)
-  * [3.2 Weighted Summation of Values](#32-weighted-summation-of-values)
-* [4. The Math Behind the Scenes](#4-the-math-behind-the-scenes)
-  * [4.1 The Dot Product](#41-the-dot-product)
-  * [4.2 Scaling Factor and Why It Matters](#42-scaling-factor-frac1sqrtd_k-and-why-it-matters)
-  * [4.3 Softmax for Focused Attention](#43-softmax-for-focused-attention)
-* [5. Multi-Head Attention](#5-multi-head-attention)
-  * [5.1 Splitting into Multiple “Heads”](#51-splitting-into-multiple-heads)
-  * [5.2 Combining Heads for Rich Representations](#52-combining-heads-for-rich-representations)
-* [6. Conclusions](#6-conclusions)
-* [References](#references)
+- [1. Introduction](#1-introduction)
+- [2. The Intuition of Attention](#2-the-intuition-of-attention)
+  - [2.1 Why *Attention* Is Powerful](#21-why-attention-is-powerful)
+  - [2.2 A Simple Example of Attention](#22-a-simple-example-of-attention)
+- [3. The Mechanics of Attention: Q, K, V](#3-the-mechanics-of-attention-q-k-v)
+  - [3.1 Query-Key Matching](#31-query-key-matching)
+  - [3.2 Weighted Summation of Values](#32-weighted-summation-of-values)
+- [4. The Math Behind the Scenes](#4-the-math-behind-the-scenes)
+  - [4.1 The Dot Product](#41-the-dot-product)
+  - [4.2 Scaling Factor $\\frac{1}{\\sqrt{d\_k}}$ and Why It Matters](#42-scaling-factor-frac1sqrtd_k-and-why-it-matters)
+  - [4.3 Softmax for Focused Attention](#43-softmax-for-focused-attention)
+- [5. Multi-Head Attention](#5-multi-head-attention)
+  - [5.1 Splitting into Multiple “Heads”](#51-splitting-into-multiple-heads)
+  - [5.2 Combining Heads for Rich Representations](#52-combining-heads-for-rich-representations)
+- [6. Conclusions](#6-conclusions)
+- [References](#references)
 
 ---
 

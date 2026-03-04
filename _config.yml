@@ -130,7 +130,7 @@ disqus_shortname: al-folio # put your disqus shortname
 navbar_fixed: true
 navbar_content:
   - title: about
-    permalink: /
+    permalink: /about/
   - title: projects
     permalink: /projects/
   - title: blog
@@ -201,6 +201,7 @@ exclude:
   - purgecss.config.js
   - readme_preview/
   - _pages/about_einstein.md
+  - homepage/
 keep_files:
   - CNAME
   - .nojekyll

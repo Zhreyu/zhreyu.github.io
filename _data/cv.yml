@@ -18,6 +18,25 @@
 - title: Experience
   type: time_table
   contents:
+    - title: AI Engineer
+      institution: Puch AI
+      year: JUN'2025 SEP'2025
+      description:
+        - Parallelized speech-to-text (STT) pipeline on H100 GPUs with CUDA streams, cutting median latency by 18% and boosting throughput by 7% at scale.
+        - Reduced text-to-speech (TTS) decoder latency while improving audio quality for end users.
+        - Implemented and migrated Model Context Protocol (MCP) from a single-MCP server setup to support multiple concurrent MCP servers per user, scaling access to millions of Indian users.
+        - Improved multilingual translation for 11 Indic languages with robust language & script detection, strict validation, and safe fallbacks, lowering misclassification errors in live traffic.
+        - Researched and shipped audio generation inside text-to-video workflows - launch post reached 700k+ impressions across LinkedIn and Twitter.
+
+    - title: ML Intern
+      institution: ScoreTravel
+      year: MAR'2025 JUN'2025
+      description:
+        - Developed ML microservices for intelligent data preprocessing and deduplication, implementing text extraction and similarity algorithms to optimize downstream model costs.
+        - Benchmarked image processing libraries and conducted performance analysis to identify optimal solutions for high-throughput data pipelines.
+        - Conducted R&D experiments to determine optimal similarity thresholds and performance baselines, setting up WandB for experiment tracking and model comparison.
+        - Evaluated solution against Vision Language Models (VLMs) through comparative performance analysis to validate approach effectiveness.
+
     - title: Student Researcher
       institution: BMI department of Emory University
       year: SEP'2024 DEC'2024
@@ -47,22 +66,28 @@
         - Developed and designed pipelines for data preparation and testing for a novel anti-spoof detection model by combining 3 datasets totaling over 55GB, utilizing various filters to enhance data quality
         - Deployed the trained model on cloud machine, granting open API access through Flask API, resulting in a 38% reduction in processing time for data analysis tasks
         - Pioneered a data downloading channel in Python that efficiently retrieved and processed over 3000+ videos, reducing data acquisition time by 50%
+        
       
     - title: Student Researcher
       institution: Center of Excellence in AI and Robotics (AIR), VIT Amaravati
-      year: MAR'2023 (Active)
+      year: MAR'2023(Active)
       description:
         - Developed advanced text-based inpainting pipelines, enabling seamless context-aware image modifications using Stable Diffusion.
         - Engineered multi-face clustering solutions with DBScan, optimizing face grouping and identity preservation in complex image datasets.
         - Fine-tuned Stable Diffusion models, enhancing image generation quality, control, and consistency for diverse tasks.
         - Optimized inference pipelines, implementing efficient GPU memory management and accelerated batch processing.
         - Integrated custom embeddings and LoRA fine-tuning, allowing for style adaptation and domain-specific image synthesis.
-        - Implemented a novel multi-res OCR method to localize text from complex vector diagrams.
+        - Developed SOTA ocr pipeline to extract artefacts from mechanical drawings
 
-    - title: ML Infra/ Backend (Active)
-      institution: Stealth Startups
-      year: NOV'2024 - Present
-      
+    - title: Deep Learning and Data Pipelining Intern
+      institution: DUBSYNC.AI
+      year: MAR'2023 JUN'2023
+      description:
+        - Automated video trimming pipeline using a modified PyTube, eliminating manual effort.
+        - Stored processed videos directly in Google Drive with a fallback mechanism for failed files.
+        - Built an image extraction pipeline using S3FD to generate datasets from videos.
+        - Enhanced CodeFormer architecture, upgrading from ESRGAN 2x to ESRGAN 4x for improved image quality.
+
 - title: Projects
   type: time_table
   contents:
@@ -97,7 +122,8 @@
   contents:
     - year: 2025
       items: 
-        - Academic Rank 8th in the Department of Computer Science and Engineering after 5 semesters.
+        - Academic Rank 7th in the Department of Computer Science and Engineering after 5 semesters.
+        - Finished as Finalist in Adobe India Hackathon 2025 (Top 7 out of 260k participants). 
     - year: 2024
       items:
         - First and one of the only two students selected for Google Summer of Code (GSoC) from VIT Amaravati

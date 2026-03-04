@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap');
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --fg: #f0ede6;
+  --accent: #c8b89a;
+}
+
+[data-theme="swiss"] {
+  --bg: #ffffff;
+  --fg: #000000;
+  --accent: #a7f3d0; /* Mint green */
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.swiss-highlight {
+  position: relative;
+  z-index: 1;
+}
+
+.swiss-highlight::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  bottom: 10%;
+  width: 110%;
+  height: 60%;
+  background-color: var(--accent);
+  z-index: -1;
+  transform: skewX(-15deg);
+}
+

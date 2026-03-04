@@ -1,16 +1,15 @@
 ---
 layout: page
 title: Anime Studio
-description: A web application that allows users to create Anime style edits.
+description: Bringing Studio Ghibli-Style Art to Everyone
 # img: 
 importance: 8
 category: work
 ---
 
-# Anime Style Studio: Bringing Studio Ghibli-Style Art to Everyone
 
 ## Project Overview
-I can't believe how quickly Studio Ghibli style images took over social media after ChatGPT's image generation release! I noticed most people couldn't access these features without premium subscriptions, so I built Anime Studio—a web app that makes high-quality anime-style image generation available to everyone.
+When Studio Ghibli style images started trending across social media following ChatGPT's image generation capabilities, I realized there was an opportunity to create an accessible alternative for users without premium subscriptions. I developed Anime Studio, a web application that democratizes high-quality anime-style image generation.
 
 ## Technical Implementation
 

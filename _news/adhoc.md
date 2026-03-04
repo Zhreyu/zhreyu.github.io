@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Adhoc hits reaches 7,000+ downloads on Pypi!! 🎉
+Adhoc hits 7,000+ downloads on Pypi!! 🎉

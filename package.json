@@ -1,6 +1,14 @@
 {
+  "scripts": {
+    "build:jekyll": "bundle exec jekyll build",
+    "build:homepage": "cd homepage && npm install && npm run build",
+    "build": "npm run build:jekyll && npm run build:homepage && cp -r homepage/dist/* _site/",
+    "deploy": "npm run build && gh-pages -d _site --dotfiles",
+    "deploy:only": "gh-pages -d _site --dotfiles"
+  },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "1.4.0",
+    "gh-pages": "^6.3.0",
     "prettier": "3.1.1"
   }
 }
