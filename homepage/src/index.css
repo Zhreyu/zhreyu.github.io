@@ -10,12 +10,16 @@
   --bg: #0a0a0a;
   --fg: #f0ede6;
   --accent: #c8b89a;
+  --work-btn: #e85d04;
+  --work-btn-hover: #f97316;
 }
 
 [data-theme="swiss"] {
   --bg: #ffffff;
   --fg: #000000;
-  --accent: #a7f3d0; /* Mint green */
+  --accent: #8a9a7b;
+  --work-btn: #8338ec;
+  --work-btn-hover: #9f5afd;
 }
 
 body {
@@ -39,5 +43,25 @@ body {
   background-color: var(--accent);
   z-index: -1;
   transform: skewX(-15deg);
+}
+
+/* Shimmer animation for "Open to opportunities" */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #3a3530 0%,
+    #5a554a 50%,
+    #3a3530 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
 }
 
