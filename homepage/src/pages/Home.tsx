@@ -3,11 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Linkedin, FileText, Briefcase } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import TermPopover from '../components/TermPopover';
+import FunFactPopover from '../components/FunFactPopover';
+import { useGitHubStats, formatLOC } from '../hooks/useGitHubStats';
 
 export default function Home() {
-  const { isSwiss, toggleAesthetic } = useTheme();
+  const { isSwiss, isTransitioning, toggleAesthetic } = useTheme();
+  const githubStats = useGitHubStats();
 
   return (
+    <div className={`lens-shift-content min-h-screen flex flex-col ${isTransitioning ? 'transitioning' : ''}`}>
     <AnimatePresence mode="wait">
       {!isSwiss ? (
         <motion.main
@@ -24,7 +28,7 @@ export default function Home() {
                 Shreyas{' '}
                 <span
                   onClick={toggleAesthetic}
-                  className="italic font-normal text-[#c8b89a] cursor-pointer hover:drop-shadow-[0_0_20px_rgba(200,184,154,0.5)] transition-all"
+                  className="italic font-normal text-[#c8b89a] cursor-crosshair hover:tracking-wide hover:text-[#f0ede6] transition-all duration-300"
                 >
                   S.
                 </span>
@@ -42,7 +46,7 @@ export default function Home() {
               <TermPopover term="Diffusion Models" description="AI models that generate images by learning to reverse a noise process, used in tools like Stable Diffusion and DALL-E.">
                 diffusion models
               </TermPopover>{' '}
-              at 2 AM for viral trends, and shipped because waiting felt slower than moving. I apply for roles I half-qualify for and build until I do. I don't have a five-year plan I just pick the most interesting problem in the room and move toward it. <strong className="text-[#f0ede6] font-normal">So far, it's working.</strong>
+              at 2 AM for viral trends, and shipped because waiting felt slower than moving. I apply for roles I half-qualify for and build until I do. I don't have a five-year plan — I just pick the most interesting problem in the room and move toward it. <strong className="text-[#f0ede6] font-normal">So far, it's working.</strong>
             </p>
 
             <nav className="flex flex-wrap gap-2 items-center">
@@ -69,9 +73,16 @@ export default function Home() {
           <footer className="py-8 flex justify-between items-center border-t border-white/5">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] uppercase tracking-widest shimmer-text">Open to opportunities</span>
+              <span className="text-[10px] uppercase tracking-widest text-[#6b6358]">Open to opportunities</span>
             </div>
-            <span className="text-[10px] uppercase tracking-widest text-[#3a3530] opacity-40">click the S.</span>
+            <div className="flex items-center gap-6">
+              <span className="text-[10px] font-mono text-[#3a3530]/60 tabular-nums">
+                12.9716° N, 77.5946° E
+              </span>
+              <span className="text-[10px] uppercase tracking-widest text-[#3a3530]/40">
+                Updated May 2025
+              </span>
+            </div>
           </footer>
         </motion.main>
       ) : (
@@ -86,6 +97,11 @@ export default function Home() {
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
                style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
+          {/* Mode label */}
+          <div className="absolute top-10 left-10 text-xs font-mono text-gray-400 tracking-wider">
+            casual mode
+          </div>
+
           <div className="absolute top-10 right-10 text-2xl font-light cursor-pointer" onClick={toggleAesthetic}>+</div>
 
           <div className="h-full flex flex-col justify-end p-12 md:p-24 max-w-6xl mx-auto">
@@ -98,13 +114,23 @@ export default function Home() {
             </div>
 
             <div className="max-w-md">
-              <p className="font-sans text-lg md:text-xl text-gray-600 leading-snug mb-8">
+              <p className="font-sans text-lg md:text-xl text-gray-600 leading-snug mb-6">
                 Jack of all trades and master of <strong>GETTING STUFF DONE.</strong>
                 <br /><br />
-                STUDENT · RESEARCHER · BUILDER · ENGINEER · GENERALIST · POLYGLOT · <span className="line-through opacity-50">POLYMATH</span> not yet
-                <br /><br />
-                Feel free to reach out :))
+                STUDENT · RESEARCHER · BUILDER · ENGINEER · GENERALIST · POLYGLOT
               </p>
+
+              {/* Fun facts - casual mode easter egg */}
+              <div className="mb-8 text-sm text-gray-400 font-mono space-y-1">
+                <p>— <FunFactPopover content={`${formatLOC(githubStats.python)} lines across ${githubStats.totalRepos} repos`}>{formatLOC(githubStats.python)}</FunFactPopover> lines of python shipped</p>
+                <p>— <FunFactPopover content={`${formatLOC(githubStats.typescript)} lines · react, next.js, trpc`}>{formatLOC(githubStats.typescript)}</FunFactPopover> lines of typescript shipped</p>
+                <p>— <FunFactPopover content={`${formatLOC(githubStats.cuda)} lines · kernels, attention, cuda streams`}>{formatLOC(githubStats.cuda)}</FunFactPopover> lines of cuda shipped</p>
+                <p>— speaks <FunFactPopover content="telugu · kannada · english · hindi · tamil · malayalam · spanish">6 languages</FunFactPopover> (7 on a good day)</p>
+                <p>— <FunFactPopover image="/apex-stats.png">apex legends india top 50</FunFactPopover> · season 6</p>
+                <p>— <FunFactPopover content="2x2 · 3x3 · 4x4 · mirror cube · pb: 39s">solves rubik's cubes</FunFactPopover> · pb 39s</p>
+                <p>— chess.com bullet peak: 1500</p>
+                <p>— makes beats, guitar, keyboard</p>
+              </div>
 
               <footer className="flex items-center gap-4 text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] text-gray-400">
                 <Link to="/work" className="hover:text-black transition-colors">work</Link>
@@ -120,5 +146,6 @@ export default function Home() {
         </motion.main>
       )}
     </AnimatePresence>
+    </div>
   );
 }

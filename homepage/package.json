@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
+    "build:stats": "bash scripts/fetch-github-stats.sh && vite build",
+    "fetch-stats": "bash scripts/fetch-github-stats.sh",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"

@@ -65,3 +65,23 @@ body {
   animation: shimmer 3s ease-in-out infinite;
 }
 
+/* Lens shift transition for theme switching */
+.lens-shift-content {
+  transition: filter 300ms ease-out, transform 300ms ease-out;
+}
+
+.lens-shift-content.transitioning {
+  filter: blur(8px);
+  transform: translateY(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lens-shift-content {
+    transition: none;
+  }
+  .lens-shift-content.transitioning {
+    filter: none;
+    transform: none;
+  }
+}
+
