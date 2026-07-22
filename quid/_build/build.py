@@ -645,7 +645,7 @@ def build_hub() -> None:
     <a class="card" href="./assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">
       <div class="card-label">Paper</div>
       <div class="card-title">Draft PDF</div>
-      <div class="card-body">Working draft only - formal preprint coming soon.</div>
+      <div class="card-body">Full working draft: BEIR results, anchoring analysis, and Month 4 agentic router pilots. Preprint coming soon.</div>
     </a>
     <a class="card" href="https://github.com/Zhreyu/quid" target="_blank" rel="noreferrer">
       <div class="card-label">Code</div>
