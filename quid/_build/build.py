@@ -209,7 +209,6 @@ def shell(title: str, body: str, depth: int = 0, active: str = "") -> str:
   <nav class="site-nav-links">
     <a href="{prefix}" class="{'active' if active=='hub' else ''}">Overview</a>
     <a href="{prefix}thesis/" class="{'active' if active=='thesis' else ''}">Thesis</a>
-    <a href="{prefix}pitch/" class="{'active' if active=='pitch' else ''}">Pitch</a>
     <a href="{prefix}weeks/" class="{'active' if active=='weeks' else ''}">Weeks</a>
     <a href="{prefix}assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
   </nav>
@@ -613,42 +612,6 @@ def build_thesis() -> None:
     print("wrote thesis/")
 
 
-def build_pitch() -> None:
-    md = clean_text((REPORTS / "review2_pitch.md").read_text(encoding="utf-8"))
-    prose = md_to_html(md)
-    body = f"""
-<main class="wrap">
-  <p class="kicker">QUID · Review pitch · Work in progress</p>
-  <h1 class="hero-title">Talk script<br><span>8-10 minutes</span></h1>
-  <p class="lede">
-    Panel narrative covering Months 1-3 (QUID + semantic anchoring) and the Month 4 bet:
-    an agentic query router that treats expansion as a tool. Preprint coming soon.
-  </p>
-  <div class="status-row">
-    <span class="chip accent">Review talk</span>
-    <span class="chip">Month 4 still ahead</span>
-    <span class="chip win">Preprint coming soon</span>
-  </div>
-  {team_html()}
-  <div class="section">
-    <div class="sec-eye">Diagram</div>
-    <h2 class="sec-title">Agentic tool loop (design target)</h2>
-    <div class="sec-rule"></div>
-    <div class="mermaid-wrap"><div class="mermaid">{AGENT_MERMAID}</div></div>
-  </div>
-  <article class="prose">{prose}</article>
-  <p class="footer-note">Guidance: {esc(ADVISOR)} · Code: <a href="https://github.com/Zhreyu/quid">Zhreyu/quid</a></p>
-</main>
-"""
-    out = OUT / "pitch"
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "index.html").write_text(
-        shell("QUID · Pitch", body, depth=1, active="pitch"),
-        encoding="utf-8",
-    )
-    print("wrote pitch/")
-
-
 def build_hub() -> None:
     body = f"""
 <main class="wrap wrap-wide">
@@ -673,11 +636,6 @@ def build_hub() -> None:
       <div class="card-label">Thesis</div>
       <div class="card-title">Written report</div>
       <div class="card-body">Core QUID method, BEIR results, anchoring analysis, and the Month 4 agentic roadmap.</div>
-    </a>
-    <a class="card" href="./pitch/">
-      <div class="card-label">Pitch</div>
-      <div class="card-title">Review talk</div>
-      <div class="card-body">How we tell the story so far - and what we are building next.</div>
     </a>
     <a class="card" href="./weeks/">
       <div class="card-label">Weeks</div>
@@ -776,7 +734,6 @@ def maybe_link_projects() -> None:
 def main() -> None:
     build_hub()
     build_thesis()
-    build_pitch()
     build_weeks_index()
     for n in range(1, 15):
         build_week(n)
