@@ -24,15 +24,16 @@
 
 
 <main class="wrap">
-  <p class="kicker">QUID · Capstone thesis</p>
+  <p class="kicker">QUID · Capstone thesis · Work in progress</p>
   <h1 class="hero-title">Diffusion expansion<br><span>with semantic anchoring</span></h1>
   <p class="lede">
-    Full written thesis for QUID - Queries Unmasked by Iterative Diffusion - including
-    methodology, BEIR results, ablations, and the post-Review 1 agentic controller.
+    Written thesis for QUID: Queries Unmasked by Iterative Diffusion - methodology, BEIR results,
+    anchoring analysis, and the Month 4 agentic router roadmap. Formal preprint coming soon.
   </p>
   <div class="status-row">
     <span class="chip accent">Month 4 in progress</span>
     <span class="chip win">Preprint coming soon</span>
+    <span class="chip">github.com/Zhreyu/quid</span>
     <span class="chip">VIT-AP · DSE</span>
   </div>
   
@@ -79,10 +80,10 @@
 </div></div>
 </div>
 <div class="section">
-  <div class="sec-eye">Agentic extension</div>
-  <h2 class="sec-title">Observe → decide → act → critique</h2>
+  <div class="sec-eye">Month 4 · in progress</div>
+  <h2 class="sec-title">Agentic expansion &amp; query router (roadmap)</h2>
   <div class="sec-rule"></div>
-  <p class="explain">Because QUID is domain-dependent, an agent chooses among vanilla, QUID, and HyDE, then retries when unsupervised confidence is weak.</p>
+  <p class="explain">Because QUID is domain-dependent, we are now building an agent that treats expansion methods as tools and decides when to call them. This layer is active research - not a finished claim.</p>
   <div class="mermaid-wrap"><div class="mermaid">flowchart TD
   Q[Query] --> F[Observe features + confidence]
   F --> P{Plan tool}
@@ -97,6 +98,16 @@
   C -->|Weak| T[Retry other tool]
   T --> R
 </div></div>
+  <div class="prose">
+    <h3>What we are trying next</h3>
+    <ul>
+      <li><strong>Tool set:</strong> vanilla (skip), QUID (masked diffusion), HyDE-style expand, critique, optional retry.</li>
+      <li><strong>Routing signals:</strong> length, domain cues, question form, unsupervised retrieval confidence.</li>
+      <li><strong>Evaluation plan:</strong> compare always-expand vs selective routing on the same BEIR slices; measure when critique/retry helps.</li>
+      <li><strong>Early signal (pilot only):</strong> blind always-expand looks brittle on science-claim queries; selective tool use looks more stable. Larger runs are still in progress.</li>
+      <li><strong>Deliverables this month:</strong> stronger router draft, expanded experiments, preprint polish.</li>
+    </ul>
+  </div>
 </div>
 
   <article class="prose">
@@ -104,7 +115,7 @@
 <h2>QUID: Diffusion-Based Query Expansion for Dense Information Retrieval</h2>
 <p><strong>Student:</strong> Shreyas S </p>
 <p><strong>Duration:</strong> 3 Months (12 Weeks) </p>
-<p><strong>Timeline:</strong> Months 1-3 complete · Month 4 in progress · Preprint coming soon</p>
+<p><strong>Completion Date:</strong> Month 3</p>
 <h2>Abstract</h2>
 <p>Dense retrieval systems suffer from a fundamental vocabulary mismatch: user queries are short and underspecified while relevant documents use domain-specific terminology. Current approaches like HyDE use autoregressive LLMs to generate hypothetical documents, but these models may hallucinate facts not present in the corpus. This project introduces QUID (Queries Unmasked by Iterative Diffusion), which frames query expansion as a denoising problem using masked text diffusion.</p>
 <p>We evaluated QUID across four BEIR benchmark datasets and found <strong>domain-dependent effectiveness</strong>: QUID improves nDCG@10 by <strong>8.5% on medical</strong> (NFCorpus) and <strong>7.9% on financial</strong> (FiQA) queries while performing neutrally on general scientific text (SciFact -1.2%). Analysis reveals that QUID generates higher vocabulary overlap with relevant documents while maintaining lower semantic drift than autoregressive methods.</p>
@@ -268,31 +279,32 @@ Output: expanded query q&#x27;
 <li><strong>Knowledge gap</strong> is the bottleneck → Use HyDE</li>
 </ul>
 <p>Blind always-expand is suboptimal. An <strong>agentic query router</strong> that chooses <code>{vanilla, quid, hyde}</code> per query recovers failures from always-QUID and can beat vanilla on science-claim retrieval.</p>
-<h3>9.2 Agentic Extension (Post Review 1)</h3>
-<p>Review 1 feedback asked for an agentic AI angle. We added an observe → decide → act controller on top of QUID:</p>
-<pre><code>Query → features + retrieval confidence → route ∈ {vanilla, quid, hyde} → retrieve</code></pre>
-<p><strong>Tools:</strong> skip expansion (vanilla), LLaDA masked-diffusion expansion (QUID), hypothetical-document expansion (HyDE-style).</p>
-<p><strong>Benchmark</strong> (Modal L4, 50 queries/dataset, 16 diffusion steps, LLaDA-backed HyDE):</p>
+<h3>9.2 Agentic query router (Month 4 - in progress)</h3>
+<p>Review feedback asked for an agentic AI angle. We are now designing and piloting an observe → decide → act controller on top of QUID:</p>
+<pre><code>Query → features + retrieval confidence → route ∈ {vanilla, quid, hyde} → retrieve
+ (+ critique / optional retry - design target)</code></pre>
+<p><strong>Tools (design set):</strong> skip expansion (vanilla), LLaDA masked-diffusion expansion (QUID), hypothetical-document expansion (HyDE-style).</p>
+<p><strong>Early pilots</strong> (Modal L4, 50 queries/dataset, 16 diffusion steps, LLaDA-backed HyDE - not final claims):</p>
 <table>
 <thead><tr><th>Dataset</th><th>always_vanilla</th><th>always_QUID</th><th>single-shot agent</th><th><strong>multi-step (tool calls)</strong></th><th>oracle</th></tr></thead>
 <tbody>
 <tr><td>NFCorpus</td><td>0.3305</td><td>0.2704</td><td>0.3053</td><td><strong>0.3053</strong></td><td>0.3577</td></tr>
 <tr><td>SciFact</td><td>0.6299</td><td>0.5999</td><td>0.6280</td><td><strong>0.6625</strong></td><td>0.7004</td></tr>
 </tbody></table>
-<p><strong>Key findings:</strong></p>
+<p><strong>Early pilot signals (not final):</strong></p>
 <ol>
-<li><strong>SciFact (main agentic proof):</strong> multi-step agent <strong>+3.3%</strong> nDCG@10 vs vanilla; <strong>+6.3%</strong> vs always-QUID; <strong>+3.5%</strong> vs single-shot routing. Retries that fire improve nDCG <strong>67%</strong> of the time.</li>
-<li><strong>NFCorpus:</strong> agentic routing recovers vs blind QUID (<strong>0.305</strong> vs <strong>0.270</strong>); critique/retry does not hurt. Oracle still shows headroom (+2.7%).</li>
-<li>This is <strong>not prompt expansion alone</strong> - the agent calls tools (<code>expand</code> → <code>critique</code> → optional <code>retry</code>) and stops when retrieval confidence is OK.</li>
+<li><strong>SciFact:</strong> selective multi-step tool use looks more stable than always-QUID in this pilot; confirmation on larger splits is next.</li>
+<li><strong>NFCorpus:</strong> agentic routing recovers vs blind QUID on this slice; oracle still shows headroom.</li>
+<li>The intended design is not prompt expansion alone: the agent should call tools (<code>expand</code> → <code>critique</code> → optional <code>retry</code>) and stop when retrieval confidence looks OK. Larger runs are still underway.</li>
 </ol>
-<p>Tool-call stats (SciFact): avg <strong>1.06</strong> expand calls/query; retry rate 6%; multi vs oracle accuracy <strong>74%</strong>.</p>
-<h3>9.3 Future Work</h3>
+<h3>9.3 What we will do next</h3>
 <ol>
-<li>Learned router (train on oracle labels from full BEIR splits)</li>
+<li>Scale pilots to fuller BEIR splits; freeze numbers only after confirmation</li>
+<li>Learned router (train toward oracle labels)</li>
 <li>Stronger HyDE backend (GPT when quota available) vs LLaDA document prompt</li>
-<li>Model distillation for latency</li>
-<li>Multilingual extension</li>
-<li>Domain-specific fine-tuning</li>
+<li>Critique/retry budget as an explicit tool argument</li>
+<li>Preprint polish (coming soon)</li>
+<li>Model distillation for latency; multilingual / domain fine-tuning as follow-ons</li>
 </ol>
 <h2>10. References</h2>
 <p>Austin, J., et al. (2021). Structured denoising diffusion models in discrete state-spaces. <em>NeurIPS</em>.</p>
@@ -343,11 +355,13 @@ Output: expanded query q&#x27;
 </tbody></table>
 <p><strong>End of Final Report</strong></p>
 <p><em>Submitted in partial fulfillment of the Capstone Project requirements.</em></p>
-<p><strong>Project Duration:</strong> 3 Months + agentic extension + Month 4 in progress | <strong>Status:</strong> Capstone ongoing · Preprint coming soon</p>
+<p><strong>Project Duration:</strong> Months 1-3 complete · Month 4 in progress | <strong>Status:</strong> Capstone ongoing · Preprint coming soon </p>
+<p><strong>Code:</strong> https://github.com/Zhreyu/quid</p>
   </article>
   <p class="footer-note">
     Draft paper PDF: <a href="../assets/quid-paper-draft.pdf">quid-paper-draft.pdf</a>
-    (working draft - not a published preprint). Capstone continues under Dr. G. Muneeswari, Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+    (working draft - not a published preprint). Code: <a href="https://github.com/Zhreyu/quid">Zhreyu/quid</a>.
+    Capstone continues under Dr. G. Muneeswari, Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
   </p>
 </main>
 

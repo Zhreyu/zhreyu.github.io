@@ -37,8 +37,8 @@ WEEK_META = {
     10: ("Feedback Incorporated", "Month 3 · Week 2 of 12", "Polish"),
     11: ("Code Release & Presentation", "Month 3 · Week 3 of 12", "Polish"),
     12: ("Capstone Handoff", "Month 3 · Week 4 of 12", "Polish"),
-    13: ("Agentic Extension", "Post Review 1 · Extension", "Agentic"),
-    14: ("Agentic Benchmarks & Review 2", "Review 2 Prep · Extension", "Agentic"),
+    13: ("Agentic Router (in progress)", "Month 4 · Now", "Roadmap"),
+    14: ("Router Pilots & Next Steps", "Month 4 · Now", "Roadmap"),
 }
 
 
@@ -46,6 +46,8 @@ WEEK_META = {
 def clean_text(s: str) -> str:
     """Normalize dashes and strip lab branding from source markdown."""
     s = s.replace("Iksha Lab", "").replace("Iksha", "")
+    s = s.replace("iksha-ai/quid", "Zhreyu/quid")
+    s = s.replace("https://github.com/iksha-ai/quid", "https://github.com/Zhreyu/quid")
     s = s.replace("—", " - ").replace("–", "-")
     s = re.sub(r"[ \t]{2,}", " ", s)
     return s
@@ -299,9 +301,10 @@ def expand_context(week_num: int, title: str) -> str:
             "and presentation readiness - while locking the core thesis for Review 2."
         ),
         range(13, 15): (
-            "This is an extension beyond the original 12-week plan, responding to Review 1: "
-            "an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. "
-            "The capstone still has one month remaining; a preprint is forthcoming."
+            "Month 4 focus: we are designing and trying an agentic query router on top of QUID. "
+            "The goal is not to replace diffusion expansion, but to learn when to call it, "
+            "when to try HyDE-style expansion, and when to leave the query alone. "
+            "Early pilots are underway; the preprint is still forthcoming."
         ),
     }
     for r, text in arcs.items():
@@ -317,9 +320,9 @@ def build_week(week_num: int) -> None:
     short, when, phase = WEEK_META[week_num]
     context = expand_context(week_num, short)
     status = (
-        "Capstone in progress · Month 4 remaining · Preprint coming soon"
+        "Work in progress · Month 4 · Agentic router under exploration · Preprint coming soon"
         if week_num >= 13
-        else "Official 12-week arc · Capstone ongoing"
+        else "Official 12-week arc · Capstone ongoing · Preprint coming soon"
     )
 
     obj_html = md_to_html(data["objectives"] or "- Objectives recorded in source notes.")
@@ -476,14 +479,14 @@ def build_weeks_index() -> None:
   <p class="kicker">QUID · Weekly reports</p>
   <h1 class="hero-title">Fourteen weeks<br><span>of evidence</span></h1>
   <p class="lede">
-    Detailed weekly logs (≥5 pages each) covering foundation, science, polish, and the
-    post-Review 1 agentic extension. The official 12-week arc is documented; Weeks 13-14
-    add the agentic controller. Capstone Month 4 is still underway - preprint coming soon.
+    Detailed weekly logs (≥5 pages each) covering foundation, science, and polish across
+    Months 1-3. Weeks 13-14 capture the current Month 4 roadmap: an agentic query router
+    we are designing and piloting now. Capstone is still in progress - preprint coming soon.
   </p>
   <div class="status-row">
     <span class="chip accent">Weeks 1-12 · core thesis</span>
-    <span class="chip">Weeks 13-14 · agentic extension</span>
-    <span class="chip win">Month 4 in progress</span>
+    <span class="chip">Weeks 13-14 · Month 4 roadmap</span>
+    <span class="chip win">Work in progress</span>
   </div>
   <div class="week-list">{''.join(items)}</div>
   {team_html()}
@@ -535,18 +538,10 @@ ANCHOR_MERMAID = """flowchart LR
 
 
 def build_thesis() -> None:
-    md = clean_text((REPORTS / "final_report.md").read_text(encoding="utf-8"))
+    md = (REPORTS / "final_report.md").read_text(encoding="utf-8")
     # Drop TOC for cleaner web page; keep body from Abstract onward
     md_body = re.sub(r"## Table of Contents[\s\S]*?(?=## Abstract|## 1\.)", "", md, count=1)
-    # Soften COMPLETE status for Month 4 remaining
-    md_body = md_body.replace(
-        "**Project Duration:** 3 Months + agentic extension | **Status:** COMPLETE ✅ (Review 2 agentic angle added)",
-        "**Project Duration:** 3 Months + agentic extension + Month 4 in progress | **Status:** Capstone ongoing · Preprint coming soon",
-    )
-    md_body = md_body.replace(
-        "**Completion Date:** Month 3",
-        "**Timeline:** Months 1-3 complete · Month 4 in progress · Preprint coming soon",
-    )
+    md_body = clean_text(md_body)
     prose = md_to_html(md_body)
 
     diagrams = f"""
@@ -565,25 +560,36 @@ def build_thesis() -> None:
   <div class="mermaid-wrap"><div class="mermaid">{ANCHOR_MERMAID}</div></div>
 </div>
 <div class="section">
-  <div class="sec-eye">Agentic extension</div>
-  <h2 class="sec-title">Observe → decide → act → critique</h2>
+  <div class="sec-eye">Month 4 · in progress</div>
+  <h2 class="sec-title">Agentic expansion &amp; query router (roadmap)</h2>
   <div class="sec-rule"></div>
-  <p class="explain">Because QUID is domain-dependent, an agent chooses among vanilla, QUID, and HyDE, then retries when unsupervised confidence is weak.</p>
+  <p class="explain">Because QUID is domain-dependent, we are now building an agent that treats expansion methods as tools and decides when to call them. This layer is active research - not a finished claim.</p>
   <div class="mermaid-wrap"><div class="mermaid">{AGENT_MERMAID}</div></div>
+  <div class="prose">
+    <h3>What we are trying next</h3>
+    <ul>
+      <li><strong>Tool set:</strong> vanilla (skip), QUID (masked diffusion), HyDE-style expand, critique, optional retry.</li>
+      <li><strong>Routing signals:</strong> length, domain cues, question form, unsupervised retrieval confidence.</li>
+      <li><strong>Evaluation plan:</strong> compare always-expand vs selective routing on the same BEIR slices; measure when critique/retry helps.</li>
+      <li><strong>Early signal (pilot only):</strong> blind always-expand looks brittle on science-claim queries; selective tool use looks more stable. Larger runs are still in progress.</li>
+      <li><strong>Deliverables this month:</strong> stronger router draft, expanded experiments, preprint polish.</li>
+    </ul>
+  </div>
 </div>
 """
 
     body = f"""
 <main class="wrap">
-  <p class="kicker">QUID · Capstone thesis</p>
+  <p class="kicker">QUID · Capstone thesis · Work in progress</p>
   <h1 class="hero-title">Diffusion expansion<br><span>with semantic anchoring</span></h1>
   <p class="lede">
-    Full written thesis for QUID - Queries Unmasked by Iterative Diffusion - including
-    methodology, BEIR results, ablations, and the post-Review 1 agentic controller.
+    Written thesis for QUID: Queries Unmasked by Iterative Diffusion - methodology, BEIR results,
+    anchoring analysis, and the Month 4 agentic router roadmap. Formal preprint coming soon.
   </p>
   <div class="status-row">
     <span class="chip accent">Month 4 in progress</span>
     <span class="chip win">Preprint coming soon</span>
+    <span class="chip">github.com/Zhreyu/quid</span>
     <span class="chip">VIT-AP · DSE</span>
   </div>
   {team_html()}
@@ -593,7 +599,8 @@ def build_thesis() -> None:
   </article>
   <p class="footer-note">
     Draft paper PDF: <a href="../assets/quid-paper-draft.pdf">quid-paper-draft.pdf</a>
-    (working draft - not a published preprint). Capstone continues under {esc(ADVISOR)}.
+    (working draft - not a published preprint). Code: <a href="https://github.com/Zhreyu/quid">Zhreyu/quid</a>.
+    Capstone continues under {esc(ADVISOR)}.
   </p>
 </main>
 """
@@ -611,26 +618,26 @@ def build_pitch() -> None:
     prose = md_to_html(md)
     body = f"""
 <main class="wrap">
-  <p class="kicker">QUID · Review 2 pitch</p>
+  <p class="kicker">QUID · Review pitch · Work in progress</p>
   <h1 class="hero-title">Talk script<br><span>8-10 minutes</span></h1>
   <p class="lede">
-    Panel pitch covering Months 1-3, the agentic extension, and the key claim:
-    tool calls improve retrieval - diffusion is the tool; agency is when to use it.
+    Panel narrative covering Months 1-3 (QUID + semantic anchoring) and the Month 4 bet:
+    an agentic query router that treats expansion as a tool. Preprint coming soon.
   </p>
   <div class="status-row">
-    <span class="chip accent">Review 2</span>
+    <span class="chip accent">Review talk</span>
     <span class="chip">Month 4 still ahead</span>
     <span class="chip win">Preprint coming soon</span>
   </div>
   {team_html()}
   <div class="section">
     <div class="sec-eye">Diagram</div>
-    <h2 class="sec-title">Agentic tool loop</h2>
+    <h2 class="sec-title">Agentic tool loop (design target)</h2>
     <div class="sec-rule"></div>
     <div class="mermaid-wrap"><div class="mermaid">{AGENT_MERMAID}</div></div>
   </div>
   <article class="prose">{prose}</article>
-  <p class="footer-note">Guidance: {esc(ADVISOR)}</p>
+  <p class="footer-note">Guidance: {esc(ADVISOR)} · Code: <a href="https://github.com/Zhreyu/quid">Zhreyu/quid</a></p>
 </main>
 """
     out = OUT / "pitch"
@@ -645,39 +652,47 @@ def build_pitch() -> None:
 def build_hub() -> None:
     body = f"""
 <main class="wrap wrap-wide">
-  <p class="kicker">VIT-AP Capstone</p>
+  <p class="kicker">VIT-AP Capstone · Work in progress</p>
   <h1 class="hero-title">QUID<br><span>Queries Unmasked by Iterative Diffusion</span></h1>
   <p class="lede">
     Dense retrieval fails when short queries miss domain vocabulary. QUID expands queries with
-    masked text diffusion (LLaDA) so expansions stay semantically anchored - then an agent
-    decides whether to call QUID, HyDE, or vanilla per query.
+    masked text diffusion (LLaDA) so expansions stay semantically anchored. Months 1-3 established
+    the core method and BEIR evidence. Month 4 is underway: we are now exploring an
+    <strong style="color:var(--text)">agentic query router</strong> that chooses when expansion
+    should fire - and which tool to call.
   </p>
   <div class="status-row">
     <span class="chip accent">Month 4 in progress</span>
     <span class="chip win">Preprint coming soon</span>
+    <span class="chip">Code: github.com/Zhreyu/quid</span>
     <span class="chip">Capstone under Dr. G. Muneeswari</span>
   </div>
 
   <div class="card-grid">
     <a class="card" href="./thesis/">
       <div class="card-label">Thesis</div>
-      <div class="card-title">Full written report</div>
-      <div class="card-body">Methodology, BEIR results, anchoring analysis, agentic extension, limitations.</div>
+      <div class="card-title">Written report</div>
+      <div class="card-body">Core QUID method, BEIR results, anchoring analysis, and the Month 4 agentic roadmap.</div>
     </a>
     <a class="card" href="./pitch/">
       <div class="card-label">Pitch</div>
-      <div class="card-title">Review 2 talk</div>
-      <div class="card-body">8-10 minute script with the tool-call accuracy story.</div>
+      <div class="card-title">Review talk</div>
+      <div class="card-body">How we tell the story so far - and what we are building next.</div>
     </a>
     <a class="card" href="./weeks/">
       <div class="card-label">Weeks</div>
       <div class="card-title">14 detailed logs</div>
-      <div class="card-body">Five-page weekly reports from foundation through agentic benchmarks.</div>
+      <div class="card-body">Five-page weekly reports from foundation through the current router pilots.</div>
     </a>
     <a class="card" href="./assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">
       <div class="card-label">Paper</div>
       <div class="card-title">Draft PDF</div>
       <div class="card-body">Working draft only - formal preprint coming soon.</div>
+    </a>
+    <a class="card" href="https://github.com/Zhreyu/quid" target="_blank" rel="noreferrer">
+      <div class="card-label">Code</div>
+      <div class="card-title">Zhreyu/quid</div>
+      <div class="card-body">Public repository for the ongoing implementation.</div>
     </a>
   </div>
 
@@ -689,22 +704,51 @@ def build_hub() -> None:
   </div>
 
   <div class="section">
-    <div class="sec-eye">Agency</div>
-    <h2 class="sec-title">When to expand</h2>
+    <div class="sec-eye">Month 4 · now</div>
+    <h2 class="sec-title">Agentic AI expansion &amp; query router</h2>
     <div class="sec-rule"></div>
     <p class="explain">
-      Blind always-QUID can hurt on science-claim retrieval. The multi-step agent calls tools,
-      critiques confidence without labels, and retries - on SciFact, <strong style="color:var(--text)">+3.3%</strong>
-      nDCG@10 vs vanilla and <strong style="color:var(--text)">+6.3%</strong> vs always-QUID.
+      QUID helps most when the bottleneck is a <em>vocabulary gap</em> (medical / finance).
+      On science-claim style queries, always expanding can be the wrong move. That motivates
+      the next layer we are building: treat expansion methods as <strong style="color:var(--text)">tools</strong>,
+      and let an agent decide whether and when to call them.
     </p>
     <div class="mermaid-wrap"><div class="mermaid">{AGENT_MERMAID}</div></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Designing</div>
+        <div class="card-title">Tool set</div>
+        <div class="card-body">vanilla (skip), QUID (diffusion expand), HyDE-style expand, critique, optional retry.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Trying now</div>
+        <div class="card-title">Routing signals</div>
+        <div class="card-body">Query length, domain cues, question form, and unsupervised retrieval confidence.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Early signal</div>
+        <div class="card-title">Selective beats blind</div>
+        <div class="card-body">Small pilots suggest always-expand is brittle; selective tool use looks more stable. Full study still running.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Next</div>
+        <div class="card-title">Month 4 plan</div>
+        <div class="card-body">Larger BEIR slices, better critique, learned router toward oracle labels, preprint polish.</div>
+      </div>
+    </div>
+    <p class="explain" style="margin-top:8px">
+      We are deliberately not freezing agentic numbers as final claims yet. The serious claim for
+      Month 4 is the research question: <em>can agentic tool use decide when diffusion expansion
+      helps - and recover when it does not?</em>
+    </p>
   </div>
 
   {team_html()}
 
   <p class="footer-note">
     Capstone project · Done under the guidance of {esc(ADVISOR)}.
-    Site: <code class="mono">zhreyu.github.io/quid</code>
+    Code: <a href="https://github.com/Zhreyu/quid">github.com/Zhreyu/quid</a> ·
+    Site: <code class="mono">zhreyu.github.io/quid</code> · Status: work in progress.
   </p>
 </main>
 """

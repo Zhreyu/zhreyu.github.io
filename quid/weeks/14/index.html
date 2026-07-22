@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUID · Week 14: Agentic Benchmarks &amp; Review 2</title>
+<title>QUID · Week 14: Router Pilots &amp; Next Steps</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
   <div class="print-stack">
     <!-- PAGE 1: Cover -->
     <section class="page">
-      <div class="kicker">QUID · Review 2 Prep · Extension · Agentic</div>
-      <h1 class="cover-title">Week 14<br><span>Agentic Benchmarks &amp; Review 2</span></h1>
-      <p class="cover-desc">This is an extension beyond the original 12-week plan, responding to Review 1: an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. The capstone still has one month remaining; a preprint is forthcoming.</p>
+      <div class="kicker">QUID · Month 4 · Now · Roadmap</div>
+      <h1 class="cover-title">Week 14<br><span>Router Pilots &amp; Next Steps</span></h1>
+      <p class="cover-desc">Month 4 focus: we are designing and trying an agentic query router on top of QUID. The goal is not to replace diffusion expansion, but to learn when to call it, when to try HyDE-style expansion, and when to leave the query alone. Early pilots are underway; the preprint is still forthcoming.</p>
       <div class="status-row" style="margin-top:20px">
-        <span class="chip accent">Capstone in progress · Month 4 remaining · Preprint coming soon</span>
+        <span class="chip accent">Work in progress · Month 4 · Agentic router under exploration · Preprint coming soon</span>
       </div>
       <div class="cover-meta">
         <div>
@@ -58,7 +58,7 @@
       <div class="sec-eye">Why this week</div>
       <h2 class="sec-title">Place in the arc</h2>
       <div class="sec-rule"></div>
-      <p class="explain">This is an extension beyond the original 12-week plan, responding to Review 1: an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. The capstone still has one month remaining; a preprint is forthcoming.</p>
+      <p class="explain">Month 4 focus: we are designing and trying an agentic query router on top of QUID. The goal is not to replace diffusion expansion, but to learn when to call it, when to try HyDE-style expansion, and when to leave the query alone. Early pilots are underway; the preprint is still forthcoming.</p>
       
       <div class="sec-eye" style="margin-top:28px">This week</div>
       <h2 class="sec-title">Objectives</h2>
@@ -69,11 +69,14 @@
         that diffusion expansion is domain-dependent.
       </p>
       <div class="prose"><ul>
-<li>[x] Run agentic router benchmark on NFCorpus (50 queries)</li>
-<li>[x] Run agentic router benchmark on SciFact (50 queries)</li>
-<li>[x] Update final report with agentic results</li>
+<li>[x] Stand up agentic router pilots on NFCorpus (50 queries)</li>
+<li>[x] Stand up agentic router pilots on SciFact (50 queries)</li>
+<li>[x] Draft Month 4 narrative into the written report</li>
 <li>[x] Document expansion weeks (13-14)</li>
-<li>[x] Push to GitHub (<code>iksha-ai/quid</code>)</li>
+<li>[x] Keep code pointed at GitHub (<code>Zhreyu/quid</code>)</li>
+<li>[ ] Scale pilots to larger BEIR slices (next)</li>
+<li>[ ] Learned router toward oracle labels (next)</li>
+<li>[ ] Preprint polish (coming soon)</li>
 </ul></div>
     </section>
 
@@ -91,20 +94,23 @@
         setup - expanded from the team log so a reader can follow the technical path without the
         repository open.
       </p>
-      <div class="prose"><h1>Week 14 Progress Report - Agentic Benchmarks + Review 2 Package</h1>
+      <div class="prose"><h1>Week 14 Progress Report - Router Pilots &amp; Next Steps</h1>
 <p><strong>Project:</strong> QUID - Diffusion-Based Query Expansion for Dense Information Retrieval </p>
 <p><strong>Student:</strong> Shreyas S </p>
-<p><strong>Week:</strong> 14 (Review 2 prep) </p>
-<p><strong>Focus:</strong> Modal benchmarks, report updates, hub push</p>
+<p><strong>Week:</strong> 14 (Month 4 · in progress) </p>
+<p><strong>Focus:</strong> Early agentic router pilots, Review narrative, preprint prep</p>
 <h2>Objectives for This Week</h2>
 <ul>
-<li>[x] Run agentic router benchmark on NFCorpus (50 queries)</li>
-<li>[x] Run agentic router benchmark on SciFact (50 queries)</li>
-<li>[x] Update final report with agentic results</li>
+<li>[x] Stand up agentic router pilots on NFCorpus (50 queries)</li>
+<li>[x] Stand up agentic router pilots on SciFact (50 queries)</li>
+<li>[x] Draft Month 4 narrative into the written report</li>
 <li>[x] Document expansion weeks (13-14)</li>
-<li>[x] Push to GitHub (<code>iksha-ai/quid</code>)</li>
+<li>[x] Keep code pointed at GitHub (<code>Zhreyu/quid</code>)</li>
+<li>[ ] Scale pilots to larger BEIR slices (next)</li>
+<li>[ ] Learned router toward oracle labels (next)</li>
+<li>[ ] Preprint polish (coming soon)</li>
 </ul>
-<h2>Benchmark Setup</h2>
+<h2>Pilot Setup (early runs)</h2>
 <table>
 <thead><tr><th>Item</th><th>Value</th></tr></thead>
 <tbody>
@@ -114,8 +120,9 @@
 <tr><td>HyDE backend</td><td>LLaDA document-style prompt (OpenAI quota unavailable)</td></tr>
 <tr><td>Metrics</td><td>nDCG@10; route vs oracle accuracy</td></tr>
 </tbody></table>
-<h2>Results</h2>
-<h3>SciFact (science claims, n=50) - tool calls improve accuracy</h3>
+<p>These are <strong>pilot-scale</strong> slices (n=50), not frozen claims. We are using them to decide what to run next.</p>
+<h2>Early signals (not final)</h2>
+<h3>SciFact (science claims, n=50) - selective tools look promising</h3>
 <table>
 <thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
 <tbody>
@@ -125,12 +132,7 @@
 <tr><td><strong>agentic_multi_step</strong></td><td><strong>0.6625</strong></td><td><strong>+0.0326</strong></td></tr>
 <tr><td>oracle</td><td>0.7004</td><td>+0.0705</td></tr>
 </tbody></table>
-<ul>
-<li>multi vs single-shot: <strong>+0.0345</strong></li>
-<li>multi vs always-QUID: <strong>+0.0626</strong></li>
-<li>retry improve rate: <strong>67%</strong></li>
-<li>avg expand tool calls: <strong>1.06</strong></li>
-</ul>
+<p>Working takeaway: blind always-expand looks brittle here; multi-step tool use looks more stable in this pilot. Larger confirmation runs are still ahead.</p>
 <h3>NFCorpus (medical, n=50)</h3>
 <table>
 <thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
@@ -140,24 +142,25 @@
 <tr><td><strong>agentic (single=multi)</strong></td><td><strong>0.3053</strong></td><td>−0.0252</td></tr>
 <tr><td>oracle</td><td>0.3577</td><td>+0.0272</td></tr>
 </tbody></table>
-<p>Agent recovers <strong>+3.5 pts</strong> vs always-QUID.</p>
+<p>Early signal: selective routing recovers ground vs always-QUID on this slice. We still need fuller splits before locking numbers.</p>
 <p>Artifacts: <code>reports/agentic_results/*_q50.json</code>. </p>
-<p>Pitch: <code>reports/review2_pitch.md</code>.</p>
-<h2>Review 2 Narrative</h2>
+<p>Pitch draft: <code>reports/review2_pitch.md</code>.</p>
+<h2>Month 4 narrative (what we are building)</h2>
 <ol>
 <li><strong>Core thesis unchanged:</strong> masked diffusion (LLaDA) for query expansion; semantic anchoring. </li>
-<li><strong>Agentic angle:</strong> router selects the expansion tool per query. </li>
-<li><strong>Evidence:</strong> SciFact +2.3% with agent; always-QUID hurts. NFCorpus shows selective expansion beats always-QUID. </li>
-<li><strong>Next:</strong> learned router on full splits; GPT HyDE when API available.</li>
+<li><strong>Agentic angle (in progress):</strong> treat expansion methods as tools; let a router decide when to call them. </li>
+<li><strong>Why now:</strong> QUID is domain-dependent - always expanding is the wrong default on some query types. </li>
+<li><strong>What we will do next:</strong> larger BEIR slices, stronger critique/retry, learned router toward oracle, preprint polish.</li>
 </ol>
-<h2>Deliverables Updated</h2>
+<h2>Deliverables in motion</h2>
 <ul>
-<li><code>reports/final_report.md</code> - §9.2 Agentic Extension </li>
+<li><code>reports/final_report.md</code> - §9.2 Agentic query router (Month 4) </li>
 <li><code>reports/week_13.md</code>, <code>reports/week_14.md</code> </li>
 <li><code>src/agentic_router.py</code>, <code>src/run_agentic_benchmark.py</code> </li>
 <li>README agentic section </li>
+<li>Code: https://github.com/Zhreyu/quid</li>
 </ul>
-<p><strong>Weekly Status:</strong> REVIEW 2 PACKAGE READY ✅</p></div>
+<p><strong>Weekly Status:</strong> MONTH 4 IN PROGRESS · PREPRINT COMING SOON</p></div>
     </section>
 
     <!-- PAGE 4: Results & interpretation -->
@@ -174,34 +177,7 @@
         claims about <em>when</em> QUID helps (vocabulary gap) versus when HyDE or vanilla wins
         (knowledge / claim gap). Agentic weeks emphasize tool-call policies over blind expansion.
       </p>
-      <div class="prose"><h3>SciFact (science claims, n=50) - tool calls improve accuracy</h3>
-<table>
-<thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
-<tbody>
-<tr><td>always_vanilla</td><td>0.6299</td><td>-</td></tr>
-<tr><td>always_QUID</td><td>0.5999</td><td>−0.0300</td></tr>
-<tr><td>agentic_single_shot</td><td>0.6280</td><td>−0.0019</td></tr>
-<tr><td><strong>agentic_multi_step</strong></td><td><strong>0.6625</strong></td><td><strong>+0.0326</strong></td></tr>
-<tr><td>oracle</td><td>0.7004</td><td>+0.0705</td></tr>
-</tbody></table>
-<ul>
-<li>multi vs single-shot: <strong>+0.0345</strong></li>
-<li>multi vs always-QUID: <strong>+0.0626</strong></li>
-<li>retry improve rate: <strong>67%</strong></li>
-<li>avg expand tool calls: <strong>1.06</strong></li>
-</ul>
-<h3>NFCorpus (medical, n=50)</h3>
-<table>
-<thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
-<tbody>
-<tr><td>always_vanilla</td><td>0.3305</td><td>-</td></tr>
-<tr><td>always_QUID</td><td>0.2704</td><td>−0.0601</td></tr>
-<tr><td><strong>agentic (single=multi)</strong></td><td><strong>0.3053</strong></td><td>−0.0252</td></tr>
-<tr><td>oracle</td><td>0.3577</td><td>+0.0272</td></tr>
-</tbody></table>
-<p>Agent recovers <strong>+3.5 pts</strong> vs always-QUID.</p>
-<p>Artifacts: <code>reports/agentic_results/*_q50.json</code>. </p>
-<p>Pitch: <code>reports/review2_pitch.md</code>.</p></div>
+      <div class="prose"></div>
     </section>
 
     <!-- PAGE 5: Challenges, learnings, next -->

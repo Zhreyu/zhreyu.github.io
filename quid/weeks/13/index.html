@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUID · Week 13: Agentic Extension</title>
+<title>QUID · Week 13: Agentic Router (in progress)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
   <div class="print-stack">
     <!-- PAGE 1: Cover -->
     <section class="page">
-      <div class="kicker">QUID · Post Review 1 · Extension · Agentic</div>
-      <h1 class="cover-title">Week 13<br><span>Agentic Extension</span></h1>
-      <p class="cover-desc">This is an extension beyond the original 12-week plan, responding to Review 1: an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. The capstone still has one month remaining; a preprint is forthcoming.</p>
+      <div class="kicker">QUID · Month 4 · Now · Roadmap</div>
+      <h1 class="cover-title">Week 13<br><span>Agentic Router (in progress)</span></h1>
+      <p class="cover-desc">Month 4 focus: we are designing and trying an agentic query router on top of QUID. The goal is not to replace diffusion expansion, but to learn when to call it, when to try HyDE-style expansion, and when to leave the query alone. Early pilots are underway; the preprint is still forthcoming.</p>
       <div class="status-row" style="margin-top:20px">
-        <span class="chip accent">Capstone in progress · Month 4 remaining · Preprint coming soon</span>
+        <span class="chip accent">Work in progress · Month 4 · Agentic router under exploration · Preprint coming soon</span>
       </div>
       <div class="cover-meta">
         <div>
@@ -58,9 +58,10 @@
       <div class="sec-eye">Why this week</div>
       <h2 class="sec-title">Place in the arc</h2>
       <div class="sec-rule"></div>
-      <p class="explain">This is an extension beyond the original 12-week plan, responding to Review 1: an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. The capstone still has one month remaining; a preprint is forthcoming.</p>
-      <div class='sec-eye'>Motivation</div><div class='prose'><p>Committee asked for an <strong>agentic AI</strong> angle. QUID already showed <em>domain-dependent</em> effectiveness (helps medical/finance; hurts SciFact). The natural agentic story:</p>
-<blockquote><p>QUID is a <strong>tool</strong>. An agent should <strong>choose</strong> when to call it.</p></blockquote></div>
+      <p class="explain">Month 4 focus: we are designing and trying an agentic query router on top of QUID. The goal is not to replace diffusion expansion, but to learn when to call it, when to try HyDE-style expansion, and when to leave the query alone. Early pilots are underway; the preprint is still forthcoming.</p>
+      <div class='sec-eye'>Motivation</div><div class='prose'><p>Committee asked for an <strong>agentic AI</strong> angle. QUID already showed <em>domain-dependent</em> effectiveness (helps medical/finance; can hurt SciFact-style claims). The research bet we are pursuing:</p>
+<blockquote><p>QUID is a <strong>tool</strong>. An agent should <strong>choose</strong> when to call it.</p></blockquote>
+<p>This Month 4 work is active research - plans and early pilots, not a finished product claim.</p></div>
       <div class="sec-eye" style="margin-top:28px">This week</div>
       <h2 class="sec-title">Objectives</h2>
       <div class="sec-rule"></div>
@@ -71,9 +72,10 @@
       </p>
       <div class="prose"><ul>
 <li>[x] Design agentic layer on top of QUID (not a rewrite of the core thesis)</li>
-<li>[x] Implement query router: observe → decide → act</li>
+<li>[x] Implement first-pass query router: observe → decide → act</li>
 <li>[x] Wire Modal benchmark entrypoint</li>
 <li>[x] Fix Modal import/GPU blockers (A100 Dream-7B registration, transformers pin)</li>
+<li>[ ] Expand pilots and confirm routing behavior (continues into Week 14+)</li>
 </ul></div>
     </section>
 
@@ -91,18 +93,36 @@
         setup - expanded from the team log so a reader can follow the technical path without the
         repository open.
       </p>
-      <div class="prose"><h3>1. Agentic Query Router (<code>src/agentic_router.py</code>)</h3>
-<p>Routes each query to one of:</p>
+      <div class="prose"><h1>Week 13 Progress Report - Agentic Router (Month 4 kickoff)</h1>
+<p><strong>Project:</strong> QUID - Diffusion-Based Query Expansion for Dense Information Retrieval </p>
+<p><strong>Student:</strong> Shreyas S </p>
+<p><strong>Week:</strong> 13 (Month 4 · starting) </p>
+<p><strong>Focus:</strong> Design and stand up an agentic query-router layer on top of QUID</p>
+<h2>Objectives for This Week</h2>
+<ul>
+<li>[x] Design agentic layer on top of QUID (not a rewrite of the core thesis)</li>
+<li>[x] Implement first-pass query router: observe → decide → act</li>
+<li>[x] Wire Modal benchmark entrypoint</li>
+<li>[x] Fix Modal import/GPU blockers (A100 Dream-7B registration, transformers pin)</li>
+<li>[ ] Expand pilots and confirm routing behavior (continues into Week 14+)</li>
+</ul>
+<h2>Motivation (Review feedback)</h2>
+<p>Committee asked for an <strong>agentic AI</strong> angle. QUID already showed <em>domain-dependent</em> effectiveness (helps medical/finance; can hurt SciFact-style claims). The research bet we are pursuing:</p>
+<blockquote><p>QUID is a <strong>tool</strong>. An agent should <strong>choose</strong> when to call it.</p></blockquote>
+<p>This Month 4 work is active research - plans and early pilots, not a finished product claim.</p>
+<h2>What we are building</h2>
+<h3>1. Agentic Query Router (<code>src/agentic_router.py</code>)</h3>
+<p>First-pass routes each query to one of:</p>
 <table>
-<thead><tr><th>Action</th><th>When</th></tr></thead>
+<thead><tr><th>Action</th><th>When (heuristic draft)</th></tr></thead>
 <tbody>
 <tr><td><code>vanilla</code></td><td>Query already specific / high retrieval confidence</td></tr>
 <tr><td><code>quid</code></td><td>Vocabulary gap (medical/finance cues, short queries)</td></tr>
 <tr><td><code>hyde</code></td><td>Knowledge/claim gap (science-claim cues, questions)</td></tr>
 </tbody></table>
-<p>Features observed: token length, medical/finance/science term hits, question form, optional max corpus similarity.</p>
+<p>Signals we are trying: token length, medical/finance/science term hits, question form, optional max corpus similarity.</p>
 <h3>2. Modal Benchmark (<code>run_agentic_router_benchmark</code>)</h3>
-<p>Compares on BEIR:</p>
+<p>Comparing on BEIR slices:</p>
 <ul>
 <li><code>always_vanilla</code> / <code>always_quid</code> / <code>always_hyde</code></li>
 <li><code>agentic_router</code> (heuristic agent)</li>
@@ -114,7 +134,24 @@
 <li>Dream-7B A100 decorator blocked the whole app without A100 billing → lean entrypoint + lazy experiment imports</li>
 <li>LLaDA + new transformers broke on <code>all_tied_weights_keys</code> → pin <code>transformers==4.38.2</code> for agentic image</li>
 <li>OpenAI HyDE quota exhausted → LLaDA document-style HyDE fallback</li>
-</ul></div>
+</ul>
+<h2>Challenges</h2>
+<table>
+<thead><tr><th>Challenge</th><th>Resolution</th></tr></thead>
+<tbody>
+<tr><td>Modal token missing in env</td><td>Re-authenticated (<code>modal token new</code>)</td></tr>
+<tr><td>A100 billing gate</td><td>L4 GPU + lean entrypoint</td></tr>
+<tr><td>OpenAI 429</td><td>Local LLaDA HyDE prompt</td></tr>
+<tr><td>Over-routing to QUID</td><td>Added retrieval-confidence gate (still tuning)</td></tr>
+</tbody></table>
+<h2>Plan for Week 14+</h2>
+<ol>
+<li>Run NFCorpus + SciFact agentic pilots on Modal</li>
+<li>Treat early numbers as signals, not final claims</li>
+<li>Scale experiments; move toward a learned router</li>
+<li>Polish preprint materials (coming soon)</li>
+</ol>
+<p><strong>Weekly Status:</strong> MONTH 4 IN PROGRESS</p></div>
     </section>
 
     <!-- PAGE 4: Results & interpretation -->
@@ -131,30 +168,7 @@
         claims about <em>when</em> QUID helps (vocabulary gap) versus when HyDE or vanilla wins
         (knowledge / claim gap). Agentic weeks emphasize tool-call policies over blind expansion.
       </p>
-      <div class="prose"><h3>1. Agentic Query Router (<code>src/agentic_router.py</code>)</h3>
-<p>Routes each query to one of:</p>
-<table>
-<thead><tr><th>Action</th><th>When</th></tr></thead>
-<tbody>
-<tr><td><code>vanilla</code></td><td>Query already specific / high retrieval confidence</td></tr>
-<tr><td><code>quid</code></td><td>Vocabulary gap (medical/finance cues, short queries)</td></tr>
-<tr><td><code>hyde</code></td><td>Knowledge/claim gap (science-claim cues, questions)</td></tr>
-</tbody></table>
-<p>Features observed: token length, medical/finance/science term hits, question form, optional max corpus similarity.</p>
-<h3>2. Modal Benchmark (<code>run_agentic_router_benchmark</code>)</h3>
-<p>Compares on BEIR:</p>
-<ul>
-<li><code>always_vanilla</code> / <code>always_quid</code> / <code>always_hyde</code></li>
-<li><code>agentic_router</code> (heuristic agent)</li>
-<li><code>oracle_router</code> (upper bound)</li>
-</ul>
-<p>Lean entrypoint: <code>src/run_agentic_benchmark.py</code> (avoids registering unrelated A100 functions).</p>
-<h3>3. Infrastructure Fixes</h3>
-<ul>
-<li>Dream-7B A100 decorator blocked the whole app without A100 billing → lean entrypoint + lazy experiment imports</li>
-<li>LLaDA + new transformers broke on <code>all_tied_weights_keys</code> → pin <code>transformers==4.38.2</code> for agentic image</li>
-<li>OpenAI HyDE quota exhausted → LLaDA document-style HyDE fallback</li>
-</ul></div>
+      <div class="prose"></div>
     </section>
 
     <!-- PAGE 5: Challenges, learnings, next -->
@@ -172,7 +186,7 @@
 <tr><td>Modal token missing in env</td><td>Re-authenticated (<code>modal token new</code>)</td></tr>
 <tr><td>A100 billing gate</td><td>L4 GPU + lean entrypoint</td></tr>
 <tr><td>OpenAI 429</td><td>Local LLaDA HyDE prompt</td></tr>
-<tr><td>Over-routing to QUID</td><td>Added retrieval-confidence gate</td></tr>
+<tr><td>Over-routing to QUID</td><td>Added retrieval-confidence gate (still tuning)</td></tr>
 </tbody></table></div>
 
       <div class="sec-eye" style="margin-top:24px">Takeaways</div>
@@ -184,11 +198,12 @@
       <h2 class="sec-title">Plan for next week</h2>
       <div class="sec-rule"></div>
       <div class="prose"><ol>
-<li>Run NFCorpus + SciFact agentic benchmarks on Modal</li>
-<li>Update final report with results</li>
-<li>Push code + reports to GitHub for Review 2</li>
+<li>Run NFCorpus + SciFact agentic pilots on Modal</li>
+<li>Treat early numbers as signals, not final claims</li>
+<li>Scale experiments; move toward a learned router</li>
+<li>Polish preprint materials (coming soon)</li>
 </ol>
-<p><strong>Weekly Status:</strong> ON TRACK FOR REVIEW 2 ✅</p></div>
+<p><strong>Weekly Status:</strong> MONTH 4 IN PROGRESS</p></div>
 
       
       

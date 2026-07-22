@@ -24,39 +24,47 @@
 
 
 <main class="wrap wrap-wide">
-  <p class="kicker">VIT-AP Capstone</p>
+  <p class="kicker">VIT-AP Capstone · Work in progress</p>
   <h1 class="hero-title">QUID<br><span>Queries Unmasked by Iterative Diffusion</span></h1>
   <p class="lede">
     Dense retrieval fails when short queries miss domain vocabulary. QUID expands queries with
-    masked text diffusion (LLaDA) so expansions stay semantically anchored - then an agent
-    decides whether to call QUID, HyDE, or vanilla per query.
+    masked text diffusion (LLaDA) so expansions stay semantically anchored. Months 1-3 established
+    the core method and BEIR evidence. Month 4 is underway: we are now exploring an
+    <strong style="color:var(--text)">agentic query router</strong> that chooses when expansion
+    should fire - and which tool to call.
   </p>
   <div class="status-row">
     <span class="chip accent">Month 4 in progress</span>
     <span class="chip win">Preprint coming soon</span>
+    <span class="chip">Code: github.com/Zhreyu/quid</span>
     <span class="chip">Capstone under Dr. G. Muneeswari</span>
   </div>
 
   <div class="card-grid">
     <a class="card" href="./thesis/">
       <div class="card-label">Thesis</div>
-      <div class="card-title">Full written report</div>
-      <div class="card-body">Methodology, BEIR results, anchoring analysis, agentic extension, limitations.</div>
+      <div class="card-title">Written report</div>
+      <div class="card-body">Core QUID method, BEIR results, anchoring analysis, and the Month 4 agentic roadmap.</div>
     </a>
     <a class="card" href="./pitch/">
       <div class="card-label">Pitch</div>
-      <div class="card-title">Review 2 talk</div>
-      <div class="card-body">8-10 minute script with the tool-call accuracy story.</div>
+      <div class="card-title">Review talk</div>
+      <div class="card-body">How we tell the story so far - and what we are building next.</div>
     </a>
     <a class="card" href="./weeks/">
       <div class="card-label">Weeks</div>
       <div class="card-title">14 detailed logs</div>
-      <div class="card-body">Five-page weekly reports from foundation through agentic benchmarks.</div>
+      <div class="card-body">Five-page weekly reports from foundation through the current router pilots.</div>
     </a>
     <a class="card" href="./assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">
       <div class="card-label">Paper</div>
       <div class="card-title">Draft PDF</div>
       <div class="card-body">Working draft only - formal preprint coming soon.</div>
+    </a>
+    <a class="card" href="https://github.com/Zhreyu/quid" target="_blank" rel="noreferrer">
+      <div class="card-label">Code</div>
+      <div class="card-title">Zhreyu/quid</div>
+      <div class="card-body">Public repository for the ongoing implementation.</div>
     </a>
   </div>
 
@@ -74,13 +82,14 @@
   </div>
 
   <div class="section">
-    <div class="sec-eye">Agency</div>
-    <h2 class="sec-title">When to expand</h2>
+    <div class="sec-eye">Month 4 · now</div>
+    <h2 class="sec-title">Agentic AI expansion &amp; query router</h2>
     <div class="sec-rule"></div>
     <p class="explain">
-      Blind always-QUID can hurt on science-claim retrieval. The multi-step agent calls tools,
-      critiques confidence without labels, and retries - on SciFact, <strong style="color:var(--text)">+3.3%</strong>
-      nDCG@10 vs vanilla and <strong style="color:var(--text)">+6.3%</strong> vs always-QUID.
+      QUID helps most when the bottleneck is a <em>vocabulary gap</em> (medical / finance).
+      On science-claim style queries, always expanding can be the wrong move. That motivates
+      the next layer we are building: treat expansion methods as <strong style="color:var(--text)">tools</strong>,
+      and let an agent decide whether and when to call them.
     </p>
     <div class="mermaid-wrap"><div class="mermaid">flowchart TD
   Q[Query] --> F[Observe features + confidence]
@@ -96,6 +105,33 @@
   C -->|Weak| T[Retry other tool]
   T --> R
 </div></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Designing</div>
+        <div class="card-title">Tool set</div>
+        <div class="card-body">vanilla (skip), QUID (diffusion expand), HyDE-style expand, critique, optional retry.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Trying now</div>
+        <div class="card-title">Routing signals</div>
+        <div class="card-body">Query length, domain cues, question form, and unsupervised retrieval confidence.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Early signal</div>
+        <div class="card-title">Selective beats blind</div>
+        <div class="card-body">Small pilots suggest always-expand is brittle; selective tool use looks more stable. Full study still running.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Next</div>
+        <div class="card-title">Month 4 plan</div>
+        <div class="card-body">Larger BEIR slices, better critique, learned router toward oracle labels, preprint polish.</div>
+      </div>
+    </div>
+    <p class="explain" style="margin-top:8px">
+      We are deliberately not freezing agentic numbers as final claims yet. The serious claim for
+      Month 4 is the research question: <em>can agentic tool use decide when diffusion expansion
+      helps - and recover when it does not?</em>
+    </p>
   </div>
 
   
@@ -113,7 +149,8 @@
 
   <p class="footer-note">
     Capstone project · Done under the guidance of Dr. G. Muneeswari, Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
-    Site: <code class="mono">zhreyu.github.io/quid</code>
+    Code: <a href="https://github.com/Zhreyu/quid">github.com/Zhreyu/quid</a> ·
+    Site: <code class="mono">zhreyu.github.io/quid</code> · Status: work in progress.
   </p>
 </main>
 
