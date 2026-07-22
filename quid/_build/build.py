@@ -20,7 +20,7 @@ TEAM = [
 ]
 
 ADVISOR = (
-    "Dr. G. Muneeswari — Professor (Grade 2), "
+    "Dr. G. Muneeswari, Professor (Grade 2), "
     "Head of the Department of Data Science and Engineering, VIT-AP University"
 )
 
@@ -42,8 +42,17 @@ WEEK_META = {
 }
 
 
+
+def clean_text(s: str) -> str:
+    """Normalize dashes and strip lab branding from source markdown."""
+    s = s.replace("Iksha Lab", "").replace("Iksha", "")
+    s = s.replace("—", " - ").replace("–", "-")
+    s = re.sub(r"[ \t]{2,}", " ", s)
+    return s
+
+
 def esc(s: str) -> str:
-    return html.escape(s, quote=True)
+    return html.escape(clean_text(s), quote=True)
 
 
 def md_inline(text: str) -> str:
@@ -179,7 +188,7 @@ def team_html() -> str:
     )
     return f"""
 <div class="credits">
-  <h3>Capstone team · Iksha Lab</h3>
+  <h3>Capstone team</h3>
   <div class="team-label">Students</div>
   {members}
   <p style="margin-top:14px"><strong>Done under the guidance of</strong><br>{esc(ADVISOR)}</p>
@@ -278,7 +287,7 @@ def parse_week(md: str) -> dict:
 def expand_context(week_num: int, title: str) -> str:
     arcs = {
         range(1, 5): (
-            "This week sits in Month 1 — building the substrate for QUID: environment, "
+            "This week sits in Month 1 - building the substrate for QUID: environment, "
             "LLaDA porting, BEIR wiring, and the first signals of domain-dependent retrieval gains."
         ),
         range(5, 9): (
@@ -286,8 +295,8 @@ def expand_context(week_num: int, title: str) -> str:
             "(semantic anchoring / drift), and the first complete paper draft."
         ),
         range(9, 13): (
-            "Month 3 focuses on polish — reproducibility, advisor feedback, code release, "
-            "and presentation readiness — while locking the core thesis for Review 2."
+            "Month 3 focuses on polish - reproducibility, advisor feedback, code release, "
+            "and presentation readiness - while locking the core thesis for Review 2."
         ),
         range(13, 15): (
             "This is an extension beyond the original 12-week plan, responding to Review 1: "
@@ -303,7 +312,7 @@ def expand_context(week_num: int, title: str) -> str:
 
 def build_week(week_num: int) -> None:
     path = REPORTS / f"week_{week_num:02d}.md"
-    md = path.read_text(encoding="utf-8")
+    md = clean_text(path.read_text(encoding="utf-8"))
     data = parse_week(md)
     short, when, phase = WEEK_META[week_num]
     context = expand_context(week_num, short)
@@ -349,7 +358,7 @@ def build_week(week_num: int) -> None:
       </div>
       <div class="cover-meta">
         <div>
-          <div class="team-label">Team · Iksha Lab</div>
+          <div class="team-label">Capstone team</div>
           {''.join(f'<div class="team-member"><span>{esc(c)}</span>{esc(n)}</div>' for c,n in TEAM)}
           <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> {esc(ADVISOR)}</p>
         </div>
@@ -389,8 +398,8 @@ def build_week(week_num: int) -> None:
       <h2 class="sec-title">What we built and measured</h2>
       <div class="sec-rule"></div>
       <p class="explain">
-        Below is the detailed record for the week — methods, implementation notes, and experimental
-        setup — expanded from the team log so a reader can follow the technical path without the
+        Below is the detailed record for the week - methods, implementation notes, and experimental
+        setup - expanded from the team log so a reader can follow the technical path without the
         repository open.
       </p>
       <div class="prose">{work_html}</div>
@@ -438,7 +447,7 @@ def build_week(week_num: int) -> None:
       {"<div class='sec-eye' style='margin-top:24px'>Advisor</div><h2 class='sec-title'>Notes for advisor</h2><div class='sec-rule'></div><div class='prose'>" + notes_html + "</div>" if notes_html else ""}
 
       <p class="footer-note">
-        Capstone by Iksha Lab under guidance of {esc(ADVISOR)}.
+        Capstone project under the guidance of {esc(ADVISOR)}.
         Status: Month 4 still in progress · Preprint coming soon.
       </p>
     </section>
@@ -448,7 +457,7 @@ def build_week(week_num: int) -> None:
     out_dir = OUT / "weeks" / f"{week_num:02d}"
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "index.html").write_text(
-        shell(f"QUID · Week {week_num:02d} — {short}", body, depth=2, active="weeks"),
+        shell(f"QUID · Week {week_num:02d}: {short}", body, depth=2, active="weeks"),
         encoding="utf-8",
     )
     print(f"wrote weeks/{week_num:02d}/")
@@ -468,12 +477,12 @@ def build_weeks_index() -> None:
   <h1 class="hero-title">Fourteen weeks<br><span>of evidence</span></h1>
   <p class="lede">
     Detailed weekly logs (≥5 pages each) covering foundation, science, polish, and the
-    post–Review 1 agentic extension. The official 12-week arc is documented; Weeks 13–14
-    add the agentic controller. Capstone Month 4 is still underway — preprint coming soon.
+    post-Review 1 agentic extension. The official 12-week arc is documented; Weeks 13-14
+    add the agentic controller. Capstone Month 4 is still underway - preprint coming soon.
   </p>
   <div class="status-row">
-    <span class="chip accent">Weeks 1–12 · core thesis</span>
-    <span class="chip">Weeks 13–14 · agentic extension</span>
+    <span class="chip accent">Weeks 1-12 · core thesis</span>
+    <span class="chip">Weeks 13-14 · agentic extension</span>
     <span class="chip win">Month 4 in progress</span>
   </div>
   <div class="week-list">{''.join(items)}</div>
@@ -526,7 +535,7 @@ ANCHOR_MERMAID = """flowchart LR
 
 
 def build_thesis() -> None:
-    md = (REPORTS / "final_report.md").read_text(encoding="utf-8")
+    md = clean_text((REPORTS / "final_report.md").read_text(encoding="utf-8"))
     # Drop TOC for cleaner web page; keep body from Abstract onward
     md_body = re.sub(r"## Table of Contents[\s\S]*?(?=## Abstract|## 1\.)", "", md, count=1)
     # Soften COMPLETE status for Month 4 remaining
@@ -536,7 +545,7 @@ def build_thesis() -> None:
     )
     md_body = md_body.replace(
         "**Completion Date:** Month 3",
-        "**Timeline:** Months 1–3 complete · Month 4 in progress · Preprint coming soon",
+        "**Timeline:** Months 1-3 complete · Month 4 in progress · Preprint coming soon",
     )
     prose = md_to_html(md_body)
 
@@ -545,14 +554,14 @@ def build_thesis() -> None:
   <div class="sec-eye">Architecture</div>
   <h2 class="sec-title">QUID retrieval pipeline</h2>
   <div class="sec-rule"></div>
-  <p class="explain">Masked diffusion expands the query before embedding — constrained refinement rather than free-form generation.</p>
+  <p class="explain">Masked diffusion expands the query before embedding - constrained refinement rather than free-form generation.</p>
   <div class="mermaid-wrap"><div class="mermaid">{PIPELINE_MERMAID}</div></div>
 </div>
 <div class="section">
   <div class="sec-eye">Mechanism</div>
   <h2 class="sec-title">Writer vs editor</h2>
   <div class="sec-rule"></div>
-  <p class="explain">HyDE writes a hypothetical document; QUID edits the query through iterative unmasking — lower semantic drift in specialized domains.</p>
+  <p class="explain">HyDE writes a hypothetical document; QUID edits the query through iterative unmasking - lower semantic drift in specialized domains.</p>
   <div class="mermaid-wrap"><div class="mermaid">{ANCHOR_MERMAID}</div></div>
 </div>
 <div class="section">
@@ -569,8 +578,8 @@ def build_thesis() -> None:
   <p class="kicker">QUID · Capstone thesis</p>
   <h1 class="hero-title">Diffusion expansion<br><span>with semantic anchoring</span></h1>
   <p class="lede">
-    Full written thesis for QUID — Queries Unmasked by Iterative Diffusion — including
-    methodology, BEIR results, ablations, and the post–Review 1 agentic controller.
+    Full written thesis for QUID - Queries Unmasked by Iterative Diffusion - including
+    methodology, BEIR results, ablations, and the post-Review 1 agentic controller.
   </p>
   <div class="status-row">
     <span class="chip accent">Month 4 in progress</span>
@@ -584,7 +593,7 @@ def build_thesis() -> None:
   </article>
   <p class="footer-note">
     Draft paper PDF: <a href="../assets/quid-paper-draft.pdf">quid-paper-draft.pdf</a>
-    (working draft — not a published preprint). Capstone continues under {esc(ADVISOR)}.
+    (working draft - not a published preprint). Capstone continues under {esc(ADVISOR)}.
   </p>
 </main>
 """
@@ -598,15 +607,15 @@ def build_thesis() -> None:
 
 
 def build_pitch() -> None:
-    md = (REPORTS / "review2_pitch.md").read_text(encoding="utf-8")
+    md = clean_text((REPORTS / "review2_pitch.md").read_text(encoding="utf-8"))
     prose = md_to_html(md)
     body = f"""
 <main class="wrap">
   <p class="kicker">QUID · Review 2 pitch</p>
-  <h1 class="hero-title">Talk script<br><span>8–10 minutes</span></h1>
+  <h1 class="hero-title">Talk script<br><span>8-10 minutes</span></h1>
   <p class="lede">
-    Panel pitch covering Months 1–3, the agentic extension, and the key claim:
-    tool calls improve retrieval — diffusion is the tool; agency is when to use it.
+    Panel pitch covering Months 1-3, the agentic extension, and the key claim:
+    tool calls improve retrieval - diffusion is the tool; agency is when to use it.
   </p>
   <div class="status-row">
     <span class="chip accent">Review 2</span>
@@ -636,11 +645,11 @@ def build_pitch() -> None:
 def build_hub() -> None:
     body = f"""
 <main class="wrap wrap-wide">
-  <p class="kicker">Iksha Lab · VIT-AP Capstone</p>
+  <p class="kicker">VIT-AP Capstone</p>
   <h1 class="hero-title">QUID<br><span>Queries Unmasked by Iterative Diffusion</span></h1>
   <p class="lede">
     Dense retrieval fails when short queries miss domain vocabulary. QUID expands queries with
-    masked text diffusion (LLaDA) so expansions stay semantically anchored — then an agent
+    masked text diffusion (LLaDA) so expansions stay semantically anchored - then an agent
     decides whether to call QUID, HyDE, or vanilla per query.
   </p>
   <div class="status-row">
@@ -658,7 +667,7 @@ def build_hub() -> None:
     <a class="card" href="./pitch/">
       <div class="card-label">Pitch</div>
       <div class="card-title">Review 2 talk</div>
-      <div class="card-body">8–10 minute script with the tool-call accuracy story.</div>
+      <div class="card-body">8-10 minute script with the tool-call accuracy story.</div>
     </a>
     <a class="card" href="./weeks/">
       <div class="card-label">Weeks</div>
@@ -668,7 +677,7 @@ def build_hub() -> None:
     <a class="card" href="./assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">
       <div class="card-label">Paper</div>
       <div class="card-title">Draft PDF</div>
-      <div class="card-body">Working draft only — formal preprint coming soon.</div>
+      <div class="card-body">Working draft only - formal preprint coming soon.</div>
     </a>
   </div>
 
@@ -685,7 +694,7 @@ def build_hub() -> None:
     <div class="sec-rule"></div>
     <p class="explain">
       Blind always-QUID can hurt on science-claim retrieval. The multi-step agent calls tools,
-      critiques confidence without labels, and retries — on SciFact, <strong style="color:var(--text)">+3.3%</strong>
+      critiques confidence without labels, and retries - on SciFact, <strong style="color:var(--text)">+3.3%</strong>
       nDCG@10 vs vanilla and <strong style="color:var(--text)">+6.3%</strong> vs always-QUID.
     </p>
     <div class="mermaid-wrap"><div class="mermaid">{AGENT_MERMAID}</div></div>
@@ -694,13 +703,13 @@ def build_hub() -> None:
   {team_html()}
 
   <p class="footer-note">
-    Capstone project by the Iksha Lab team · Done under the guidance of {esc(ADVISOR)}.
+    Capstone project · Done under the guidance of {esc(ADVISOR)}.
     Site: <code class="mono">zhreyu.github.io/quid</code>
   </p>
 </main>
 """
     (OUT / "index.html").write_text(
-        shell("QUID — Queries Unmasked by Iterative Diffusion", body, depth=0, active="hub"),
+        shell("QUID: Queries Unmasked by Iterative Diffusion", body, depth=0, active="hub"),
         encoding="utf-8",
     )
     print("wrote index.html")

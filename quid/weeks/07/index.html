@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUID · Week 07 — Error Analysis &amp; Paper Outline</title>
+<title>QUID · Week 07: Error Analysis &amp; Paper Outline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -41,9 +41,9 @@
       </div>
       <div class="cover-meta">
         <div>
-          <div class="team-label">Team · Iksha Lab</div>
+          <div class="team-label">Capstone team</div>
           <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div><div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div><div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div><div class="team-member"><span>22MIC7084</span>Shreyas S</div>
-          <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+          <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> Dr. G. Muneeswari, Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
         </div>
         <div class="cover-week-big">07</div>
       </div>
@@ -86,8 +86,8 @@
       <h2 class="sec-title">What we built and measured</h2>
       <div class="sec-rule"></div>
       <p class="explain">
-        Below is the detailed record for the week — methods, implementation notes, and experimental
-        setup — expanded from the team log so a reader can follow the technical path without the
+        Below is the detailed record for the week - methods, implementation notes, and experimental
+        setup - expanded from the team log so a reader can follow the technical path without the
         repository open.
       </p>
       <div class="prose"><h3>1. Comprehensive Error Analysis</h3>
@@ -95,22 +95,22 @@
 <table>
 <thead><tr><th>Error Type</th><th>Count</th><th>%</th><th>Systematic?</th></tr></thead>
 <tbody>
-<tr><td>Factual expansion needed</td><td>24</td><td>31%</td><td>Yes — inherent</td></tr>
-<tr><td>Topic drift</td><td>28</td><td>36%</td><td>Partial — can mitigate</td></tr>
-<tr><td>Over-expansion</td><td>14</td><td>18%</td><td>Yes — short query issue</td></tr>
-<tr><td>Ambiguous query</td><td>12</td><td>15%</td><td>Yes — inherent</td></tr>
+<tr><td>Factual expansion needed</td><td>24</td><td>31%</td><td>Yes - inherent</td></tr>
+<tr><td>Topic drift</td><td>28</td><td>36%</td><td>Partial - can mitigate</td></tr>
+<tr><td>Over-expansion</td><td>14</td><td>18%</td><td>Yes - short query issue</td></tr>
+<tr><td>Ambiguous query</td><td>12</td><td>15%</td><td>Yes - inherent</td></tr>
 </tbody></table>
 <p><strong>Example Failures:</strong></p>
 <ol>
 <li><strong>Factual needed:</strong> &quot;CRISPR mechanism&quot; → needs specific facts</li>
 <li><strong>Topic drift:</strong> &quot;stem cell&quot; → expanded to general biology</li>
 <li><strong>Over-expansion:</strong> &quot;pain&quot; → too many diluting terms</li>
-<li><strong>Ambiguous:</strong> &quot;apple&quot; — fruit or company?</li>
+<li><strong>Ambiguous:</strong> &quot;apple&quot; - fruit or company?</li>
 </ol>
 <h3>2. Limitations Documentation</h3>
 <p><strong>Fundamental Limitations:</strong></p>
 <ol>
-<li>Cannot generate factual content — vocabulary expansion only</li>
+<li>Cannot generate factual content - vocabulary expansion only</li>
 <li>Requires domain-specific vocabulary gap to help</li>
 <li>400-830ms latency overhead per query</li>
 </ol>
@@ -128,31 +128,31 @@
 </ol>
 <h3>3. Paper Outline Finalized</h3>
 <pre><code>1. Introduction (1.5 pages)
-   - Query-document asymmetry
-   - HyDE limitations (hallucination)
-   - QUID: semantic anchoring
+ - Query-document asymmetry
+ - HyDE limitations (hallucination)
+ - QUID: semantic anchoring
 
 2. Related Work (1.5 pages)
-   - Query expansion methods
-   - Text diffusion models
-   - Dense retrieval
+ - Query expansion methods
+ - Text diffusion models
+ - Dense retrieval
 
 3. Method (1.5 pages)
-   - Problem formulation
-   - QUID architecture
-   - Retrieval pipeline
+ - Problem formulation
+ - QUID architecture
+ - Retrieval pipeline
 
 4. Experiments (3 pages)
-   - Datasets and baselines
-   - Main results (Table 1)
-   - Ablations (Table 2)
-   - Analysis
+ - Datasets and baselines
+ - Main results (Table 1)
+ - Ablations (Table 2)
+ - Analysis
 
 5. Conclusion (0.5 pages)
 
 Total: 8 pages + references</code></pre>
 <h3>4. Abstract Draft</h3>
-<blockquote><p>Dense retrieval systems suffer from vocabulary mismatch: user queries are short while relevant documents use domain-specific terminology. Current approaches like HyDE use autoregressive LLMs to generate hypothetical documents, but may hallucinate facts. We introduce QUID (Queries Unmasked by Iterative Diffusion), which frames query expansion as denoising using masked text diffusion. We find domain-dependent effectiveness: QUID improves nDCG@10 by 8.5% on medical (NFCorpus) and 7.9% on financial (FiQA) queries while performing neutrally on general scientific text. Analysis reveals QUID maintains &quot;semantic anchoring&quot; — staying close to query intent while expanding vocabulary.</p></blockquote></div>
+<blockquote><p>Dense retrieval systems suffer from vocabulary mismatch: user queries are short while relevant documents use domain-specific terminology. Current approaches like HyDE use autoregressive LLMs to generate hypothetical documents, but may hallucinate facts. We introduce QUID (Queries Unmasked by Iterative Diffusion), which frames query expansion as denoising using masked text diffusion. We find domain-dependent effectiveness: QUID improves nDCG@10 by 8.5% on medical (NFCorpus) and 7.9% on financial (FiQA) queries while performing neutrally on general scientific text. Analysis reveals QUID maintains &quot;semantic anchoring&quot; - staying close to query intent while expanding vocabulary.</p></blockquote></div>
     </section>
 
     <!-- PAGE 4: Results & interpretation -->
@@ -174,22 +174,22 @@ Total: 8 pages + references</code></pre>
 <table>
 <thead><tr><th>Error Type</th><th>Count</th><th>%</th><th>Systematic?</th></tr></thead>
 <tbody>
-<tr><td>Factual expansion needed</td><td>24</td><td>31%</td><td>Yes — inherent</td></tr>
-<tr><td>Topic drift</td><td>28</td><td>36%</td><td>Partial — can mitigate</td></tr>
-<tr><td>Over-expansion</td><td>14</td><td>18%</td><td>Yes — short query issue</td></tr>
-<tr><td>Ambiguous query</td><td>12</td><td>15%</td><td>Yes — inherent</td></tr>
+<tr><td>Factual expansion needed</td><td>24</td><td>31%</td><td>Yes - inherent</td></tr>
+<tr><td>Topic drift</td><td>28</td><td>36%</td><td>Partial - can mitigate</td></tr>
+<tr><td>Over-expansion</td><td>14</td><td>18%</td><td>Yes - short query issue</td></tr>
+<tr><td>Ambiguous query</td><td>12</td><td>15%</td><td>Yes - inherent</td></tr>
 </tbody></table>
 <p><strong>Example Failures:</strong></p>
 <ol>
 <li><strong>Factual needed:</strong> &quot;CRISPR mechanism&quot; → needs specific facts</li>
 <li><strong>Topic drift:</strong> &quot;stem cell&quot; → expanded to general biology</li>
 <li><strong>Over-expansion:</strong> &quot;pain&quot; → too many diluting terms</li>
-<li><strong>Ambiguous:</strong> &quot;apple&quot; — fruit or company?</li>
+<li><strong>Ambiguous:</strong> &quot;apple&quot; - fruit or company?</li>
 </ol>
 <h3>2. Limitations Documentation</h3>
 <p><strong>Fundamental Limitations:</strong></p>
 <ol>
-<li>Cannot generate factual content — vocabulary expansion only</li>
+<li>Cannot generate factual content - vocabulary expansion only</li>
 <li>Requires domain-specific vocabulary gap to help</li>
 <li>400-830ms latency overhead per query</li>
 </ol>
@@ -207,31 +207,31 @@ Total: 8 pages + references</code></pre>
 </ol>
 <h3>3. Paper Outline Finalized</h3>
 <pre><code>1. Introduction (1.5 pages)
-   - Query-document asymmetry
-   - HyDE limitations (hallucination)
-   - QUID: semantic anchoring
+ - Query-document asymmetry
+ - HyDE limitations (hallucination)
+ - QUID: semantic anchoring
 
 2. Related Work (1.5 pages)
-   - Query expansion methods
-   - Text diffusion models
-   - Dense retrieval
+ - Query expansion methods
+ - Text diffusion models
+ - Dense retrieval
 
 3. Method (1.5 pages)
-   - Problem formulation
-   - QUID architecture
-   - Retrieval pipeline
+ - Problem formulation
+ - QUID architecture
+ - Retrieval pipeline
 
 4. Experiments (3 pages)
-   - Datasets and baselines
-   - Main results (Table 1)
-   - Ablations (Table 2)
-   - Analysis
+ - Datasets and baselines
+ - Main results (Table 1)
+ - Ablations (Table 2)
+ - Analysis
 
 5. Conclusion (0.5 pages)
 
 Total: 8 pages + references</code></pre>
 <h3>4. Abstract Draft</h3>
-<blockquote><p>Dense retrieval systems suffer from vocabulary mismatch: user queries are short while relevant documents use domain-specific terminology. Current approaches like HyDE use autoregressive LLMs to generate hypothetical documents, but may hallucinate facts. We introduce QUID (Queries Unmasked by Iterative Diffusion), which frames query expansion as denoising using masked text diffusion. We find domain-dependent effectiveness: QUID improves nDCG@10 by 8.5% on medical (NFCorpus) and 7.9% on financial (FiQA) queries while performing neutrally on general scientific text. Analysis reveals QUID maintains &quot;semantic anchoring&quot; — staying close to query intent while expanding vocabulary.</p></blockquote></div>
+<blockquote><p>Dense retrieval systems suffer from vocabulary mismatch: user queries are short while relevant documents use domain-specific terminology. Current approaches like HyDE use autoregressive LLMs to generate hypothetical documents, but may hallucinate facts. We introduce QUID (Queries Unmasked by Iterative Diffusion), which frames query expansion as denoising using masked text diffusion. We find domain-dependent effectiveness: QUID improves nDCG@10 by 8.5% on medical (NFCorpus) and 7.9% on financial (FiQA) queries while performing neutrally on general scientific text. Analysis reveals QUID maintains &quot;semantic anchoring&quot; - staying close to query intent while expanding vocabulary.</p></blockquote></div>
     </section>
 
     <!-- PAGE 5: Challenges, learnings, next -->
@@ -281,7 +281,7 @@ Total: 8 pages + references</code></pre>
       <div class='sec-eye' style='margin-top:24px'>Advisor</div><h2 class='sec-title'>Notes for advisor</h2><div class='sec-rule'></div><div class='prose'><p>Error analysis and limitations complete. Paper outline ready. Abstract drafted. On track to complete full draft next week.</p></div>
 
       <p class="footer-note">
-        Capstone by Iksha Lab under guidance of Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+        Capstone project under the guidance of Dr. G. Muneeswari, Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
         Status: Month 4 still in progress · Preprint coming soon.
       </p>
     </section>
