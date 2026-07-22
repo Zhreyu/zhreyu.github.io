@@ -21,8 +21,11 @@ TEAM = [
 
 ADVISOR = (
     "Dr. G. Muneeswari, Professor (Grade 2), "
-    "Head of the Department of Data Science and Engineering, VIT-AP University"
+    "Head of the Department of Data Science and Engineering (DSE), "
+    "School of Computer Science and Engineering (SCOPE), VIT-AP University"
 )
+
+AFFILIATION = "School of Computer Science and Engineering (SCOPE) · VIT-AP University"
 
 WEEK_META = {
     1: ("Environment & Literature", "Month 1 · Week 1 of 12", "Foundation"),
@@ -194,7 +197,7 @@ def team_html() -> str:
   <div class="team-label">Students</div>
   {members}
   <p style="margin-top:14px"><strong>Done under the guidance of</strong><br>{esc(ADVISOR)}</p>
-  <p style="margin-top:10px">Department of Data Science and Engineering · VIT-AP University</p>
+  <p style="margin-top:10px">{esc(AFFILIATION)}</p>
 </div>
 """
 
@@ -589,7 +592,7 @@ def build_thesis() -> None:
     <span class="chip accent">Month 4 in progress</span>
     <span class="chip win">Preprint coming soon</span>
     <span class="chip">github.com/Zhreyu/quid</span>
-    <span class="chip">VIT-AP · DSE</span>
+    <span class="chip">VIT-AP · SCOPE</span>
   </div>
   {team_html()}
   {diagrams}
