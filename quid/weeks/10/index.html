@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID · Week 10 — Feedback Incorporated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="../../">QUID</a>
+  <nav class="site-nav-links">
+    <a href="../../" class="">Overview</a>
+    <a href="../../thesis/" class="">Thesis</a>
+    <a href="../../pitch/" class="">Pitch</a>
+    <a href="../../weeks/" class="active">Weeks</a>
+    <a href="../../assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap wrap-wide">
+  <div class="week-nav no-print">
+    <a href="../09/">← Week 09</a>
+    <a href="../">All weeks</a>
+    <a href="../11/">Week 11 →</a>
+  </div>
+
+  <div class="print-stack">
+    <!-- PAGE 1: Cover -->
+    <section class="page">
+      <div class="kicker">QUID · Month 3 · Week 2 of 12 · Polish</div>
+      <h1 class="cover-title">Week 10<br><span>Feedback Incorporated</span></h1>
+      <p class="cover-desc">Month 3 focuses on polish — reproducibility, advisor feedback, code release, and presentation readiness — while locking the core thesis for Review 2.</p>
+      <div class="status-row" style="margin-top:20px">
+        <span class="chip accent">Official 12-week arc · Capstone ongoing</span>
+      </div>
+      <div class="cover-meta">
+        <div>
+          <div class="team-label">Team · Iksha Lab</div>
+          <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div><div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div><div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div><div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+          <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+        </div>
+        <div class="cover-week-big">10</div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: Context & objectives -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 10</div>
+        <div class="page-header-right">Context &amp; objectives</div>
+      </div>
+      <div class="sec-eye">Why this week</div>
+      <h2 class="sec-title">Place in the arc</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">Month 3 focuses on polish — reproducibility, advisor feedback, code release, and presentation readiness — while locking the core thesis for Review 2.</p>
+      
+      <div class="sec-eye" style="margin-top:28px">This week</div>
+      <h2 class="sec-title">Objectives</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        These objectives define what success looked like for Week 10. Meeting them either
+        unlocked the next experiment, closed a risk, or produced evidence for the thesis claim
+        that diffusion expansion is domain-dependent.
+      </p>
+      <div class="prose"><ul>
+<li>[ ] Complete reproducibility verification</li>
+<li>[ ] Incorporate advisor feedback</li>
+<li>[ ] Finalize code release</li>
+<li>[ ] Draft presentation</li>
+</ul></div>
+    </section>
+
+    <!-- PAGE 3: Work completed -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 10</div>
+        <div class="page-header-right">Work completed</div>
+      </div>
+      <div class="sec-eye">Execution</div>
+      <h2 class="sec-title">What we built and measured</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Below is the detailed record for the week — methods, implementation notes, and experimental
+        setup — expanded from the team log so a reader can follow the technical path without the
+        repository open.
+      </p>
+      <div class="prose"><h3>1. Reproducibility Verification Complete</h3>
+<p>All main results reproduced from fresh clone:</p>
+<table>
+<thead><tr><th>Experiment</th><th>Paper</th><th>Reproduced</th><th>Δ</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>NFCorpus nDCG@10</td><td>0.371</td><td>0.370</td><td>0.001</td><td>✅</td></tr>
+<tr><td>FiQA nDCG@10</td><td>0.451</td><td>0.452</td><td>0.001</td><td>✅</td></tr>
+<tr><td>SciFact nDCG@10</td><td>0.679</td><td>0.678</td><td>0.001</td><td>✅</td></tr>
+<tr><td>TREC-COVID nDCG@10</td><td>0.634</td><td>0.635</td><td>0.001</td><td>✅</td></tr>
+</tbody></table>
+<p>All ablations also verified. Results match within expected variance.</p>
+<h3>2. Advisor Feedback Incorporated</h3>
+<p><strong>Feedback received:</strong></p>
+<table>
+<thead><tr><th>Feedback</th><th>Action Taken</th></tr></thead>
+<tbody>
+<tr><td>&quot;Clarify semantic anchoring definition&quot;</td><td>Added formal definition in Section 3.1</td></tr>
+<tr><td>&quot;Add computational cost comparison&quot;</td><td>Added Table 4 with GPU-hours and API costs</td></tr>
+<tr><td>&quot;Strengthen negative result framing&quot;</td><td>Rewrote SciFact discussion as hypothesis validation</td></tr>
+<tr><td>&quot;Missing reproducibility details&quot;</td><td>Added hyperparameter appendix</td></tr>
+</tbody></table>
+<h3>3. Code Release Finalized</h3>
+<p>Repository ready for public release:</p>
+<ul>
+<li>All tests passing</li>
+<li>Documentation complete</li>
+<li>License added (MIT)</li>
+<li>Citation file added</li>
+<li>Example notebooks included</li>
+</ul>
+<pre><code># Verify installation works
+pip install -r requirements.txt
+python experiments/run_beir.py --dataset nfcorpus --method quid
+# Output: nDCG@10 = 0.370 ✓</code></pre>
+<h3>4. Presentation Draft</h3>
+<p>15-minute presentation outline:</p>
+<table>
+<thead><tr><th>Section</th><th>Time</th><th>Key Points</th></tr></thead>
+<tbody>
+<tr><td>Problem</td><td>2 min</td><td>Query-document asymmetry</td></tr>
+<tr><td>Current Solutions</td><td>2 min</td><td>HyDE, limitations</td></tr>
+<tr><td>QUID Method</td><td>3 min</td><td>Diffusion as anchoring</td></tr>
+<tr><td>Results</td><td>5 min</td><td>Main table, ablations</td></tr>
+<tr><td>Contributions</td><td>3 min</td><td>Summary, future work</td></tr>
+</tbody></table>
+<p>Slides: 18 slides, key visualizations from paper.</p></div>
+    </section>
+
+    <!-- PAGE 4: Results & interpretation -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 10</div>
+        <div class="page-header-right">Results &amp; interpretation</div>
+      </div>
+      <div class="sec-eye">Evidence</div>
+      <h2 class="sec-title">Numbers and what they mean</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Metrics are only useful with interpretation. Where tables appear, read the deltas as
+        claims about <em>when</em> QUID helps (vocabulary gap) versus when HyDE or vanilla wins
+        (knowledge / claim gap). Agentic weeks emphasize tool-call policies over blind expansion.
+      </p>
+      <div class="prose"><h3>1. Reproducibility Verification Complete</h3>
+<p>All main results reproduced from fresh clone:</p>
+<table>
+<thead><tr><th>Experiment</th><th>Paper</th><th>Reproduced</th><th>Δ</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>NFCorpus nDCG@10</td><td>0.371</td><td>0.370</td><td>0.001</td><td>✅</td></tr>
+<tr><td>FiQA nDCG@10</td><td>0.451</td><td>0.452</td><td>0.001</td><td>✅</td></tr>
+<tr><td>SciFact nDCG@10</td><td>0.679</td><td>0.678</td><td>0.001</td><td>✅</td></tr>
+<tr><td>TREC-COVID nDCG@10</td><td>0.634</td><td>0.635</td><td>0.001</td><td>✅</td></tr>
+</tbody></table>
+<p>All ablations also verified. Results match within expected variance.</p>
+<h3>2. Advisor Feedback Incorporated</h3>
+<p><strong>Feedback received:</strong></p>
+<table>
+<thead><tr><th>Feedback</th><th>Action Taken</th></tr></thead>
+<tbody>
+<tr><td>&quot;Clarify semantic anchoring definition&quot;</td><td>Added formal definition in Section 3.1</td></tr>
+<tr><td>&quot;Add computational cost comparison&quot;</td><td>Added Table 4 with GPU-hours and API costs</td></tr>
+<tr><td>&quot;Strengthen negative result framing&quot;</td><td>Rewrote SciFact discussion as hypothesis validation</td></tr>
+<tr><td>&quot;Missing reproducibility details&quot;</td><td>Added hyperparameter appendix</td></tr>
+</tbody></table>
+<h3>3. Code Release Finalized</h3>
+<p>Repository ready for public release:</p>
+<ul>
+<li>All tests passing</li>
+<li>Documentation complete</li>
+<li>License added (MIT)</li>
+<li>Citation file added</li>
+<li>Example notebooks included</li>
+</ul>
+<pre><code># Verify installation works
+pip install -r requirements.txt
+python experiments/run_beir.py --dataset nfcorpus --method quid
+# Output: nDCG@10 = 0.370 ✓</code></pre>
+<h3>4. Presentation Draft</h3>
+<p>15-minute presentation outline:</p>
+<table>
+<thead><tr><th>Section</th><th>Time</th><th>Key Points</th></tr></thead>
+<tbody>
+<tr><td>Problem</td><td>2 min</td><td>Query-document asymmetry</td></tr>
+<tr><td>Current Solutions</td><td>2 min</td><td>HyDE, limitations</td></tr>
+<tr><td>QUID Method</td><td>3 min</td><td>Diffusion as anchoring</td></tr>
+<tr><td>Results</td><td>5 min</td><td>Main table, ablations</td></tr>
+<tr><td>Contributions</td><td>3 min</td><td>Summary, future work</td></tr>
+</tbody></table>
+<p>Slides: 18 slides, key visualizations from paper.</p></div>
+    </section>
+
+    <!-- PAGE 5: Challenges, learnings, next -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 10</div>
+        <div class="page-header-right">Reflection &amp; next</div>
+      </div>
+      <div class="sec-eye">Friction</div>
+      <h2 class="sec-title">Challenges</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ol>
+<li><strong>Feedback turnaround</strong>: Quick turnaround needed for revisions. Completed in 2 days.</li>
+</ol>
+<ol>
+<li><strong>Appendix formatting</strong>: Page limits required careful organization.</li>
+</ol></div>
+
+      <div class="sec-eye" style="margin-top:24px">Takeaways</div>
+      <h2 class="sec-title">Key learnings</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ul>
+<li>Advisor feedback significantly improved paper clarity</li>
+<li>Reproducibility documentation is essential for credibility</li>
+<li>Presentation forces distillation of key messages</li>
+</ul></div>
+
+      <div class="sec-eye" style="margin-top:24px">Forward</div>
+      <h2 class="sec-title">Plan for next week</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ul>
+<li>Final paper polish</li>
+<li>Practice presentation</li>
+<li>Prepare supplementary materials</li>
+</ul></div>
+
+      <div class='sec-eye' style='margin-top:24px'>Effort</div><h2 class='sec-title'>Hours logged</h2><div class='sec-rule'></div><div class='prose'><table>
+<thead><tr><th>Activity</th><th>Hours</th></tr></thead>
+<tbody>
+<tr><td>Reproducibility verification</td><td>8</td></tr>
+<tr><td>Feedback incorporation</td><td>10</td></tr>
+<tr><td>Code finalization</td><td>8</td></tr>
+<tr><td>Presentation drafting</td><td>6</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>32</strong></td></tr>
+</tbody></table></div>
+      <div class='sec-eye' style='margin-top:24px'>Advisor</div><h2 class='sec-title'>Notes for advisor</h2><div class='sec-rule'></div><div class='prose'><p>All feedback incorporated. Paper ready for final review. Presentation draft ready for practice session.</p></div>
+
+      <p class="footer-note">
+        Capstone by Iksha Lab under guidance of Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+        Status: Month 4 still in progress · Preprint coming soon.
+      </p>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

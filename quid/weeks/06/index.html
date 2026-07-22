@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID · Week 06 — Ablations Complete</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="../../">QUID</a>
+  <nav class="site-nav-links">
+    <a href="../../" class="">Overview</a>
+    <a href="../../thesis/" class="">Thesis</a>
+    <a href="../../pitch/" class="">Pitch</a>
+    <a href="../../weeks/" class="active">Weeks</a>
+    <a href="../../assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap wrap-wide">
+  <div class="week-nav no-print">
+    <a href="../05/">← Week 05</a>
+    <a href="../">All weeks</a>
+    <a href="../07/">Week 07 →</a>
+  </div>
+
+  <div class="print-stack">
+    <!-- PAGE 1: Cover -->
+    <section class="page">
+      <div class="kicker">QUID · Month 2 · Week 2 of 12 · Science</div>
+      <h1 class="cover-title">Week 06<br><span>Ablations Complete</span></h1>
+      <p class="cover-desc">Month 2 deepens the science: full baselines, ablations, mechanism analysis (semantic anchoring / drift), and the first complete paper draft.</p>
+      <div class="status-row" style="margin-top:20px">
+        <span class="chip accent">Official 12-week arc · Capstone ongoing</span>
+      </div>
+      <div class="cover-meta">
+        <div>
+          <div class="team-label">Team · Iksha Lab</div>
+          <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div><div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div><div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div><div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+          <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+        </div>
+        <div class="cover-week-big">06</div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: Context & objectives -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 6</div>
+        <div class="page-header-right">Context &amp; objectives</div>
+      </div>
+      <div class="sec-eye">Why this week</div>
+      <h2 class="sec-title">Place in the arc</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">Month 2 deepens the science: full baselines, ablations, mechanism analysis (semantic anchoring / drift), and the first complete paper draft.</p>
+      
+      <div class="sec-eye" style="margin-top:28px">This week</div>
+      <h2 class="sec-title">Objectives</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        These objectives define what success looked like for Week 6. Meeting them either
+        unlocked the next experiment, closed a risk, or produced evidence for the thesis claim
+        that diffusion expansion is domain-dependent.
+      </p>
+      <div class="prose"><ul>
+<li>[ ] Complete ablation studies (temperature, masks, embeddings)</li>
+<li>[ ] Vocabulary overlap analysis</li>
+<li>[ ] Per-query characteristic correlations</li>
+<li>[ ] Mechanism analysis synthesis</li>
+</ul></div>
+    </section>
+
+    <!-- PAGE 3: Work completed -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 6</div>
+        <div class="page-header-right">Work completed</div>
+      </div>
+      <div class="sec-eye">Execution</div>
+      <h2 class="sec-title">What we built and measured</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Below is the detailed record for the week — methods, implementation notes, and experimental
+        setup — expanded from the team log so a reader can follow the technical path without the
+        repository open.
+      </p>
+      <div class="prose"><h3>1. Temperature Ablation</h3>
+<table>
+<thead><tr><th>Temperature</th><th>nDCG@10</th><th>Expansion Diversity</th><th>Semantic Drift</th></tr></thead>
+<tbody>
+<tr><td>0.5</td><td>0.358</td><td>Low (0.12)</td><td>0.18</td></tr>
+<tr><td>0.7</td><td>0.365</td><td>Medium-Low (0.21)</td><td>0.20</td></tr>
+<tr><td>1.0</td><td><strong>0.371</strong></td><td>Medium (0.34)</td><td>0.23</td></tr>
+<tr><td>1.3</td><td>0.363</td><td>Medium-High (0.45)</td><td>0.28</td></tr>
+<tr><td>1.5</td><td>0.352</td><td>High (0.58)</td><td>0.35</td></tr>
+</tbody></table>
+<p><strong>Optimal: Temperature 1.0</strong></p>
+<h3>2. Mask Count Ablation</h3>
+<table>
+<thead><tr><th>Masks</th><th>nDCG@10</th><th>Avg Tokens Filled</th></tr></thead>
+<tbody>
+<tr><td>20</td><td>0.358</td><td>15.2</td></tr>
+<tr><td>30</td><td>0.365</td><td>23.8</td></tr>
+<tr><td>50</td><td><strong>0.371</strong></td><td>34.7</td></tr>
+<tr><td>75</td><td>0.368</td><td>48.3</td></tr>
+<tr><td>100</td><td>0.359</td><td>61.2</td></tr>
+</tbody></table>
+<p><strong>Optimal: 50 masks.</strong> Model self-regulates — doesn&#x27;t fill all masks.</p>
+<h3>3. Embedding Model Sensitivity</h3>
+<table>
+<thead><tr><th>Embedding</th><th>NFCorpus Δ</th><th>FiQA Δ</th><th>SciFact Δ</th><th>TREC-COVID Δ</th></tr></thead>
+<tbody>
+<tr><td>BGE-M3</td><td>+8.5%</td><td>+7.9%</td><td>-1.2%</td><td>+6.0%</td></tr>
+<tr><td>E5-large</td><td>+7.6%</td><td>+7.2%</td><td>-0.7%</td><td>+5.4%</td></tr>
+<tr><td>GTR-T5</td><td>+6.1%</td><td>+5.9%</td><td>-1.8%</td><td>+4.2%</td></tr>
+<tr><td>MiniLM</td><td>+6.3%</td><td>+5.2%</td><td>-0.4%</td><td>+4.8%</td></tr>
+</tbody></table>
+<p><strong>Pattern consistent across all embedding models!</strong></p>
+<h3>4. Vocabulary Overlap Analysis</h3>
+<table>
+<thead><tr><th>Method</th><th>NFCorpus</th><th>FiQA</th><th>SciFact</th><th>TREC-COVID</th></tr></thead>
+<tbody>
+<tr><td>QUID</td><td><strong>0.67</strong></td><td><strong>0.71</strong></td><td>0.58</td><td><strong>0.64</strong></td></tr>
+<tr><td>HyDE</td><td>0.61</td><td>0.65</td><td><strong>0.72</strong></td><td>0.59</td></tr>
+</tbody></table>
+<p>QUID generates higher vocabulary overlap on specialized domains.</p>
+<h3>5. Per-Query Characteristic Correlations</h3>
+<table>
+<thead><tr><th>Query Feature</th><th>Correlation with QUID Δ</th></tr></thead>
+<tbody>
+<tr><td>Domain terminology density</td><td>r = 0.41 (strongest)</td></tr>
+<tr><td>Query specificity</td><td>r = 0.34</td></tr>
+<tr><td>Low baseline performance</td><td>r = -0.28</td></tr>
+<tr><td>Query length</td><td>r = 0.18</td></tr>
+</tbody></table>
+<p><strong>Key insight:</strong> QUID helps most when queries contain domain-specific terminology.</p>
+<h3>6. Mechanism Summary</h3>
+<p>Three-part mechanism:</p>
+<ol>
+<li><strong>Vocabulary expansion:</strong> Adds domain-appropriate terms</li>
+<li><strong>Semantic anchoring:</strong> Stays closer to query than autoregressive methods</li>
+<li><strong>Conservative generation:</strong> Fewer but more precise terms</li>
+</ol></div>
+    </section>
+
+    <!-- PAGE 4: Results & interpretation -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 6</div>
+        <div class="page-header-right">Results &amp; interpretation</div>
+      </div>
+      <div class="sec-eye">Evidence</div>
+      <h2 class="sec-title">Numbers and what they mean</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Metrics are only useful with interpretation. Where tables appear, read the deltas as
+        claims about <em>when</em> QUID helps (vocabulary gap) versus when HyDE or vanilla wins
+        (knowledge / claim gap). Agentic weeks emphasize tool-call policies over blind expansion.
+      </p>
+      <div class="prose"><h3>1. Temperature Ablation</h3>
+<table>
+<thead><tr><th>Temperature</th><th>nDCG@10</th><th>Expansion Diversity</th><th>Semantic Drift</th></tr></thead>
+<tbody>
+<tr><td>0.5</td><td>0.358</td><td>Low (0.12)</td><td>0.18</td></tr>
+<tr><td>0.7</td><td>0.365</td><td>Medium-Low (0.21)</td><td>0.20</td></tr>
+<tr><td>1.0</td><td><strong>0.371</strong></td><td>Medium (0.34)</td><td>0.23</td></tr>
+<tr><td>1.3</td><td>0.363</td><td>Medium-High (0.45)</td><td>0.28</td></tr>
+<tr><td>1.5</td><td>0.352</td><td>High (0.58)</td><td>0.35</td></tr>
+</tbody></table>
+<p><strong>Optimal: Temperature 1.0</strong></p>
+<h3>2. Mask Count Ablation</h3>
+<table>
+<thead><tr><th>Masks</th><th>nDCG@10</th><th>Avg Tokens Filled</th></tr></thead>
+<tbody>
+<tr><td>20</td><td>0.358</td><td>15.2</td></tr>
+<tr><td>30</td><td>0.365</td><td>23.8</td></tr>
+<tr><td>50</td><td><strong>0.371</strong></td><td>34.7</td></tr>
+<tr><td>75</td><td>0.368</td><td>48.3</td></tr>
+<tr><td>100</td><td>0.359</td><td>61.2</td></tr>
+</tbody></table>
+<p><strong>Optimal: 50 masks.</strong> Model self-regulates — doesn&#x27;t fill all masks.</p>
+<h3>3. Embedding Model Sensitivity</h3>
+<table>
+<thead><tr><th>Embedding</th><th>NFCorpus Δ</th><th>FiQA Δ</th><th>SciFact Δ</th><th>TREC-COVID Δ</th></tr></thead>
+<tbody>
+<tr><td>BGE-M3</td><td>+8.5%</td><td>+7.9%</td><td>-1.2%</td><td>+6.0%</td></tr>
+<tr><td>E5-large</td><td>+7.6%</td><td>+7.2%</td><td>-0.7%</td><td>+5.4%</td></tr>
+<tr><td>GTR-T5</td><td>+6.1%</td><td>+5.9%</td><td>-1.8%</td><td>+4.2%</td></tr>
+<tr><td>MiniLM</td><td>+6.3%</td><td>+5.2%</td><td>-0.4%</td><td>+4.8%</td></tr>
+</tbody></table>
+<p><strong>Pattern consistent across all embedding models!</strong></p>
+<h3>4. Vocabulary Overlap Analysis</h3>
+<table>
+<thead><tr><th>Method</th><th>NFCorpus</th><th>FiQA</th><th>SciFact</th><th>TREC-COVID</th></tr></thead>
+<tbody>
+<tr><td>QUID</td><td><strong>0.67</strong></td><td><strong>0.71</strong></td><td>0.58</td><td><strong>0.64</strong></td></tr>
+<tr><td>HyDE</td><td>0.61</td><td>0.65</td><td><strong>0.72</strong></td><td>0.59</td></tr>
+</tbody></table>
+<p>QUID generates higher vocabulary overlap on specialized domains.</p>
+<h3>5. Per-Query Characteristic Correlations</h3>
+<table>
+<thead><tr><th>Query Feature</th><th>Correlation with QUID Δ</th></tr></thead>
+<tbody>
+<tr><td>Domain terminology density</td><td>r = 0.41 (strongest)</td></tr>
+<tr><td>Query specificity</td><td>r = 0.34</td></tr>
+<tr><td>Low baseline performance</td><td>r = -0.28</td></tr>
+<tr><td>Query length</td><td>r = 0.18</td></tr>
+</tbody></table>
+<p><strong>Key insight:</strong> QUID helps most when queries contain domain-specific terminology.</p>
+<h3>6. Mechanism Summary</h3>
+<p>Three-part mechanism:</p>
+<ol>
+<li><strong>Vocabulary expansion:</strong> Adds domain-appropriate terms</li>
+<li><strong>Semantic anchoring:</strong> Stays closer to query than autoregressive methods</li>
+<li><strong>Conservative generation:</strong> Fewer but more precise terms</li>
+</ol></div>
+    </section>
+
+    <!-- PAGE 5: Challenges, learnings, next -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 6</div>
+        <div class="page-header-right">Reflection &amp; next</div>
+      </div>
+      <div class="sec-eye">Friction</div>
+      <h2 class="sec-title">Challenges</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ol>
+<li><strong>Embedding model compute</strong>: Testing 4 models × 4 datasets required sampling for initial analysis.</li>
+</ol>
+<ol>
+<li><strong>Correlation interpretation</strong>: Many features correlated with each other; causal interpretation difficult.</li>
+</ol></div>
+
+      <div class="sec-eye" style="margin-top:24px">Takeaways</div>
+      <h2 class="sec-title">Key learnings</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ul>
+<li>QUID&#x27;s benefit is robust to hyperparameters and embedding choice</li>
+<li>Domain terminology density is the strongest predictor of benefit</li>
+<li>The mechanism analysis provides publishable insights</li>
+</ul></div>
+
+      <div class="sec-eye" style="margin-top:24px">Forward</div>
+      <h2 class="sec-title">Plan for next week</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ul>
+<li>Complete error analysis (78 failure cases)</li>
+<li>Document limitations</li>
+<li>Begin paper outline</li>
+</ul></div>
+
+      <div class='sec-eye' style='margin-top:24px'>Effort</div><h2 class='sec-title'>Hours logged</h2><div class='sec-rule'></div><div class='prose'><table>
+<thead><tr><th>Activity</th><th>Hours</th></tr></thead>
+<tbody>
+<tr><td>Temperature/mask ablations</td><td>8</td></tr>
+<tr><td>Embedding sensitivity</td><td>8</td></tr>
+<tr><td>Vocabulary analysis</td><td>6</td></tr>
+<tr><td>Per-query analysis</td><td>8</td></tr>
+<tr><td>Documentation</td><td>2</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>32</strong></td></tr>
+</tbody></table></div>
+      <div class='sec-eye' style='margin-top:24px'>Advisor</div><h2 class='sec-title'>Notes for advisor</h2><div class='sec-rule'></div><div class='prose'><p>Ablations complete. QUID is robust. Mechanism analysis provides clear story: &quot;semantic anchoring&quot; differentiates QUID from autoregressive methods.</p></div>
+
+      <p class="footer-note">
+        Capstone by Iksha Lab under guidance of Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+        Status: Month 4 still in progress · Preprint coming soon.
+      </p>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

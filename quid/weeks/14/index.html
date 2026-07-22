@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID · Week 14 — Agentic Benchmarks &amp; Review 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="../../">QUID</a>
+  <nav class="site-nav-links">
+    <a href="../../" class="">Overview</a>
+    <a href="../../thesis/" class="">Thesis</a>
+    <a href="../../pitch/" class="">Pitch</a>
+    <a href="../../weeks/" class="active">Weeks</a>
+    <a href="../../assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap wrap-wide">
+  <div class="week-nav no-print">
+    <a href="../13/">← Week 13</a>
+    <a href="../">All weeks</a>
+    <a href="../">All weeks →</a>
+  </div>
+
+  <div class="print-stack">
+    <!-- PAGE 1: Cover -->
+    <section class="page">
+      <div class="kicker">QUID · Review 2 Prep · Extension · Agentic</div>
+      <h1 class="cover-title">Week 14<br><span>Agentic Benchmarks &amp; Review 2</span></h1>
+      <p class="cover-desc">This is an extension beyond the original 12-week plan, responding to Review 1: an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. The capstone still has one month remaining; a preprint is forthcoming.</p>
+      <div class="status-row" style="margin-top:20px">
+        <span class="chip accent">Capstone in progress · Month 4 remaining · Preprint coming soon</span>
+      </div>
+      <div class="cover-meta">
+        <div>
+          <div class="team-label">Team · Iksha Lab</div>
+          <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div><div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div><div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div><div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+          <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+        </div>
+        <div class="cover-week-big">14</div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: Context & objectives -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 14</div>
+        <div class="page-header-right">Context &amp; objectives</div>
+      </div>
+      <div class="sec-eye">Why this week</div>
+      <h2 class="sec-title">Place in the arc</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">This is an extension beyond the original 12-week plan, responding to Review 1: an agentic controller that decides when to call QUID, HyDE, or vanilla retrieval. The capstone still has one month remaining; a preprint is forthcoming.</p>
+      
+      <div class="sec-eye" style="margin-top:28px">This week</div>
+      <h2 class="sec-title">Objectives</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        These objectives define what success looked like for Week 14. Meeting them either
+        unlocked the next experiment, closed a risk, or produced evidence for the thesis claim
+        that diffusion expansion is domain-dependent.
+      </p>
+      <div class="prose"><ul>
+<li>[x] Run agentic router benchmark on NFCorpus (50 queries)</li>
+<li>[x] Run agentic router benchmark on SciFact (50 queries)</li>
+<li>[x] Update final report with agentic results</li>
+<li>[x] Document expansion weeks (13–14)</li>
+<li>[x] Push to GitHub (<code>iksha-ai/quid</code>)</li>
+</ul></div>
+    </section>
+
+    <!-- PAGE 3: Work completed -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 14</div>
+        <div class="page-header-right">Work completed</div>
+      </div>
+      <div class="sec-eye">Execution</div>
+      <h2 class="sec-title">What we built and measured</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Below is the detailed record for the week — methods, implementation notes, and experimental
+        setup — expanded from the team log so a reader can follow the technical path without the
+        repository open.
+      </p>
+      <div class="prose"><h1>Week 14 Progress Report — Agentic Benchmarks + Review 2 Package</h1>
+<p><strong>Project:</strong> QUID — Diffusion-Based Query Expansion for Dense Information Retrieval  </p>
+<p><strong>Student:</strong> Shreyas S  </p>
+<p><strong>Week:</strong> 14 (Review 2 prep)  </p>
+<p><strong>Focus:</strong> Modal benchmarks, report updates, hub push</p>
+<h2>Objectives for This Week</h2>
+<ul>
+<li>[x] Run agentic router benchmark on NFCorpus (50 queries)</li>
+<li>[x] Run agentic router benchmark on SciFact (50 queries)</li>
+<li>[x] Update final report with agentic results</li>
+<li>[x] Document expansion weeks (13–14)</li>
+<li>[x] Push to GitHub (<code>iksha-ai/quid</code>)</li>
+</ul>
+<h2>Benchmark Setup</h2>
+<table>
+<thead><tr><th>Item</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>GPU</td><td>Modal L4 (24GB)</td></tr>
+<tr><td>Diffusion</td><td>LLaDA-8B-Instruct, 16 steps, gen_length 32</td></tr>
+<tr><td>Embeddings</td><td>BGE-M3</td></tr>
+<tr><td>HyDE backend</td><td>LLaDA document-style prompt (OpenAI quota unavailable)</td></tr>
+<tr><td>Metrics</td><td>nDCG@10; route vs oracle accuracy</td></tr>
+</tbody></table>
+<h2>Results</h2>
+<h3>SciFact (science claims, n=50) — tool calls improve accuracy</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
+<tbody>
+<tr><td>always_vanilla</td><td>0.6299</td><td>—</td></tr>
+<tr><td>always_QUID</td><td>0.5999</td><td>−0.0300</td></tr>
+<tr><td>agentic_single_shot</td><td>0.6280</td><td>−0.0019</td></tr>
+<tr><td><strong>agentic_multi_step</strong></td><td><strong>0.6625</strong></td><td><strong>+0.0326</strong></td></tr>
+<tr><td>oracle</td><td>0.7004</td><td>+0.0705</td></tr>
+</tbody></table>
+<ul>
+<li>multi vs single-shot: <strong>+0.0345</strong></li>
+<li>multi vs always-QUID: <strong>+0.0626</strong></li>
+<li>retry improve rate: <strong>67%</strong></li>
+<li>avg expand tool calls: <strong>1.06</strong></li>
+</ul>
+<h3>NFCorpus (medical, n=50)</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
+<tbody>
+<tr><td>always_vanilla</td><td>0.3305</td><td>—</td></tr>
+<tr><td>always_QUID</td><td>0.2704</td><td>−0.0601</td></tr>
+<tr><td><strong>agentic (single=multi)</strong></td><td><strong>0.3053</strong></td><td>−0.0252</td></tr>
+<tr><td>oracle</td><td>0.3577</td><td>+0.0272</td></tr>
+</tbody></table>
+<p>Agent recovers <strong>+3.5 pts</strong> vs always-QUID.</p>
+<p>Artifacts: <code>reports/agentic_results/*_q50.json</code>.  </p>
+<p>Pitch: <code>reports/review2_pitch.md</code>.</p>
+<h2>Review 2 Narrative</h2>
+<ol>
+<li><strong>Core thesis unchanged:</strong> masked diffusion (LLaDA) for query expansion; semantic anchoring.  </li>
+<li><strong>Agentic angle:</strong> router selects the expansion tool per query.  </li>
+<li><strong>Evidence:</strong> SciFact +2.3% with agent; always-QUID hurts. NFCorpus shows selective expansion beats always-QUID.  </li>
+<li><strong>Next:</strong> learned router on full splits; GPT HyDE when API available.</li>
+</ol>
+<h2>Deliverables Updated</h2>
+<ul>
+<li><code>reports/final_report.md</code> — §9.2 Agentic Extension  </li>
+<li><code>reports/week_13.md</code>, <code>reports/week_14.md</code>  </li>
+<li><code>src/agentic_router.py</code>, <code>src/run_agentic_benchmark.py</code>  </li>
+<li>README agentic section  </li>
+</ul>
+<p><strong>Weekly Status:</strong> REVIEW 2 PACKAGE READY ✅</p></div>
+    </section>
+
+    <!-- PAGE 4: Results & interpretation -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 14</div>
+        <div class="page-header-right">Results &amp; interpretation</div>
+      </div>
+      <div class="sec-eye">Evidence</div>
+      <h2 class="sec-title">Numbers and what they mean</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Metrics are only useful with interpretation. Where tables appear, read the deltas as
+        claims about <em>when</em> QUID helps (vocabulary gap) versus when HyDE or vanilla wins
+        (knowledge / claim gap). Agentic weeks emphasize tool-call policies over blind expansion.
+      </p>
+      <div class="prose"><h3>SciFact (science claims, n=50) — tool calls improve accuracy</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
+<tbody>
+<tr><td>always_vanilla</td><td>0.6299</td><td>—</td></tr>
+<tr><td>always_QUID</td><td>0.5999</td><td>−0.0300</td></tr>
+<tr><td>agentic_single_shot</td><td>0.6280</td><td>−0.0019</td></tr>
+<tr><td><strong>agentic_multi_step</strong></td><td><strong>0.6625</strong></td><td><strong>+0.0326</strong></td></tr>
+<tr><td>oracle</td><td>0.7004</td><td>+0.0705</td></tr>
+</tbody></table>
+<ul>
+<li>multi vs single-shot: <strong>+0.0345</strong></li>
+<li>multi vs always-QUID: <strong>+0.0626</strong></li>
+<li>retry improve rate: <strong>67%</strong></li>
+<li>avg expand tool calls: <strong>1.06</strong></li>
+</ul>
+<h3>NFCorpus (medical, n=50)</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>Δ vs vanilla</th></tr></thead>
+<tbody>
+<tr><td>always_vanilla</td><td>0.3305</td><td>—</td></tr>
+<tr><td>always_QUID</td><td>0.2704</td><td>−0.0601</td></tr>
+<tr><td><strong>agentic (single=multi)</strong></td><td><strong>0.3053</strong></td><td>−0.0252</td></tr>
+<tr><td>oracle</td><td>0.3577</td><td>+0.0272</td></tr>
+</tbody></table>
+<p>Agent recovers <strong>+3.5 pts</strong> vs always-QUID.</p>
+<p>Artifacts: <code>reports/agentic_results/*_q50.json</code>.  </p>
+<p>Pitch: <code>reports/review2_pitch.md</code>.</p></div>
+    </section>
+
+    <!-- PAGE 5: Challenges, learnings, next -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 14</div>
+        <div class="page-header-right">Reflection &amp; next</div>
+      </div>
+      <div class="sec-eye">Friction</div>
+      <h2 class="sec-title">Challenges</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><p>No major blockers recorded this week.</p></div>
+
+      <div class="sec-eye" style="margin-top:24px">Takeaways</div>
+      <h2 class="sec-title">Key learnings</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><p>See work completed for takeaways.</p></div>
+
+      <div class="sec-eye" style="margin-top:24px">Forward</div>
+      <h2 class="sec-title">Plan for next week</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><p>Continue per project roadmap.</p></div>
+
+      
+      
+
+      <p class="footer-note">
+        Capstone by Iksha Lab under guidance of Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+        Status: Month 4 still in progress · Preprint coming soon.
+      </p>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

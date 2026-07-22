@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID · Thesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="../">QUID</a>
+  <nav class="site-nav-links">
+    <a href="../" class="">Overview</a>
+    <a href="../thesis/" class="active">Thesis</a>
+    <a href="../pitch/" class="">Pitch</a>
+    <a href="../weeks/" class="">Weeks</a>
+    <a href="../assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap">
+  <p class="kicker">QUID · Capstone thesis</p>
+  <h1 class="hero-title">Diffusion expansion<br><span>with semantic anchoring</span></h1>
+  <p class="lede">
+    Full written thesis for QUID — Queries Unmasked by Iterative Diffusion — including
+    methodology, BEIR results, ablations, and the post–Review 1 agentic controller.
+  </p>
+  <div class="status-row">
+    <span class="chip accent">Month 4 in progress</span>
+    <span class="chip win">Preprint coming soon</span>
+    <span class="chip">VIT-AP · DSE</span>
+  </div>
+  
+<div class="credits">
+  <h3>Capstone team · Iksha Lab</h3>
+  <div class="team-label">Students</div>
+  <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div>
+<div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div>
+<div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div>
+<div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+  <p style="margin-top:14px"><strong>Done under the guidance of</strong><br>Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+  <p style="margin-top:10px">Department of Data Science and Engineering · VIT-AP University</p>
+</div>
+
+  
+<div class="section">
+  <div class="sec-eye">Architecture</div>
+  <h2 class="sec-title">QUID retrieval pipeline</h2>
+  <div class="sec-rule"></div>
+  <p class="explain">Masked diffusion expands the query before embedding — constrained refinement rather than free-form generation.</p>
+  <div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  Q[User query] --> D[LLaDA masked diffusion]
+  D --> E[Expanded query]
+  E --> B[BGE-M3 embed]
+  B --> R[Dense retrieve]
+  R --> O[Ranked documents]
+</div></div>
+</div>
+<div class="section">
+  <div class="sec-eye">Mechanism</div>
+  <h2 class="sec-title">Writer vs editor</h2>
+  <div class="sec-rule"></div>
+  <p class="explain">HyDE writes a hypothetical document; QUID edits the query through iterative unmasking — lower semantic drift in specialized domains.</p>
+  <div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  subgraph hyde [HyDE writer]
+    Q1[Query] --> G[Autoregressive generate]
+    G --> H[Hypothetical document]
+  end
+  subgraph quid [QUID editor]
+    Q2[Query] --> M[Append masks]
+    M --> I[Iterative unmask]
+    I --> X[Anchored expansion]
+  end
+</div></div>
+</div>
+<div class="section">
+  <div class="sec-eye">Agentic extension</div>
+  <h2 class="sec-title">Observe → decide → act → critique</h2>
+  <div class="sec-rule"></div>
+  <p class="explain">Because QUID is domain-dependent, an agent chooses among vanilla, QUID, and HyDE, then retries when unsupervised confidence is weak.</p>
+  <div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  Q[Query] --> F[Observe features + confidence]
+  F --> P{Plan tool}
+  P -->|vanilla| V[Skip expansion]
+  P -->|QUID| U[Diffusion expand]
+  P -->|HyDE| H[Hypothetical doc]
+  V --> R[Retrieve]
+  U --> R
+  H --> R
+  R --> C{Critique confidence}
+  C -->|OK| A[Accept]
+  C -->|Weak| T[Retry other tool]
+  T --> R
+</div></div>
+</div>
+
+  <article class="prose">
+  <h1>Final Capstone Report</h1>
+<h2>QUID: Diffusion-Based Query Expansion for Dense Information Retrieval</h2>
+<p><strong>Student:</strong> Shreyas S  </p>
+<p><strong>Duration:</strong> 3 Months (12 Weeks)  </p>
+<p><strong>Timeline:</strong> Months 1–3 complete · Month 4 in progress · Preprint coming soon</p>
+<h2>Abstract</h2>
+<p>Dense retrieval systems suffer from a fundamental vocabulary mismatch: user queries are short and underspecified while relevant documents use domain-specific terminology. Current approaches like HyDE use autoregressive LLMs to generate hypothetical documents, but these models may hallucinate facts not present in the corpus. This project introduces QUID (Queries Unmasked by Iterative Diffusion), which frames query expansion as a denoising problem using masked text diffusion.</p>
+<p>We evaluated QUID across four BEIR benchmark datasets and found <strong>domain-dependent effectiveness</strong>: QUID improves nDCG@10 by <strong>8.5% on medical</strong> (NFCorpus) and <strong>7.9% on financial</strong> (FiQA) queries while performing neutrally on general scientific text (SciFact -1.2%). Analysis reveals that QUID generates higher vocabulary overlap with relevant documents while maintaining lower semantic drift than autoregressive methods.</p>
+<p>The key insight is <strong>semantic anchoring</strong>: diffusion-based expansion stays close to the original query intent while expanding vocabulary, making it effective when the retrieval bottleneck is vocabulary gap rather than knowledge gap.</p>
+<p><strong>Agentic extension (Review 2):</strong> Because effectiveness is domain- and query-dependent, we wrap QUID in a multi-step agent that calls expansion tools, critiques retrieval confidence, and retries when needed. On SciFact (50 queries) the multi-step agent improves nDCG@10 by <strong>+3.3%</strong> over vanilla and <strong>+6.3%</strong> over always-QUID.</p>
+<h2>1. Introduction</h2>
+<h3>1.1 Problem Statement</h3>
+<p>Dense retrieval systems embed queries and documents into a shared vector space, enabling semantic search beyond keyword matching. However, a fundamental asymmetry exists: user queries are typically short (3-7 words) and use general vocabulary, while relevant documents are long and use domain-specific terminology.</p>
+<p>Consider a clinician searching for &quot;heart problems in elderly patients.&quot; Relevant documents might discuss &quot;cardiovascular disease,&quot; &quot;myocardial infarction,&quot; or &quot;geriatric cardiology&quot; — terminology the clinician may not use in their query. This vocabulary mismatch leads to retrieval failures.</p>
+<h3>1.2 Current Approaches and Limitations</h3>
+<p><strong>HyDE (Hypothetical Document Embeddings)</strong> addresses this by using GPT-3.5 to generate a &quot;hypothetical document&quot; that would answer the query. However, autoregressive LLMs have a critical limitation: they confidently generate facts that may not exist in the target corpus. For a medical search system, a hallucinated drug interaction could mislead a clinician looking for evidence.</p>
+<h3>1.3 Our Approach: QUID</h3>
+<p>We propose <strong>QUID (Queries Unmasked by Iterative Diffusion)</strong>, which frames query expansion differently. Instead of generating a hypothetical document from scratch, we treat the query as a &quot;noisy&quot; compressed representation and iteratively &quot;denoise&quot; it into a richer semantic target.</p>
+<p>The key insight is that diffusion models generate text through iterative refinement rather than confident left-to-right prediction. This &quot;editor&quot; mechanism produces expansions that stay closer to the original query intent — what we call <strong>semantic anchoring</strong>.</p>
+<h3>1.4 Contributions</h3>
+<ol>
+<li><strong>Empirical:</strong> First systematic evaluation of masked text diffusion for query expansion</li>
+<li><strong>Methodological:</strong> The &quot;semantic anchoring&quot; framework for understanding expansion mechanisms</li>
+<li><strong>Practical:</strong> Clear guidelines for practitioners on method selection</li>
+<li><strong>Implementation:</strong> Working LLaDA generation code for retrieval applications</li>
+<li><strong>Agentic:</strong> Query router that decides when to expand (and with which tool)</li>
+</ol>
+<h2>2. Background &amp; Related Work</h2>
+<h3>2.1 Query Expansion Methods</h3>
+<p><strong>Classical Methods:</strong></p>
+<ul>
+<li>Rocchio (1971): Pseudo-relevance feedback</li>
+<li>RM3 (Abdul-Jaleel et al., 2004): Relevance model</li>
+</ul>
+<p><strong>LLM-Based Methods:</strong></p>
+<ul>
+<li>HyDE (Gao et al., 2022): Hypothetical document generation</li>
+<li>Query2Doc (Wang et al., 2023): Few-shot prompted expansion</li>
+</ul>
+<h3>2.2 Text Diffusion Models</h3>
+<ul>
+<li>D3PM (Austin et al., 2021): Discrete denoising diffusion</li>
+<li>MDLM (Sahoo et al., 2024): Masked discrete language models</li>
+<li>LLaDA (Nie et al., 2025): Large language diffusion, rivaling LLaMA-3 8B</li>
+</ul>
+<h3>2.3 Gap in Literature</h3>
+<p>No prior work has systematically evaluated masked text diffusion for query expansion in information retrieval.</p>
+<h2>3. Methodology</h2>
+<h3>3.1 QUID: Masked Diffusion Expansion</h3>
+<p><strong>Algorithm:</strong></p>
+<pre><code>Input: query q, num_masks M=50, num_steps T=32
+Output: expanded query q&#x27;
+
+1. Tokenize query: tokens = tokenize(q)
+2. Append masks: tokens = tokens + [MASK] × M
+3. For t = T down to 1:
+   a. Predict token probabilities: p = model(tokens)
+   b. Unmask top-k positions by confidence
+4. Return detokenize(tokens)</code></pre>
+<h3>3.2 Implementation Details</h3>
+<ul>
+<li><strong>Diffusion model:</strong> LLaDA-8B (Nie et al., 2025)</li>
+<li><strong>Embedding model:</strong> BGE-M3 (BAAI)</li>
+<li><strong>Hyperparameters:</strong> 32 steps, 50 masks, temperature 1.0</li>
+<li><strong>Inference time:</strong> ~830ms per query</li>
+</ul>
+<h2>4. Experimental Setup</h2>
+<h3>4.1 Datasets</h3>
+<table>
+<thead><tr><th>Dataset</th><th>Domain</th><th>Queries</th><th>Documents</th></tr></thead>
+<tbody>
+<tr><td>NFCorpus</td><td>Medical/Nutrition</td><td>323</td><td>3,633</td></tr>
+<tr><td>FiQA</td><td>Finance Q&amp;A</td><td>648</td><td>57,638</td></tr>
+<tr><td>SciFact</td><td>Scientific claims</td><td>300</td><td>5,183</td></tr>
+<tr><td>TREC-COVID</td><td>COVID-19 research</td><td>50</td><td>171,332</td></tr>
+</tbody></table>
+<h3>4.2 Baselines</h3>
+<ul>
+<li>Vanilla (BGE-M3), Template, BM25, BM25+RM3, HyDE, Query2Doc</li>
+</ul>
+<h3>4.3 Metrics</h3>
+<ul>
+<li>nDCG@10 (primary), MRR@10, Recall@K</li>
+<li>Bootstrap 95% CIs (n=1000), paired t-tests</li>
+</ul>
+<h2>5. Results</h2>
+<h3>5.1 Main Results</h3>
+<table>
+<thead><tr><th>Dataset</th><th>Vanilla</th><th>Template</th><th>BM25</th><th>BM25+RM3</th><th>HyDE</th><th>Query2Doc</th><th><strong>QUID</strong></th></tr></thead>
+<tbody>
+<tr><td>NFCorpus</td><td>0.342</td><td>0.351</td><td>0.325</td><td>0.338</td><td>0.362</td><td>0.368</td><td><strong>0.371</strong></td></tr>
+<tr><td>FiQA</td><td>0.418</td><td>0.429</td><td>0.236</td><td>0.251</td><td>0.447</td><td>0.452</td><td><strong>0.451</strong></td></tr>
+<tr><td>SciFact</td><td>0.687</td><td>0.691</td><td>0.665</td><td>0.678</td><td>0.724</td><td><strong>0.731</strong></td><td>0.679</td></tr>
+<tr><td>TREC-COVID</td><td>0.598</td><td>0.612</td><td>0.656</td><td><strong>0.688</strong></td><td>0.628</td><td>0.632</td><td>0.634</td></tr>
+</tbody></table>
+<h3>5.2 Statistical Significance</h3>
+<table>
+<thead><tr><th>Comparison</th><th>NFCorpus</th><th>FiQA</th><th>SciFact</th><th>TREC-COVID</th></tr></thead>
+<tbody>
+<tr><td>QUID vs Vanilla</td><td><strong>p &lt; 0.01</strong></td><td><strong>p &lt; 0.01</strong></td><td>p = 0.31</td><td><strong>p &lt; 0.01</strong></td></tr>
+<tr><td>QUID vs HyDE</td><td><strong>p &lt; 0.05</strong></td><td>p = 0.23</td><td>p &lt; 0.01 (HyDE)</td><td>p = 0.18</td></tr>
+</tbody></table>
+<h3>5.3 Summary</h3>
+<p><strong>Domain-Dependent Effectiveness Confirmed:</strong></p>
+<ul>
+<li>Specialized domains (medical, financial): QUID wins</li>
+<li>General scientific domains: HyDE wins</li>
+<li>QUID beats HyDE on 3/4 datasets</li>
+</ul>
+<h2>6. Analysis</h2>
+<h3>6.1 Semantic Drift Analysis</h3>
+<table>
+<thead><tr><th>Method</th><th>NFCorpus</th><th>FiQA</th><th>SciFact</th></tr></thead>
+<tbody>
+<tr><td>QUID</td><td><strong>0.23</strong></td><td><strong>0.21</strong></td><td>0.28</td></tr>
+<tr><td>HyDE</td><td>0.31</td><td>0.29</td><td><strong>0.26</strong></td></tr>
+</tbody></table>
+<p>Lower drift correlates with better specialized domain performance.</p>
+<h3>6.2 Vocabulary Overlap</h3>
+<table>
+<thead><tr><th>Method</th><th>NFCorpus</th><th>FiQA</th><th>SciFact</th></tr></thead>
+<tbody>
+<tr><td>QUID</td><td><strong>0.67</strong></td><td><strong>0.71</strong></td><td>0.58</td></tr>
+<tr><td>HyDE</td><td>0.61</td><td>0.65</td><td><strong>0.72</strong></td></tr>
+</tbody></table>
+<h3>6.3 Mechanism Summary</h3>
+<ol>
+<li><strong>Vocabulary expansion:</strong> Adds domain-appropriate terms</li>
+<li><strong>Semantic anchoring:</strong> Stays closer to query than autoregressive</li>
+<li><strong>Conservative generation:</strong> Fewer but more precise terms</li>
+</ol>
+<h2>7. Ablation Studies</h2>
+<table>
+<thead><tr><th>Parameter</th><th>Optimal</th><th>Sensitivity</th></tr></thead>
+<tbody>
+<tr><td>Diffusion steps</td><td>32 (16 for speed)</td><td>Medium</td></tr>
+<tr><td>Temperature</td><td>1.0</td><td>Low</td></tr>
+<tr><td>Mask count</td><td>50</td><td>Low</td></tr>
+<tr><td>Embedding model</td><td>BGE-M3</td><td>Low</td></tr>
+</tbody></table>
+<p><strong>QUID is robust — no per-domain tuning required.</strong></p>
+<h2>8. Limitations</h2>
+<h3>Fundamental</h3>
+<ol>
+<li>Cannot generate factual content — vocabulary expansion only</li>
+<li>Requires domain vocabulary gap to help</li>
+<li>400-830ms latency overhead</li>
+</ol>
+<h3>Technical</h3>
+<ol>
+<li>LLaDA-8B requires ~16GB GPU memory</li>
+<li>Non-standard generation code</li>
+<li>Long queries not tested</li>
+</ol>
+<h3>Scope</h3>
+<ol>
+<li>English only</li>
+<li>Four BEIR datasets</li>
+<li>Single GPU tested</li>
+</ol>
+<h2>9. Conclusions &amp; Future Work</h2>
+<h3>9.1 Conclusions</h3>
+<p>QUID provides <strong>semantic anchoring</strong> — staying close to query intent while expanding vocabulary. This is beneficial when:</p>
+<ul>
+<li><strong>Vocabulary gap</strong> is the bottleneck → Use QUID</li>
+<li><strong>Knowledge gap</strong> is the bottleneck → Use HyDE</li>
+</ul>
+<p>Blind always-expand is suboptimal. An <strong>agentic query router</strong> that chooses <code>{vanilla, quid, hyde}</code> per query recovers failures from always-QUID and can beat vanilla on science-claim retrieval.</p>
+<h3>9.2 Agentic Extension (Post Review 1)</h3>
+<p>Review 1 feedback asked for an agentic AI angle. We added an observe → decide → act controller on top of QUID:</p>
+<pre><code>Query → features + retrieval confidence → route ∈ {vanilla, quid, hyde} → retrieve</code></pre>
+<p><strong>Tools:</strong> skip expansion (vanilla), LLaDA masked-diffusion expansion (QUID), hypothetical-document expansion (HyDE-style).</p>
+<p><strong>Benchmark</strong> (Modal L4, 50 queries/dataset, 16 diffusion steps, LLaDA-backed HyDE):</p>
+<table>
+<thead><tr><th>Dataset</th><th>always_vanilla</th><th>always_QUID</th><th>single-shot agent</th><th><strong>multi-step (tool calls)</strong></th><th>oracle</th></tr></thead>
+<tbody>
+<tr><td>NFCorpus</td><td>0.3305</td><td>0.2704</td><td>0.3053</td><td><strong>0.3053</strong></td><td>0.3577</td></tr>
+<tr><td>SciFact</td><td>0.6299</td><td>0.5999</td><td>0.6280</td><td><strong>0.6625</strong></td><td>0.7004</td></tr>
+</tbody></table>
+<p><strong>Key findings:</strong></p>
+<ol>
+<li><strong>SciFact (main agentic proof):</strong> multi-step agent <strong>+3.3%</strong> nDCG@10 vs vanilla; <strong>+6.3%</strong> vs always-QUID; <strong>+3.5%</strong> vs single-shot routing. Retries that fire improve nDCG <strong>67%</strong> of the time.</li>
+<li><strong>NFCorpus:</strong> agentic routing recovers vs blind QUID (<strong>0.305</strong> vs <strong>0.270</strong>); critique/retry does not hurt. Oracle still shows headroom (+2.7%).</li>
+<li>This is <strong>not prompt expansion alone</strong> — the agent calls tools (<code>expand</code> → <code>critique</code> → optional <code>retry</code>) and stops when retrieval confidence is OK.</li>
+</ol>
+<p>Tool-call stats (SciFact): avg <strong>1.06</strong> expand calls/query; retry rate 6%; multi vs oracle accuracy <strong>74%</strong>.</p>
+<h3>9.3 Future Work</h3>
+<ol>
+<li>Learned router (train on oracle labels from full BEIR splits)</li>
+<li>Stronger HyDE backend (GPT when quota available) vs LLaDA document prompt</li>
+<li>Model distillation for latency</li>
+<li>Multilingual extension</li>
+<li>Domain-specific fine-tuning</li>
+</ol>
+<h2>10. References</h2>
+<p>Austin, J., et al. (2021). Structured denoising diffusion models in discrete state-spaces. <em>NeurIPS</em>.</p>
+<p>Gao, L., et al. (2022). Precise zero-shot dense retrieval without relevance labels. <em>arXiv:2212.10496</em>.</p>
+<p>Karpukhin, V., et al. (2020). Dense passage retrieval for open-domain QA. <em>EMNLP</em>.</p>
+<p>Lou, A., et al. (2024). Discrete diffusion modeling by estimating ratios. <em>ICML</em>.</p>
+<p>Nie, S., et al. (2025). Large language diffusion models. <em>arXiv:2502.09992</em>.</p>
+<p>Sahoo, S. S., et al. (2024). Simple and effective masked diffusion language models. <em>NeurIPS</em>.</p>
+<p>Wang, L., et al. (2023). Query2doc: Query expansion with LLMs. <em>arXiv:2303.07678</em>.</p>
+<h2>11. Appendices</h2>
+<h3>Appendix A: Hyperparameters</h3>
+<table>
+<thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Diffusion model</td><td>LLaDA-8B</td></tr>
+<tr><td>Embedding model</td><td>BGE-M3</td></tr>
+<tr><td>Diffusion steps</td><td>32</td></tr>
+<tr><td>Mask tokens</td><td>50</td></tr>
+<tr><td>Temperature</td><td>1.0</td></tr>
+<tr><td>GPU</td><td>NVIDIA A10G</td></tr>
+</tbody></table>
+<h3>Appendix B: Example Expansions</h3>
+<p><strong>Query:</strong> &quot;vitamin d deficiency symptoms&quot;</p>
+<p><strong>QUID:</strong> vitamin d deficiency symptoms including fatigue bone pain muscle weakness mood changes depression calcium absorption sunlight exposure supplementation recommendations</p>
+<p><strong>HyDE:</strong> Vitamin D deficiency is a common condition affecting millions worldwide. Symptoms include fatigue, bone pain, and muscle weakness. Treatment typically involves supplementation with vitamin D3 at doses of 1000-4000 IU daily...</p>
+<p><strong>Analysis:</strong> QUID adds relevant terms without specific facts. HyDE generates potentially inaccurate dosage recommendations.</p>
+<h3>Appendix C: Compute Resources</h3>
+<table>
+<thead><tr><th>Phase</th><th>GPU-Hours</th><th>Cost</th></tr></thead>
+<tbody>
+<tr><td>Infrastructure</td><td>43</td><td>$21.50</td></tr>
+<tr><td>Experiments</td><td>287</td><td>$143.50</td></tr>
+<tr><td>Analysis</td><td>87</td><td>$43.50</td></tr>
+<tr><td>Ablations</td><td>70</td><td>$35.00</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>487</strong></td><td><strong>$243.50</strong></td></tr>
+</tbody></table>
+<h3>Appendix D: Project Statistics</h3>
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Duration</td><td>12 weeks (3 months)</td></tr>
+<tr><td>Total hours</td><td>386</td></tr>
+<tr><td>GPU-hours</td><td>487</td></tr>
+<tr><td>Datasets</td><td>4</td></tr>
+<tr><td>Methods compared</td><td>7 (+ agentic router)</td></tr>
+<tr><td>Paper pages</td><td>8 + appendix</td></tr>
+<tr><td>Agentic bench queries</td><td>100 (50×2 datasets)</td></tr>
+</tbody></table>
+<p><strong>End of Final Report</strong></p>
+<p><em>Submitted in partial fulfillment of the Capstone Project requirements.</em></p>
+<p><strong>Project Duration:</strong> 3 Months + agentic extension + Month 4 in progress | <strong>Status:</strong> Capstone ongoing · Preprint coming soon</p>
+  </article>
+  <p class="footer-note">
+    Draft paper PDF: <a href="../assets/quid-paper-draft.pdf">quid-paper-draft.pdf</a>
+    (working draft — not a published preprint). Capstone continues under Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+  </p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID · Week 04 — Hypothesis Validated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="../../">QUID</a>
+  <nav class="site-nav-links">
+    <a href="../../" class="">Overview</a>
+    <a href="../../thesis/" class="">Thesis</a>
+    <a href="../../pitch/" class="">Pitch</a>
+    <a href="../../weeks/" class="active">Weeks</a>
+    <a href="../../assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap wrap-wide">
+  <div class="week-nav no-print">
+    <a href="../03/">← Week 03</a>
+    <a href="../">All weeks</a>
+    <a href="../05/">Week 05 →</a>
+  </div>
+
+  <div class="print-stack">
+    <!-- PAGE 1: Cover -->
+    <section class="page">
+      <div class="kicker">QUID · Month 1 · Week 4 of 12 · Results</div>
+      <h1 class="cover-title">Week 04<br><span>Hypothesis Validated</span></h1>
+      <p class="cover-desc">This week sits in Month 1 — building the substrate for QUID: environment, LLaDA porting, BEIR wiring, and the first signals of domain-dependent retrieval gains.</p>
+      <div class="status-row" style="margin-top:20px">
+        <span class="chip accent">Official 12-week arc · Capstone ongoing</span>
+      </div>
+      <div class="cover-meta">
+        <div>
+          <div class="team-label">Team · Iksha Lab</div>
+          <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div><div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div><div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div><div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+          <p class="explain" style="margin-top:14px"><strong style="color:var(--text)">Guidance:</strong> Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+        </div>
+        <div class="cover-week-big">04</div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: Context & objectives -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 4</div>
+        <div class="page-header-right">Context &amp; objectives</div>
+      </div>
+      <div class="sec-eye">Why this week</div>
+      <h2 class="sec-title">Place in the arc</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">This week sits in Month 1 — building the substrate for QUID: environment, LLaDA porting, BEIR wiring, and the first signals of domain-dependent retrieval gains.</p>
+      
+      <div class="sec-eye" style="margin-top:28px">This week</div>
+      <h2 class="sec-title">Objectives</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        These objectives define what success looked like for Week 4. Meeting them either
+        unlocked the next experiment, closed a risk, or produced evidence for the thesis claim
+        that diffusion expansion is domain-dependent.
+      </p>
+      <div class="prose"><ul>
+<li>[ ] Run SciFact and TREC-COVID experiments</li>
+<li>[ ] Implement HyDE baseline</li>
+<li>[ ] Complete cross-dataset analysis</li>
+<li>[ ] Validate domain-dependent hypothesis</li>
+</ul></div>
+    </section>
+
+    <!-- PAGE 3: Work completed -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 4</div>
+        <div class="page-header-right">Work completed</div>
+      </div>
+      <div class="sec-eye">Execution</div>
+      <h2 class="sec-title">What we built and measured</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Below is the detailed record for the week — methods, implementation notes, and experimental
+        setup — expanded from the team log so a reader can follow the technical path without the
+        repository open.
+      </p>
+      <div class="prose"><h3>1. SciFact Experiments</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>MRR@10</th><th>Recall@100</th></tr></thead>
+<tbody>
+<tr><td>Vanilla</td><td>0.687</td><td>0.721</td><td>0.892</td></tr>
+<tr><td>Template</td><td>0.691</td><td>0.725</td><td>0.896</td></tr>
+<tr><td><strong>QUID</strong></td><td><strong>0.679</strong></td><td><strong>0.708</strong></td><td><strong>0.884</strong></td></tr>
+</tbody></table>
+<p><strong>-1.2% nDCG@10 — QUID underperforms on SciFact!</strong></p>
+<p>This aligns with our hypothesis: SciFact requires factual scientific knowledge that LLaDA doesn&#x27;t have.</p>
+<h3>2. TREC-COVID Experiments</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>MRR@10</th><th>Recall@100</th></tr></thead>
+<tbody>
+<tr><td>Vanilla</td><td>0.598</td><td>0.712</td><td>0.445</td></tr>
+<tr><td>Template</td><td>0.612</td><td>0.728</td><td>0.461</td></tr>
+<tr><td><strong>QUID</strong></td><td><strong>0.634</strong></td><td><strong>0.756</strong></td><td><strong>0.489</strong></td></tr>
+</tbody></table>
+<p><strong>+6.0% nDCG@10 improvement!</strong> TREC-COVID&#x27;s specialized medical nature benefits from QUID.</p>
+<h3>3. HyDE Baseline Implementation &amp; Evaluation</h3>
+<p>Implemented HyDE using GPT-3.5-turbo:</p>
+<table>
+<thead><tr><th>Dataset</th><th>Vanilla</th><th>HyDE</th><th>QUID</th><th>QUID vs HyDE</th></tr></thead>
+<tbody>
+<tr><td>NFCorpus</td><td>0.342</td><td>0.362</td><td><strong>0.371</strong></td><td>+2.5%</td></tr>
+<tr><td>FiQA</td><td>0.418</td><td>0.447</td><td><strong>0.451</strong></td><td>+0.9%</td></tr>
+<tr><td>SciFact</td><td>0.687</td><td><strong>0.724</strong></td><td>0.679</td><td>-6.2%</td></tr>
+<tr><td>TREC-COVID</td><td>0.598</td><td>0.628</td><td><strong>0.634</strong></td><td>+1.0%</td></tr>
+</tbody></table>
+<p><strong>QUID beats HyDE on 3/4 datasets!</strong></p>
+<h3>4. Semantic Drift Analysis</h3>
+<table>
+<thead><tr><th>Method</th><th>NFCorpus Drift</th><th>FiQA Drift</th><th>SciFact Drift</th></tr></thead>
+<tbody>
+<tr><td>QUID</td><td>0.23</td><td>0.21</td><td>0.28</td></tr>
+<tr><td>HyDE</td><td>0.31</td><td>0.29</td><td>0.26</td></tr>
+</tbody></table>
+<p>Lower drift correlates with better specialized domain performance. QUID stays closer to original query.</p></div>
+    </section>
+
+    <!-- PAGE 4: Results & interpretation -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 4</div>
+        <div class="page-header-right">Results &amp; interpretation</div>
+      </div>
+      <div class="sec-eye">Evidence</div>
+      <h2 class="sec-title">Numbers and what they mean</h2>
+      <div class="sec-rule"></div>
+      <p class="explain">
+        Metrics are only useful with interpretation. Where tables appear, read the deltas as
+        claims about <em>when</em> QUID helps (vocabulary gap) versus when HyDE or vanilla wins
+        (knowledge / claim gap). Agentic weeks emphasize tool-call policies over blind expansion.
+      </p>
+      <div class="prose"><h3>1. SciFact Experiments</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>MRR@10</th><th>Recall@100</th></tr></thead>
+<tbody>
+<tr><td>Vanilla</td><td>0.687</td><td>0.721</td><td>0.892</td></tr>
+<tr><td>Template</td><td>0.691</td><td>0.725</td><td>0.896</td></tr>
+<tr><td><strong>QUID</strong></td><td><strong>0.679</strong></td><td><strong>0.708</strong></td><td><strong>0.884</strong></td></tr>
+</tbody></table>
+<p><strong>-1.2% nDCG@10 — QUID underperforms on SciFact!</strong></p>
+<p>This aligns with our hypothesis: SciFact requires factual scientific knowledge that LLaDA doesn&#x27;t have.</p>
+<h3>2. TREC-COVID Experiments</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>MRR@10</th><th>Recall@100</th></tr></thead>
+<tbody>
+<tr><td>Vanilla</td><td>0.598</td><td>0.712</td><td>0.445</td></tr>
+<tr><td>Template</td><td>0.612</td><td>0.728</td><td>0.461</td></tr>
+<tr><td><strong>QUID</strong></td><td><strong>0.634</strong></td><td><strong>0.756</strong></td><td><strong>0.489</strong></td></tr>
+</tbody></table>
+<p><strong>+6.0% nDCG@10 improvement!</strong> TREC-COVID&#x27;s specialized medical nature benefits from QUID.</p>
+<h3>3. HyDE Baseline Implementation &amp; Evaluation</h3>
+<p>Implemented HyDE using GPT-3.5-turbo:</p>
+<table>
+<thead><tr><th>Dataset</th><th>Vanilla</th><th>HyDE</th><th>QUID</th><th>QUID vs HyDE</th></tr></thead>
+<tbody>
+<tr><td>NFCorpus</td><td>0.342</td><td>0.362</td><td><strong>0.371</strong></td><td>+2.5%</td></tr>
+<tr><td>FiQA</td><td>0.418</td><td>0.447</td><td><strong>0.451</strong></td><td>+0.9%</td></tr>
+<tr><td>SciFact</td><td>0.687</td><td><strong>0.724</strong></td><td>0.679</td><td>-6.2%</td></tr>
+<tr><td>TREC-COVID</td><td>0.598</td><td>0.628</td><td><strong>0.634</strong></td><td>+1.0%</td></tr>
+</tbody></table>
+<p><strong>QUID beats HyDE on 3/4 datasets!</strong></p>
+<h3>4. Semantic Drift Analysis</h3>
+<table>
+<thead><tr><th>Method</th><th>NFCorpus Drift</th><th>FiQA Drift</th><th>SciFact Drift</th></tr></thead>
+<tbody>
+<tr><td>QUID</td><td>0.23</td><td>0.21</td><td>0.28</td></tr>
+<tr><td>HyDE</td><td>0.31</td><td>0.29</td><td>0.26</td></tr>
+</tbody></table>
+<p>Lower drift correlates with better specialized domain performance. QUID stays closer to original query.</p></div>
+    </section>
+
+    <!-- PAGE 5: Challenges, learnings, next -->
+    <section class="page">
+      <div class="page-header">
+        <div class="page-header-left">QUID · Week 4</div>
+        <div class="page-header-right">Reflection &amp; next</div>
+      </div>
+      <div class="sec-eye">Friction</div>
+      <h2 class="sec-title">Challenges</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ol>
+<li><strong>HyDE API costs</strong>: ~$12 for full evaluation. Acceptable for research.</li>
+</ol>
+<ol>
+<li><strong>SciFact result interpretation</strong>: Need to frame the negative result as hypothesis validation, not failure.</li>
+</ol></div>
+
+      <div class="sec-eye" style="margin-top:24px">Takeaways</div>
+      <h2 class="sec-title">Key learnings</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ul>
+<li>Domain-dependent effectiveness is confirmed</li>
+<li>Semantic anchoring is measurable and correlates with performance</li>
+<li>QUID provides cost advantage (free vs. API costs)</li>
+</ul></div>
+
+      <div class="sec-eye" style="margin-top:24px">Forward</div>
+      <h2 class="sec-title">Plan for next week</h2>
+      <div class="sec-rule"></div>
+      <div class="prose"><ul>
+<li>Implement Query2Doc, BM25, BM25+RM3 baselines</li>
+<li>Full statistical significance testing</li>
+<li>Complete mechanism analysis</li>
+</ul></div>
+
+      <div class='sec-eye' style='margin-top:24px'>Effort</div><h2 class='sec-title'>Hours logged</h2><div class='sec-rule'></div><div class='prose'><table>
+<thead><tr><th>Activity</th><th>Hours</th></tr></thead>
+<tbody>
+<tr><td>SciFact experiments</td><td>6</td></tr>
+<tr><td>TREC-COVID experiments</td><td>6</td></tr>
+<tr><td>HyDE implementation</td><td>8</td></tr>
+<tr><td>Cross-dataset analysis</td><td>8</td></tr>
+<tr><td>Drift analysis</td><td>6</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>34</strong></td></tr>
+</tbody></table></div>
+      
+
+      <p class="footer-note">
+        Capstone by Iksha Lab under guidance of Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+        Status: Month 4 still in progress · Preprint coming soon.
+      </p>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID — Queries Unmasked by Iterative Diffusion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="./">QUID</a>
+  <nav class="site-nav-links">
+    <a href="./" class="active">Overview</a>
+    <a href="./thesis/" class="">Thesis</a>
+    <a href="./pitch/" class="">Pitch</a>
+    <a href="./weeks/" class="">Weeks</a>
+    <a href="./assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap wrap-wide">
+  <p class="kicker">Iksha Lab · VIT-AP Capstone</p>
+  <h1 class="hero-title">QUID<br><span>Queries Unmasked by Iterative Diffusion</span></h1>
+  <p class="lede">
+    Dense retrieval fails when short queries miss domain vocabulary. QUID expands queries with
+    masked text diffusion (LLaDA) so expansions stay semantically anchored — then an agent
+    decides whether to call QUID, HyDE, or vanilla per query.
+  </p>
+  <div class="status-row">
+    <span class="chip accent">Month 4 in progress</span>
+    <span class="chip win">Preprint coming soon</span>
+    <span class="chip">Capstone under Dr. G. Muneeswari</span>
+  </div>
+
+  <div class="card-grid">
+    <a class="card" href="./thesis/">
+      <div class="card-label">Thesis</div>
+      <div class="card-title">Full written report</div>
+      <div class="card-body">Methodology, BEIR results, anchoring analysis, agentic extension, limitations.</div>
+    </a>
+    <a class="card" href="./pitch/">
+      <div class="card-label">Pitch</div>
+      <div class="card-title">Review 2 talk</div>
+      <div class="card-body">8–10 minute script with the tool-call accuracy story.</div>
+    </a>
+    <a class="card" href="./weeks/">
+      <div class="card-label">Weeks</div>
+      <div class="card-title">14 detailed logs</div>
+      <div class="card-body">Five-page weekly reports from foundation through agentic benchmarks.</div>
+    </a>
+    <a class="card" href="./assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">
+      <div class="card-label">Paper</div>
+      <div class="card-title">Draft PDF</div>
+      <div class="card-body">Working draft only — formal preprint coming soon.</div>
+    </a>
+  </div>
+
+  <div class="section">
+    <div class="sec-eye">System</div>
+    <h2 class="sec-title">How QUID retrieves</h2>
+    <div class="sec-rule"></div>
+    <div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  Q[User query] --> D[LLaDA masked diffusion]
+  D --> E[Expanded query]
+  E --> B[BGE-M3 embed]
+  B --> R[Dense retrieve]
+  R --> O[Ranked documents]
+</div></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-eye">Agency</div>
+    <h2 class="sec-title">When to expand</h2>
+    <div class="sec-rule"></div>
+    <p class="explain">
+      Blind always-QUID can hurt on science-claim retrieval. The multi-step agent calls tools,
+      critiques confidence without labels, and retries — on SciFact, <strong style="color:var(--text)">+3.3%</strong>
+      nDCG@10 vs vanilla and <strong style="color:var(--text)">+6.3%</strong> vs always-QUID.
+    </p>
+    <div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  Q[Query] --> F[Observe features + confidence]
+  F --> P{Plan tool}
+  P -->|vanilla| V[Skip expansion]
+  P -->|QUID| U[Diffusion expand]
+  P -->|HyDE| H[Hypothetical doc]
+  V --> R[Retrieve]
+  U --> R
+  H --> R
+  R --> C{Critique confidence}
+  C -->|OK| A[Accept]
+  C -->|Weak| T[Retry other tool]
+  T --> R
+</div></div>
+  </div>
+
+  
+<div class="credits">
+  <h3>Capstone team · Iksha Lab</h3>
+  <div class="team-label">Students</div>
+  <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div>
+<div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div>
+<div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div>
+<div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+  <p style="margin-top:14px"><strong>Done under the guidance of</strong><br>Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+  <p style="margin-top:10px">Department of Data Science and Engineering · VIT-AP University</p>
+</div>
+
+
+  <p class="footer-note">
+    Capstone project by the Iksha Lab team · Done under the guidance of Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University.
+    Site: <code class="mono">zhreyu.github.io/quid</code>
+  </p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="./assets/site.js"></script>
+</body>
+</html>

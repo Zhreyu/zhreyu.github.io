@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUID · Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/quid.css">
+</head>
+<body>
+
+<header class="site-nav no-print">
+  <a class="site-nav-brand" href="../">QUID</a>
+  <nav class="site-nav-links">
+    <a href="../" class="">Overview</a>
+    <a href="../thesis/" class="">Thesis</a>
+    <a href="../pitch/" class="active">Pitch</a>
+    <a href="../weeks/" class="">Weeks</a>
+    <a href="../assets/quid-paper-draft.pdf" target="_blank" rel="noreferrer">Draft PDF</a>
+  </nav>
+</header>
+
+
+<main class="wrap">
+  <p class="kicker">QUID · Review 2 pitch</p>
+  <h1 class="hero-title">Talk script<br><span>8–10 minutes</span></h1>
+  <p class="lede">
+    Panel pitch covering Months 1–3, the agentic extension, and the key claim:
+    tool calls improve retrieval — diffusion is the tool; agency is when to use it.
+  </p>
+  <div class="status-row">
+    <span class="chip accent">Review 2</span>
+    <span class="chip">Month 4 still ahead</span>
+    <span class="chip win">Preprint coming soon</span>
+  </div>
+  
+<div class="credits">
+  <h3>Capstone team · Iksha Lab</h3>
+  <div class="team-label">Students</div>
+  <div class="team-member"><span>22MIC7013</span>Yuvraj Jha</div>
+<div class="team-member"><span>22MIC7014</span>Lavanya Gupta</div>
+<div class="team-member"><span>22MIC7168</span>Amardiya S. Mujeeb</div>
+<div class="team-member"><span>22MIC7084</span>Shreyas S</div>
+  <p style="margin-top:14px"><strong>Done under the guidance of</strong><br>Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+  <p style="margin-top:10px">Department of Data Science and Engineering · VIT-AP University</p>
+</div>
+
+  <div class="section">
+    <div class="sec-eye">Diagram</div>
+    <h2 class="sec-title">Agentic tool loop</h2>
+    <div class="sec-rule"></div>
+    <div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  Q[Query] --> F[Observe features + confidence]
+  F --> P{Plan tool}
+  P -->|vanilla| V[Skip expansion]
+  P -->|QUID| U[Diffusion expand]
+  P -->|HyDE| H[Hypothetical doc]
+  V --> R[Retrieve]
+  U --> R
+  H --> R
+  R --> C{Critique confidence}
+  C -->|OK| A[Accept]
+  C -->|Weak| T[Retry other tool]
+  T --> R
+</div></div>
+  </div>
+  <article class="prose"><h1>Review 2 Pitch Script</h1>
+<p><strong>Project:</strong> QUID + Agentic Retrieval Controller  </p>
+<p><strong>Audience:</strong> Capstone review panel  </p>
+<p><strong>Length:</strong> ~8–10 minutes talk + Q&amp;A</p>
+<h2>0. Opening (30 sec)</h2>
+<blockquote><p>Dense retrieval fails when short queries don’t match document vocabulary.  <br>HyDE expands with autoregressive LLMs — but can hallucinate.  <br>We built <strong>QUID</strong>: masked diffusion (LLaDA) for <em>anchored</em> query expansion.  <br>After Review 1 you asked for an <strong>agentic</strong> angle — so we didn’t just expand prompts; we built an agent that <strong>calls expansion tools</strong>, <strong>critiques retrieval</strong>, and <strong>retries</strong> when confidence is weak.</p></blockquote>
+<h2>1. Month 1 — Build + core claim (1–1.5 min)</h2>
+<blockquote><p><strong>What we did:</strong> Ported LLaDA-8B, wired QUID → BGE-M3 → BEIR.  <br><strong>Finding:</strong> QUID helps specialized domains (medical/finance vocabulary gap); SciFact often prefers HyDE/vanilla (knowledge/claim gap).  <br><strong>Takeaway:</strong> Diffusion expansion works — but <strong>not always</strong>. That motivates an agent.</p></blockquote>
+<p><strong>Slide cue:</strong> domain table (NFCorpus/FiQA up, SciFact flat/down).</p>
+<h2>2. Month 2 — Full science (1–1.5 min)</h2>
+<blockquote><p>Full baselines, ablations, mechanism analysis.  <br><strong>Semantic anchoring:</strong> QUID stays closer to the original query than HyDE (lower drift) while expanding vocabulary.  <br>Paper draft ready. Core thesis locked: <em>QUID is the expander; when it helps is query/domain dependent.</em></p></blockquote>
+<h2>3. Month 3 — Polish (45 sec)</h2>
+<blockquote><p>Paper revision, reproducibility, code release, presentation prep.  <br>In parallel (Review 1 feedback): build the <strong>agentic controller</strong> on top of QUID — without replacing the diffusion contribution.</p></blockquote>
+<h2>4. Agentic system — what we added (2 min)</h2>
+<h3>Architecture</h3>
+<pre><code>Query
+  → PLAN tool ∈ {vanilla, QUID, HyDE}
+  → EXPAND (tool call)
+  → RETRIEVE
+  → CRITIQUE (retrieval confidence)
+  → if weak: RETRY different tool
+  → ACCEPT best tried result</code></pre>
+<blockquote><p><strong>Important:</strong> QUID is still LLaDA masked diffusion. The agent does <strong>not</strong> replace diffusion — it decides <em>whether</em> and <em>when</em> to call it.</p></blockquote>
+<h3>Tools</h3>
+<table>
+<thead><tr><th>Tool</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><code>vanilla</code></td><td>Skip expansion</td></tr>
+<tr><td><code>quid</code></td><td>Diffusion expansion (our method)</td></tr>
+<tr><td><code>hyde</code></td><td>Hypothetical-document expansion</td></tr>
+<tr><td><code>critique</code></td><td>Unsupervised confidence check</td></tr>
+<tr><td><code>retry</code></td><td>Second tool call if critique fails</td></tr>
+</tbody></table>
+<h2>5. Benchmarks — prove tool calls help (2–3 min) ⭐</h2>
+<blockquote><p>We compare four policies on the <strong>same</strong> queries:</p></blockquote>
+<ol>
+<li><strong>always_vanilla</strong> — no expansion  </li>
+<li><strong>always_QUID</strong> — blind prompt expansion every time  </li>
+<li><strong>single-shot agent</strong> — one tool call  </li>
+<li><strong>multi-step agent</strong> — expand → critique → optional retry  </li>
+</ol>
+<h3>SciFact (science claims, n=50) — main proof</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>vs vanilla</th></tr></thead>
+<tbody>
+<tr><td>always_vanilla</td><td>0.6299</td><td>—</td></tr>
+<tr><td>always_QUID</td><td>0.5999</td><td><strong>−3.0%</strong></td></tr>
+<tr><td>single-shot agent</td><td>0.6280</td><td>−0.2%</td></tr>
+<tr><td><strong>multi-step + tool calls</strong></td><td><strong>0.6625</strong></td><td><strong>+3.3%</strong></td></tr>
+<tr><td>oracle</td><td>0.7004</td><td>+7.1%</td></tr>
+</tbody></table>
+<p><strong>Say this clearly:</strong></p>
+<blockquote><p>Blind QUID <em>hurts</em> on SciFact.  <br>Single-shot routing almost recovers.  <br><strong>Multi-step tool calls beat vanilla by +3.3%</strong> and beat always-QUID by <strong>+6.3%</strong>.  <br>When the agent retries, nDCG improves <strong>67%</strong> of the time.  <br>So this is not “better prompting” — <strong>tool-calling improves retrieval accuracy</strong>.</p></blockquote>
+<h3>NFCorpus (medical, n=50)</h3>
+<table>
+<thead><tr><th>Method</th><th>nDCG@10</th><th>note</th></tr></thead>
+<tbody>
+<tr><td>always_QUID</td><td>0.2704</td><td>blind expansion hurts on this 16-step sample</td></tr>
+<tr><td><strong>agentic</strong></td><td><strong>0.3053</strong></td><td><strong>+3.5 pts vs always-QUID</strong></td></tr>
+<tr><td>oracle</td><td>0.3577</td><td>more headroom with better routing</td></tr>
+</tbody></table>
+<blockquote><p>On medical text, the agent <strong>avoids</strong> over-expanding when confidence is already high — recovering accuracy vs always-expand.</p></blockquote>
+<h3>Efficiency</h3>
+<blockquote><p>Average expand tool calls ≈ <strong>1.06</strong> per query — we don’t spam tools; we retry only when critique fails (~6% of queries).</p></blockquote>
+<h2>6. Closing thesis statement (30 sec)</h2>
+<blockquote><p><strong>Contribution 1:</strong> QUID — masked diffusion query expansion with semantic anchoring.  <br><strong>Contribution 2:</strong> An agentic retrieval controller whose <strong>tool calls measurably improve nDCG</strong> over always-expand and over single-shot routing.  <br>Diffusion is the <em>tool</em>; agency is <em>when and whether to use it</em>.</p></blockquote>
+<h2>Likely Q&amp;A</h2>
+<p><strong>Q: Isn’t this just HyDE with routing?</strong>  </p>
+<p>A: HyDE is one tool. Our expander is LLaDA diffusion (different generation dynamics + anchoring). The agent chooses among vanilla/QUID/HyDE and can retry after critique.</p>
+<p><strong>Q: Why doesn’t always-QUID win on NFCorpus here?</strong>  </p>
+<p>A: This Review-2 agentic bench uses 50 queries / 16 steps for cost. Full Month 1–2 BEIR (more queries, 32 steps) showed QUID gains on NFCorpus. The agentic result still shows <strong>routing beats blind expansion</strong>.</p>
+<p><strong>Q: How is critique not using labels?</strong>  </p>
+<p>A: Unsupervised: max cosine similarity to corpus + “did expansion hurt vs vanilla confidence?” No qrels at decision time.</p>
+<p><strong>Q: What’s next?</strong>  </p>
+<p>A: Learned router toward oracle; stronger HyDE backend when API available; step-budget as another tool argument.</p>
+<h2>Cheat lines (memorize)</h2>
+<ol>
+<li>“Month 1–2: QUID works when the bottleneck is vocabulary gap.”  </li>
+<li>“Always-expand fails on SciFact (−3%).”  </li>
+<li>“Multi-step agent with tool calls: <strong>+3.3%</strong> vs vanilla, <strong>+6.3%</strong> vs always-QUID.”  </li>
+<li>“We’re not only expanding prompts — <strong>agentic tool use improves retrieval</strong>.”</li>
+</ol></article>
+  <p class="footer-note">Guidance: Dr. G. Muneeswari — Professor (Grade 2), Head of the Department of Data Science and Engineering, VIT-AP University</p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>
